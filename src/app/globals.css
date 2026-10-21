@@ -1,26 +1,702 @@
 @import "tailwindcss";
 
+@theme {
+  --color-background: #0b121e;
+  --color-foreground: #a4b1cd;
+  --color-foreground-bright: #ffffff;
+  --color-foreground-muted: #6c7d9c;
+
+  --color-htb-green: #9fef00;
+  --color-htb-green-hover: #b4fa1f;
+  --color-htb-cyan: #2de2e6;
+  --color-htb-orange: #ff8400;
+  --color-htb-red: #ff3366;
+  --color-htb-purple: #a855f7;
+
+  /* Official Hack The Box Slate & Surface Palette */
+  --color-slate-950: #070b13;
+  --color-slate-900: #0b121e;
+  --color-slate-850: #111d30;
+  --color-slate-800: #14233c;
+  --color-slate-700: #1f3352;
+  --color-slate-600: #2a3a54;
+  --color-slate-500: #6c7d9c;
+  --color-slate-400: #8ba0c3;
+  --color-slate-300: #a4b1cd;
+  --color-slate-200: #cbd5e1;
+  --color-slate-100: #ffffff;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Hack The Box Dark Palette (Default) */
+  --background: #0b121e;
+  --foreground: #a4b1cd;
+  --foreground-bright: #ffffff;
+  --foreground-muted: #6c7d9c;
+  
+  --surface: #111d30;
+  --surface-card: #14233c;
+  --surface-elevated: #182844;
+  --surface-border: #1f3352;
+  --surface-border-hover: rgba(159, 239, 0, 0.45);
+  
+  --htb-green: #9fef00;
+  --htb-green-hover: #b4fa1f;
+  --htb-green-glow: rgba(159, 239, 0, 0.3);
+  
+  --htb-cyan: #2de2e6;
+  --htb-cyan-glow: rgba(45, 226, 230, 0.3);
+  
+  --htb-orange: #ff8400;
+  --htb-red: #ff3366;
+  --htb-purple: #a855f7;
+
+  /* Standard Component Variable Compatibility */
+  --card: #14233c;
+  --card-foreground: #a4b1cd;
+  --popover: #111d30;
+  --popover-foreground: #a4b1cd;
+  --primary: #9fef00;
+  --primary-foreground: #0b121e;
+  --secondary: #14233c;
+  --secondary-foreground: #a4b1cd;
+  --muted: #111d30;
+  --muted-foreground: #6c7d9c;
+  --accent: #2de2e6;
+  --accent-foreground: #0b121e;
+  --destructive: #ff3366;
+  --destructive-foreground: #ffffff;
+  --border: #1f3352;
+  --input: #111d30;
+  --ring: #9fef00;
+  --radius: 0.75rem;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* Light / White Theme Mode */
+html.light {
+  --background: #f8fafc;
+  --foreground: #334155;
+  --foreground-bright: #0f172a;
+  --foreground-muted: #64748b;
+
+  --surface: #ffffff;
+  --surface-card: #ffffff;
+  --surface-elevated: #f1f5f9;
+  --surface-border: #e2e8f0;
+  --surface-border-hover: #0284c7;
+
+  --htb-green: #15803d;
+  --htb-green-hover: #166534;
+  --htb-green-glow: rgba(21, 128, 61, 0.2);
+
+  --htb-cyan: #0284c7;
+  --htb-cyan-glow: rgba(2, 132, 199, 0.2);
+
+  --htb-orange: #ea580c;
+  --htb-red: #e11d48;
+  --htb-purple: #7c3aed;
+
+  --card: #ffffff;
+  --card-foreground: #1e293b;
+  --popover: #ffffff;
+  --popover-foreground: #1e293b;
+  --primary: #0284c7;
+  --primary-foreground: #ffffff;
+  --secondary: #f1f5f9;
+  --secondary-foreground: #334155;
+  --muted: #f8fafc;
+  --muted-foreground: #64748b;
+  --accent: #0284c7;
+  --accent-foreground: #ffffff;
+  --destructive: #e11d48;
+  --destructive-foreground: #ffffff;
+  --border: #cbd5e1;
+  --input: #f1f5f9;
+  --ring: #0284c7;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+html.light h1,
+html.light h4 {
+  color: #0f172a !important;
+}
+
+html.light h2 {
+  color: #15803d !important;
+}
+
+html.light h3 {
+  color: #0284c7 !important;
+}
+
+html.light h5,
+html.light h6 {
+  color: #475569 !important;
+}
+
+html.light p {
+  color: #334155 !important;
+}
+
+html.light .glass-panel {
+  background: rgba(255, 255, 255, 0.88);
+  border-color: #e2e8f0;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+}
+
+html.light .glass-panel-hover:hover {
+  background: #ffffff;
+  border-color: #0284c7;
+  box-shadow: 0 10px 25px -5px rgba(2, 132, 199, 0.12);
+}
+
+html.light .cyber-grid {
+  background-image:
+    linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+}
+
+html.light ::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+html.light ::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+}
+
+html.light ::-webkit-scrollbar-thumb:hover {
+  background: #0284c7;
+}
+
+/* Global Base */
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Global Headings in Hack The Box Style */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  letter-spacing: -0.015em;
+}
+
+/* H1: Crisp White with high contrast */
+h1 {
+  color: #ffffff;
+  font-weight: 800;
+}
+
+/* H2: Hack The Box Signature Electric Green */
+h2 {
+  color: #9fef00;
+  font-weight: 700;
+}
+
+/* H3: Hack The Box Signature Cyber Cyan */
+h3 {
+  color: #2de2e6;
+  font-weight: 700;
+}
+
+/* H4: Pure White / Mono accents */
+h4 {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+/* H5, H6: Clean muted cyber slate */
+h5, h6 {
+  color: #a4b1cd;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Global Paragraph & Body Text */
+p {
+  color: #a4b1cd;
+}
+
+/* Global Selection */
+::selection {
+  background-color: #9fef00;
+  color: #0b121e;
+}
+
+/* HTB Signature Utility Classes */
+.text-htb {
+  color: #9fef00 !important;
+}
+
+.text-htb-cyan {
+  color: #2de2e6 !important;
+}
+
+.text-htb-muted {
+  color: #6c7d9c !important;
+}
+
+.bg-htb {
+  background-color: #9fef00 !important;
+  color: #0b121e !important;
+}
+
+.border-htb {
+  border-color: #9fef00 !important;
+}
+
+.shadow-htb {
+  box-shadow: 0 0 20px rgba(159, 239, 0, 0.3);
+}
+
+.shadow-htb-lg {
+  box-shadow: 0 0 35px rgba(159, 239, 0, 0.4);
+}
+
+.shadow-htb-cyan {
+  box-shadow: 0 0 20px rgba(45, 226, 230, 0.3);
+}
+
+/* Custom Scrollbar in HTB Theme */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0b121e;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1f3352;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #9fef00;
+}
+
+/* Prominent Visible Slider / Scrollbar for Academy TOC Right Sidebar */
+.academy-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #475569 rgba(15, 23, 42, 0.7);
+}
+
+.academy-scrollbar::-webkit-scrollbar {
+  width: 10px !important;
+}
+
+.academy-scrollbar::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.6) !important;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.academy-scrollbar::-webkit-scrollbar-thumb {
+  background: #475569 !important;
+  border-radius: 9999px;
+  border: 2px solid rgba(15, 23, 42, 0.8);
+}
+
+.academy-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #9fef00 !important;
+}
+
+html.light .academy-scrollbar {
+  scrollbar-color: #94a3b8 #f1f5f9;
+}
+
+html.light .academy-scrollbar::-webkit-scrollbar {
+  width: 10px !important;
+}
+
+html.light .academy-scrollbar::-webkit-scrollbar-track {
+  background: #f1f5f9 !important;
+}
+
+html.light .academy-scrollbar::-webkit-scrollbar-thumb {
+  background: #94a3b8 !important;
+  border: 2px solid #ffffff;
+}
+
+html.light .academy-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #0284c7 !important;
+}
+
+/* Callout Styles in HTB Theme */
+.callout {
+  margin: 1.75rem 0;
+  border-radius: 0.5rem;
+  padding: 1.15rem 1.35rem;
+  border-left-width: 4px;
+  backdrop-filter: blur(8px);
+}
+
+.callout-note {
+  background-color: rgba(159, 239, 0, 0.07);
+  border-left-color: #9fef00;
+  border-top: 1px solid rgba(159, 239, 0, 0.15);
+  border-right: 1px solid rgba(159, 239, 0, 0.15);
+  border-bottom: 1px solid rgba(159, 239, 0, 0.15);
+}
+
+.callout-warning {
+  background-color: rgba(255, 132, 0, 0.08);
+  border-left-color: #ff8400;
+  border-top: 1px solid rgba(255, 132, 0, 0.15);
+  border-right: 1px solid rgba(255, 132, 0, 0.15);
+  border-bottom: 1px solid rgba(255, 132, 0, 0.15);
+}
+
+.callout-tip {
+  background-color: rgba(45, 226, 230, 0.08);
+  border-left-color: #2de2e6;
+  border-top: 1px solid rgba(45, 226, 230, 0.15);
+  border-right: 1px solid rgba(45, 226, 230, 0.15);
+  border-bottom: 1px solid rgba(45, 226, 230, 0.15);
+}
+
+.callout-important {
+  background-color: rgba(168, 85, 247, 0.08);
+  border-left-color: #a855f7;
+  border-top: 1px solid rgba(168, 85, 247, 0.15);
+  border-right: 1px solid rgba(168, 85, 247, 0.15);
+  border-bottom: 1px solid rgba(168, 85, 247, 0.15);
+}
+
+.callout-caution {
+  background-color: rgba(255, 51, 102, 0.08);
+  border-left-color: #ff3366;
+  border-top: 1px solid rgba(255, 51, 102, 0.15);
+  border-right: 1px solid rgba(255, 51, 102, 0.15);
+  border-bottom: 1px solid rgba(255, 51, 102, 0.15);
+}
+
+.callout-badge {
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  display: inline-block;
+}
+
+.callout-note .callout-badge { color: #9fef00; }
+.callout-warning .callout-badge { color: #ff8400; }
+.callout-tip .callout-badge { color: #2de2e6; }
+.callout-important .callout-badge { color: #c084fc; }
+.callout-caution .callout-badge { color: #ff3366; }
+
+.callout-body {
+  color: #a4b1cd;
+  font-size: 0.925rem;
+  line-height: 1.7;
+}
+
+/* Markdown & Write-up Typography in True Hack The Box Style */
+.article-prose,
+.prose-dark {
+  color: #a4b1cd;
+  font-size: 0.95rem;
+  line-height: 1.85;
+}
+
+/* HTB Headings Hierarchy */
+.article-prose h1,
+.prose-dark h1 {
+  color: #ffffff;
+  font-size: 2rem;
+  font-weight: 800;
+  margin-top: 2.75rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #1f3352;
+  letter-spacing: -0.025em;
+}
+
+.article-prose h2,
+.prose-dark h2 {
+  color: #9fef00;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 1.45rem;
+  font-weight: 700;
+  margin-top: 2.5rem;
+  margin-bottom: 0.85rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid #1f3352;
+  letter-spacing: -0.015em;
+}
+
+.article-prose h3,
+.prose-dark h3 {
+  color: #2de2e6;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.01em;
+}
+
+.article-prose h4,
+.prose-dark h4 {
+  color: #ffffff;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.article-prose p,
+.prose-dark p {
+  color: #a4b1cd;
+  margin-bottom: 1.35rem;
+  line-height: 1.85;
+}
+
+.article-prose strong, .article-prose b,
+.prose-dark strong, .prose-dark b {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.article-prose em, .article-prose i,
+.prose-dark em, .prose-dark i {
+  color: #cbd5e1;
+}
+
+.article-prose a,
+.prose-dark a {
+  color: #9fef00;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.15s ease;
+}
+
+.article-prose a:hover,
+.prose-dark a:hover {
+  color: #ffffff;
+  text-decoration: underline;
+  text-shadow: 0 0 8px rgba(159, 239, 0, 0.4);
+}
+
+.article-prose ul,
+.prose-dark ul {
+  list-style-type: disc;
+  margin-left: 1.5rem;
+  margin-bottom: 1.35rem;
+  color: #a4b1cd;
+}
+
+.article-prose ol,
+.prose-dark ol {
+  list-style-type: decimal;
+  margin-left: 1.5rem;
+  margin-bottom: 1.35rem;
+  color: #a4b1cd;
+}
+
+.article-prose li,
+.prose-dark li {
+  margin-bottom: 0.5rem;
+  line-height: 1.8;
+}
+
+.article-prose blockquote,
+.prose-dark blockquote {
+  border-left: 3px solid #9fef00;
+  background: rgba(159, 239, 0, 0.05);
+  padding: 0.85rem 1.25rem;
+  margin: 1.5rem 0;
+  border-radius: 0 0.5rem 0.5rem 0;
+  color: #cbd5e1;
+}
+
+.article-prose table,
+.prose-dark table {
+  width: 100%;
+  margin: 1.75rem 0;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+  background-color: #0b121e;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  border: 1px solid #1f3352;
+}
+
+.article-prose th,
+.prose-dark th {
+  background-color: #111d30;
+  border: 1px solid #1f3352;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-weight: 700;
+  font-family: var(--font-geist-mono), monospace;
+  color: #9fef00;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+}
+
+.article-prose td,
+.prose-dark td {
+  border: 1px solid #1f3352;
+  padding: 0.75rem 1rem;
+  color: #a4b1cd;
+}
+
+.article-prose tr:hover td,
+.prose-dark tr:hover td {
+  background-color: #14233c;
+}
+
+.article-prose code:not(pre code),
+.prose-dark code:not(pre code) {
+  font-family: var(--font-geist-mono), monospace;
+  background-color: #070b13;
+  color: #9fef00;
+  padding: 0.2rem 0.45rem;
+  border-radius: 0.25rem;
+  font-size: 0.875em;
+  border: 1px solid rgba(159, 239, 0, 0.25);
+}
+
+.article-prose pre,
+.prose-dark pre {
+  margin: 1.5rem 0;
+}
+
+/* Backward-compatible and visual enhancement utility bridges */
+.cyber-grid {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+}
+
+.glass-panel {
+  background: rgba(20, 35, 60, 0.75);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid #1f3352;
+}
+
+.glass-panel-hover {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-panel-hover:hover {
+  border-color: rgba(159, 239, 0, 0.45);
+  background: rgba(24, 40, 68, 0.85);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5), 0 0 15px -3px rgba(159, 239, 0, 0.15);
+}
+
+.glow-emerald-box {
+  box-shadow: 0 0 25px -5px rgba(159, 239, 0, 0.2), 0 0 10px -5px rgba(159, 239, 0, 0.1);
+}
+
+.glow-cyan-box {
+  box-shadow: 0 0 25px -5px rgba(45, 226, 230, 0.2), 0 0 10px -5px rgba(45, 226, 230, 0.1);
+}
+
+.glow-text-emerald {
+  text-shadow: 0 0 12px rgba(159, 239, 0, 0.5);
+}
+
+.crt-screen {
+  position: relative;
+}
+
+.crt-screen::before {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.35) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+  z-index: 10;
+  background-size: 100% 3px, 6px 100%;
+  pointer-events: none;
+  opacity: 0.85;
+}
+
+.hacker-glow-green {
+  text-shadow: 0 0 8px rgba(159, 239, 0, 0.7), 0 0 16px rgba(159, 239, 0, 0.3);
+}
+
+.hacker-glow-red {
+  text-shadow: 0 0 8px rgba(255, 51, 102, 0.8), 0 0 16px rgba(255, 51, 102, 0.35);
+}
+
+.hacker-glow-cyan {
+  text-shadow: 0 0 8px rgba(45, 226, 230, 0.8), 0 0 16px rgba(45, 226, 230, 0.35);
+}
+
+/* Ensure code blocks and terminal boxes never show box outlines, underlines, or borders around lines */
+pre,
+pre code,
+pre span,
+code div {
+  border: none !important;
+  outline: none !important;
+  text-decoration: none !important;
+}
+
+pre {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Print Optimization for PDF Export */
+@media print {
+  body {
+    background-color: #ffffff !important;
+    color: #111827 !important;
+  }
+  .no-print, header, footer, .sidebar-toc, button {
+    display: none !important;
+  }
+  .article-prose h1, .article-prose h2, .article-prose h3 {
+    color: #000000 !important;
+  }
+  .code-block-wrapper {
+    border: 1px solid #e2e8f0 !important;
+    background-color: #f8fafc !important;
+  }
+  .code-block-wrapper pre code {
+    color: #0f172a !important;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Academy Scrollbar Styling */
+.academy-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #9fef00 rgba(17, 29, 48, 0.6);
 }
+
+.academy-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.academy-scrollbar::-webkit-scrollbar-track {
+  background: rgba(17, 29, 48, 0.4);
+  border-radius: 9999px;
+}
+
+.academy-scrollbar::-webkit-scrollbar-thumb {
+  background: #9fef00;
+  border-radius: 9999px;
+}
+
+.academy-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #b4fa1f;
+}
+
+
