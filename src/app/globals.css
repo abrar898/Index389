@@ -95,14 +95,14 @@ html.light {
   --surface-card: #ffffff;
   --surface-elevated: #f1f5f9;
   --surface-border: #e2e8f0;
-  --surface-border-hover: #059669;
+  --surface-border-hover: #cbd5e1;
 
   --htb-green: #059669;
   --htb-green-hover: #047857;
-  --htb-green-glow: rgba(5, 150, 105, 0.15);
+  --htb-green-glow: rgba(5, 150, 105, 0.12);
 
   --htb-cyan: #0284c7;
-  --htb-cyan-glow: rgba(2, 132, 199, 0.15);
+  --htb-cyan-glow: rgba(2, 132, 199, 0.12);
 
   --htb-orange: #d97706;
   --htb-red: #e11d48;
@@ -127,46 +127,47 @@ html.light {
   --ring: #059669;
 }
 
-/* Headings in Light Theme */
+/* Headings in Light Theme: Deep Obsidian for Clean Contrast */
 html.light h1,
+html.light h2,
+html.light h3,
 html.light h4 {
   color: #0f172a !important;
 }
 
-html.light h2 {
-  color: #059669 !important;
-}
-
-html.light h3 {
-  color: #0284c7 !important;
-}
-
 html.light h5,
 html.light h6 {
-  color: #475569 !important;
+  color: #334155 !important;
 }
 
 html.light p {
-  color: #334155 !important;
+  color: #475569 !important;
+}
+
+/* Landing Page Hero Gradient in Light Mode */
+html.light .from-\[\#9fef00\].via-\[\#2de2e6\].to-\[\#9fef00\] {
+  background-image: linear-gradient(135deg, #059669 0%, #0284c7 50%, #0d9488 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
 }
 
 /* Glass Panels in Light Theme */
 html.light .glass-panel {
-  background: rgba(255, 255, 255, 0.94) !important;
+  background: #ffffff !important;
   border-color: #e2e8f0 !important;
-  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.03) !important;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px -1px rgba(0, 0, 0, 0.02) !important;
 }
 
 html.light .glass-panel-hover:hover {
   background: #ffffff !important;
-  border-color: #059669 !important;
-  box-shadow: 0 10px 25px -5px rgba(5, 150, 105, 0.12), 0 4px 6px -2px rgba(0, 0, 0, 0.04) !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.06), 0 4px 6px -4px rgba(0, 0, 0, 0.03) !important;
 }
 
 html.light .cyber-grid {
   background-image:
-    linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px) !important;
+    linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px) !important;
 }
 
 /* Universal Background Remappings for Light Theme */
@@ -189,12 +190,17 @@ html.light [class*="bg-[#182844]"] {
   background-color: var(--surface-elevated) !important;
 }
 
-/* Universal Border Remappings for Light Theme */
+/* Universal Border & Divider Remappings for Light Theme */
 html.light .border-\[\#1f3352\],
 html.light .border-\[\#14233c\],
 html.light [class*="border-[#1f3352]"],
 html.light [class*="border-[#14233c]"] {
   border-color: var(--surface-border) !important;
+}
+
+html.light .bg-\[\#1f3352\],
+html.light [class*="bg-[#1f3352]"] {
+  background-color: var(--surface-border) !important;
 }
 
 html.light [class*="divide-[#1f3352]"] > :not([hidden]) ~ :not([hidden]) {
@@ -236,33 +242,36 @@ html.light [class*="text-[#2de2e6]"] {
 
 /* Light Theme Badges & Tints */
 html.light [class*="bg-[#9fef00]/"] {
-  background-color: rgba(5, 150, 105, 0.12) !important;
+  background-color: #ecfdf5 !important;
+  color: #059669 !important;
 }
 
 html.light [class*="border-[#9fef00]/"] {
-  border-color: rgba(5, 150, 105, 0.3) !important;
+  border-color: #a7f3d0 !important;
 }
 
 html.light [class*="bg-[#2de2e6]/"] {
-  background-color: rgba(2, 132, 199, 0.1) !important;
+  background-color: #f0f9ff !important;
+  color: #0284c7 !important;
 }
 
 html.light [class*="border-[#2de2e6]/"] {
-  border-color: rgba(2, 132, 199, 0.3) !important;
+  border-color: #bae6fd !important;
 }
 
 html.light [class*="bg-[#ff3366]/"] {
-  background-color: rgba(225, 29, 72, 0.08) !important;
+  background-color: #fff1f2 !important;
+  color: #e11d48 !important;
 }
 
 html.light [class*="border-[#ff3366]/"] {
-  border-color: rgba(225, 29, 72, 0.25) !important;
+  border-color: #fecdd3 !important;
 }
 
 /* Light Theme Glows */
 html.light .glow-emerald-box,
 html.light .glow-cyan-box {
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.06), 0 2px 4px -1px rgba(0, 0, 0, 0.03) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
 }
 
 /* Universal Hover States for Light Theme */
@@ -280,15 +289,30 @@ html.light .hover\:border-\[\#9fef00\]:hover {
   border-color: var(--htb-green) !important;
 }
 
-/* Buttons in Light Mode */
+/* Primary Action Buttons in Light Mode */
 html.light .bg-\[\#9fef00\],
 html.light [class*="bg-[#9fef00]"] {
   background-color: #059669 !important;
   color: #ffffff !important;
+  box-shadow: 0 2px 8px rgba(5, 150, 105, 0.25) !important;
 }
 
 html.light .hover\:bg-\[\#b4fa1f\]:hover {
   background-color: #047857 !important;
+  color: #ffffff !important;
+}
+
+/* Secondary Buttons in Light Mode */
+html.light .bg-\[\#14233c\],
+html.light [class*="bg-[#14233c]"] {
+  background-color: #f1f5f9 !important;
+  color: #0f172a !important;
+  border-color: #e2e8f0 !important;
+}
+
+html.light .hover\:bg-\[\#182844\]:hover {
+  background-color: #e2e8f0 !important;
+  color: #0f172a !important;
 }
 
 /* Form Controls in Light Mode */
@@ -740,25 +764,15 @@ html.light .prose-dark {
 }
 
 html.light .article-prose h1,
-html.light .prose-dark h1 {
-  color: #0f172a !important;
-  border-bottom-color: #e2e8f0 !important;
-}
-
+html.light .prose-dark h1,
 html.light .article-prose h2,
-html.light .prose-dark h2 {
-  color: #059669 !important;
-  border-bottom-color: #e2e8f0 !important;
-}
-
+html.light .prose-dark h2,
 html.light .article-prose h3,
-html.light .prose-dark h3 {
-  color: #0284c7 !important;
-}
-
+html.light .prose-dark h3,
 html.light .article-prose h4,
 html.light .prose-dark h4 {
   color: #0f172a !important;
+  border-bottom-color: #e2e8f0 !important;
 }
 
 html.light .article-prose p,
