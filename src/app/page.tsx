@@ -45,13 +45,13 @@ export default async function HomePage() {
   ]);
 
   return (
-    <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)] font-sans selection:bg-[#9fef00] selection:text-[#0b121e] cyber-grid relative overflow-x-hidden">
+    <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)] font-sans selection:bg-[#9fef00] selection:text-[#0b121e] cyber-grid relative">
       {/* Decorative ambient background glows */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[350px] bg-gradient-to-b from-[#9fef00]/15 via-[#2de2e6]/5 to-transparent blur-[120px] pointer-events-none -z-10" />
 
-      {/* Navigation Header - Fixed & Constant */}
-      <header className="border-b border-[var(--surface-border)] bg-[var(--surface)]/95 backdrop-blur-md sticky top-0 z-50 w-full flex-shrink-0">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      {/* Navigation Header - Permanently Fixed at Top */}
+      <header className="fixed top-0 left-0 right-0 z-50 w-full h-16 border-b border-[var(--surface-border)] bg-[var(--surface)]/95 backdrop-blur-md">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-full flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3 group">
             <div className="relative w-10 h-10 rounded-xl overflow-hidden border border-[#9fef00]/40 group-hover:border-[#9fef00] bg-black/60 shadow-lg shadow-[#9fef00]/10 transition-all flex items-center justify-center flex-shrink-0">
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -125,7 +125,7 @@ export default async function HomePage() {
       </header>
 
       {/* Hero Section */}
-      <section className="relative pt-24 pb-16 px-6">
+      <section className="relative pt-32 pb-16 px-6">
         <div className="max-w-5xl mx-auto text-center space-y-7 relative z-10">
           <h1 className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-[#ffffff] leading-[1.15]">
             Precision Technical Docs for{" "}
