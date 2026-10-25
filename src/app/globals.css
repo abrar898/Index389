@@ -140,17 +140,20 @@ html.light body {
 }
 
 /* ========================================================
-   KEY TRICK: DARK NAVBAR (#1A1A2E) IN WHITE THEME
+   KEY TRICK: DEEP CYBER NAVBAR (#0D1321) WITH GREEN HAIRLINE
    ======================================================== */
 html.light header {
-  background-color: #1A1A2E !important;
+  background: rgba(13, 19, 33, 0.97) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.15), 0 1px 0 0 rgba(159, 239, 0, 0.25) !important;
   color: #FFFFFF !important;
 }
 
 html.light header a {
-  color: #FFFFFF !important;
-  transition: color 0.15s ease-in-out;
+  color: #E2E4EB !important;
+  transition: all 0.2s ease-in-out;
 }
 
 html.light header a:hover {
@@ -165,13 +168,13 @@ html.light header [class*="text-[#ffffff]"] {
 
 html.light header .text-\[var\(--foreground\)\],
 html.light header [class*="text-[var(--foreground)]"] {
-  color: #FFFFFF !important;
+  color: #E2E4EB !important;
 }
 
 html.light header .text-\[var\(--foreground-muted\)\],
 html.light header .text-\[\#6c7d9c\],
 html.light header .text-\[\#8ba0c3\] {
-  color: #9A9AB0 !important;
+  color: #94A3B8 !important;
 }
 
 html.light header .text-\[\#9fef00\],
@@ -182,26 +185,46 @@ html.light header [class*="text-[#9fef00]"] {
 html.light header input {
   background-color: rgba(255, 255, 255, 0.08) !important;
   color: #FFFFFF !important;
-  border-color: rgba(255, 255, 255, 0.15) !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
 }
 
 html.light header input:focus {
   border-color: #9FEF00 !important;
-  box-shadow: 0 0 0 1px #9FEF00 !important;
+  box-shadow: 0 0 0 1.5px rgba(159, 239, 0, 0.5) !important;
+  background-color: rgba(255, 255, 255, 0.12) !important;
 }
 
 html.light header input::placeholder {
-  color: #9A9AB0 !important;
+  color: #94A3B8 !important;
 }
 
 html.light header .bg-\[var\(--surface-card\)\],
-html.light header .bg-\[var\(--surface-elevated\)\] {
-  background-color: rgba(255, 255, 255, 0.07) !important;
-  border-color: rgba(255, 255, 255, 0.12) !important;
+html.light header .bg-\[var\(--surface-elevated\)\],
+html.light header .bg-\[var\(--surface\)\] {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  border-color: rgba(255, 255, 255, 0.14) !important;
+  color: #FFFFFF !important;
 }
 
 html.light header button {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
   color: #FFFFFF !important;
+}
+
+html.light header button:hover {
+  background-color: rgba(255, 255, 255, 0.14) !important;
+  border-color: rgba(159, 239, 0, 0.4) !important;
+}
+
+html.light header button span {
+  color: #FFFFFF !important;
+}
+
+html.light header .bg-\[\#9fef00\] {
+  background-color: #9FEF00 !important;
+  color: #0D0D1A !important;
+  box-shadow: 0 0 16px rgba(159, 239, 0, 0.35) !important;
 }
 
 /* ========================================================
@@ -225,9 +248,14 @@ html.light p {
   color: #0D0D1A !important;
 }
 
+/* Landing Page Ambient Top Glow */
+html.light .bg-gradient-to-b.from-\[\#9fef00\]\/15 {
+  background-image: radial-gradient(ellipse at 50% 0%, rgba(0, 180, 216, 0.14) 0%, rgba(159, 239, 0, 0.09) 45%, transparent 75%) !important;
+}
+
 /* Landing Page Hero Gradient in Light Mode */
 html.light .from-\[\#9fef00\].via-\[\#2de2e6\].to-\[\#9fef00\] {
-  background-image: linear-gradient(135deg, #1A1A2E 0%, #00B4D8 50%, #4E8A00 100%) !important;
+  background-image: linear-gradient(135deg, #0088A8 0%, #10B981 50%, #0088A8 100%) !important;
   -webkit-background-clip: text !important;
   background-clip: text !important;
 }
@@ -240,18 +268,50 @@ html.light .cyber-grid {
 }
 
 /* ========================================================
-   CARDS, PANELS & MODALS (#FFFFFF with #E2E4EB BORDERS)
+   HOMEPAGE SECTIONS & CARDS (#FFFFFF with #E2E4EB BORDERS)
    ======================================================== */
 html.light .glass-panel {
   background: #FFFFFF !important;
   border-color: #E2E4EB !important;
-  box-shadow: 0 1px 3px 0 rgba(13, 13, 26, 0.05), 0 1px 2px -1px rgba(13, 13, 26, 0.03) !important;
+  box-shadow: 0 2px 8px 0 rgba(13, 13, 26, 0.04), 0 1px 2px -1px rgba(13, 13, 26, 0.02) !important;
 }
 
 html.light .glass-panel-hover:hover {
   background: #FFFFFF !important;
   border-color: #9FEF00 !important;
-  box-shadow: 0 8px 20px -4px rgba(13, 13, 26, 0.08), 0 0 0 1px rgba(159, 239, 0, 0.2) !important;
+  box-shadow: 0 10px 25px -4px rgba(13, 13, 26, 0.08), 0 0 0 1px rgba(159, 239, 0, 0.3) !important;
+  transform: translateY(-2px);
+}
+
+/* RBAC Architecture Section Contrast Band */
+html.light section.bg-\[\#111d30\]\/60 {
+  background-color: #E5E8EF !important;
+  border-color: #DDE0E8 !important;
+}
+
+/* Terminal Outer Shell in Light Mode */
+html.light .rounded-2xl.bg-\[\#060b13\] {
+  border: 1px solid #CBD5E1 !important;
+  box-shadow: 0 16px 36px -8px rgba(13, 13, 26, 0.1) !important;
+}
+
+/* Footer in Light Mode: Matching Dark Cyber Bookend */
+html.light footer.bg-\[\#111d30\] {
+  background-color: #0D1321 !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+  color: #94A3B8 !important;
+}
+
+html.light footer .text-\[\#ffffff\] {
+  color: #FFFFFF !important;
+}
+
+html.light footer a {
+  color: #94A3B8 !important;
+}
+
+html.light footer a:hover {
+  color: #9FEF00 !important;
 }
 
 /* Universal Background Remappings for Light Theme */
@@ -317,7 +377,7 @@ html.light [class*="text-[#6c7d9c]"] {
 /* HTB Green Text & Icons */
 html.light .text-\[\#9fef00\],
 html.light [class*="text-[#9fef00]"] {
-  color: #4E8A00 !important; /* High contrast HTB green for light background */
+  color: #4E8A00 !important;
 }
 
 /* Info Cyan Text */
@@ -384,7 +444,7 @@ html.light .hover\:border-\[\#9fef00\]:hover {
 }
 
 /* ========================================================
-   BUTTONS: HTB GREEN (#9FEF00) & HOVER (#77C400)
+   BUTTONS: HTB GREEN (#9FEF00) & SECONDARY (#FFFFFF/#E8EAF0)
    ======================================================== */
 html.light .bg-\[\#9fef00\],
 html.light [class*="bg-[#9fef00]"] {
@@ -400,16 +460,18 @@ html.light .hover\:bg-\[\#9fef00\]:hover {
   color: #0D0D1A !important;
 }
 
-/* Secondary Buttons (#E8EAF0) */
+/* Secondary Buttons in Light Mode: Pure White with Subtle Border */
 html.light .bg-\[\#14233c\],
 html.light [class*="bg-[#14233c]"] {
-  background-color: #E8EAF0 !important;
+  background-color: #FFFFFF !important;
   color: #0D0D1A !important;
-  border-color: #E2E4EB !important;
+  border: 1px solid #E2E4EB !important;
+  box-shadow: 0 2px 6px rgba(13, 13, 26, 0.04) !important;
 }
 
 html.light .hover\:bg-\[\#182844\]:hover {
-  background-color: #DDE0E8 !important;
+  background-color: #F8F9FA !important;
+  border-color: #9FEF00 !important;
   color: #0D0D1A !important;
 }
 
