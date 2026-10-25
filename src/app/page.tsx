@@ -22,9 +22,9 @@ import { InteractiveTerminal } from "@/components/home/InteractiveTerminal";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
 
 export const metadata = {
-  title: "CyberNotes // Hack The Box Cybersecurity Documentation Engine",
+  title: "Index 389 // Cybersecurity Research & CTF Knowledge Base",
   description:
-    "Production-grade cybersecurity documentation and knowledge base engine inspired by Hack The Box.",
+    "Production-grade cybersecurity documentation and knowledge base engine for Index 389.",
 };
 
 export default async function HomePage() {
@@ -53,20 +53,25 @@ export default async function HomePage() {
       <header className="border-b border-[var(--surface-border)] bg-[var(--surface)]/80 backdrop-blur-xl sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-9 h-9 rounded-xl bg-[var(--surface-card)] border border-[var(--surface-border)] group-hover:border-[#9fef00] flex items-center justify-center text-[#9fef00] shadow-lg shadow-[#9fef00]/5 transition-all">
-              <Shield className="w-5 h-5 group-hover:scale-105 transition-transform" />
+            <div className="relative w-10 h-10 rounded-xl overflow-hidden border border-[#9fef00]/40 group-hover:border-[#9fef00] bg-black/60 shadow-lg shadow-[#9fef00]/10 transition-all flex items-center justify-center flex-shrink-0">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/logo.png"
+                alt="Index 389 Logo"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform"
+              />
             </div>
             <div className="flex flex-col">
               <div className="flex items-center gap-1.5">
-                <span className="font-mono text-sm font-bold tracking-wider text-[var(--foreground-bright)]">
-                  CYBERNOTES
+                <span className="font-mono text-base font-bold tracking-wider text-[var(--foreground-bright)]">
+                  INDEX 389
                 </span>
                 <span className="px-1.5 py-0.2 rounded bg-[#9fef00]/10 text-[#9fef00] text-[9px] font-mono border border-[#9fef00]/30">
-                  v2.5
+                  CTF
                 </span>
               </div>
               <span className="text-[10px] font-mono text-[var(--foreground-muted)] tracking-wider">
-                HTB TECHNICAL ACADEMY
+                CYBERSECURITY & RESEARCH
               </span>
             </div>
           </Link>
@@ -390,11 +395,14 @@ export default async function HomePage() {
       {/* Footer */}
       <footer className="border-t border-[#1f3352] bg-[#111d30] py-10 px-6 text-xs font-mono text-[#6c7d9c]">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <Shield className="w-4 h-4 text-[#9fef00]" />
-            <span className="text-[#ffffff] font-bold">CYBERNOTES PLATFORM</span>
+          <div className="flex items-center gap-2.5">
+            <div className="w-6 h-6 rounded-md overflow-hidden border border-[#9fef00]/40 flex-shrink-0">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/logo.png" alt="Index 389" className="w-full h-full object-cover" />
+            </div>
+            <span className="text-[#ffffff] font-bold">INDEX 389 PLATFORM</span>
             <span>•</span>
-            <span>Hack The Box Technical Documentation Architecture</span>
+            <span>CTF Team & Technical Cybersecurity Research Engine</span>
           </div>
 
           <div className="flex items-center gap-6">

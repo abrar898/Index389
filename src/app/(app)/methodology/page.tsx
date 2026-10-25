@@ -2,7 +2,7 @@ import { MethodologyClient } from "@/components/methodology/MethodologyClient";
 import { CheckSquare } from "lucide-react";
 
 export const metadata = {
-  title: "Pentesting Methodology & Checklist // CyberNotes KB",
+  title: "Pentesting Methodology & Checklist // Index 389",
   description: "Operational checklists, tactical reconnaissance steps, and privilege escalation procedures.",
 };
 

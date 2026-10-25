@@ -4,7 +4,7 @@ import { Settings, Shield, Sliders } from "lucide-react";
 import { SettingsClient } from "@/components/settings/SettingsClient";
 
 export const metadata = {
-  title: "Settings & Configuration // CyberNotes KB",
+  title: "Settings & Configuration // Index 389",
   description: "User preferences, typography settings, export templates, and telemetry.",
 };
 

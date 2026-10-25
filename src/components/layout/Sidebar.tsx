@@ -54,16 +54,21 @@ export function Sidebar({ user, categories, tags }: SidebarProps) {
       {/* Workspace Brand / Header */}
       <div className="flex items-center justify-between h-14 px-4 border-b border-[#1f3352] flex-shrink-0">
         <Link href="/dashboard" className="flex items-center gap-2.5 overflow-hidden">
-          <div className="flex items-center justify-center w-8 h-8 rounded bg-[#111d30] border border-[#1f3352] text-[#9fef00] shadow-inner flex-shrink-0">
-            <Shield className="w-4 h-4" />
+          <div className="relative flex items-center justify-center w-9 h-9 rounded-lg overflow-hidden border border-[#9fef00]/40 bg-black/60 shadow-[0_0_12px_rgba(159,239,0,0.2)] flex-shrink-0">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/logo.png"
+              alt="Index 389 Logo"
+              className="w-full h-full object-cover"
+            />
           </div>
           {!collapsed && (
-            <div className="flex flex-col">
-              <span className="font-mono text-xs font-bold tracking-wider text-[#ffffff]">
-                CYBERNOTES
+            <div className="flex flex-col min-w-0">
+              <span className="font-mono text-sm font-bold tracking-wider text-[#ffffff] truncate">
+                INDEX 389
               </span>
-              <span className="text-[10px] text-[#9fef00] tracking-widest font-mono">
-                HTB // KB v2.4
+              <span className="text-[10px] text-[#9fef00] tracking-wider font-mono">
+                CTF // RESEARCH
               </span>
             </div>
           )}

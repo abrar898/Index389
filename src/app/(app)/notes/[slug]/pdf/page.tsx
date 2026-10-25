@@ -28,7 +28,7 @@ export default async function DocumentPdfView(props: { params: Promise<{ slug: s
       <div className="no-print mb-8 pb-4 border-b border-gray-200 flex items-center justify-between">
         <div className="flex items-center gap-2 text-sm text-gray-500 font-mono">
           <Shield className="w-4 h-4 text-emerald-600" />
-          <span>CYBERNOTES // EXPORT ENGINE</span>
+          <span>INDEX 389 // EXPORT ENGINE</span>
         </div>
         <PrintButton />
       </div>
@@ -64,7 +64,7 @@ export default async function DocumentPdfView(props: { params: Promise<{ slug: s
       {/* Document Footer */}
       <div className="mt-16 pt-6 border-t border-gray-200 text-xs font-mono text-gray-400 flex items-center justify-between">
         <span>Confidential & Proprietary // Cybersecurity Knowledge Base</span>
-        <span>Generated via CyberNotes Platform</span>
+        <span>Generated via Index 389 Platform</span>
       </div>
     </div>
   );

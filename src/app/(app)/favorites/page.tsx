@@ -5,7 +5,7 @@ import { Star, Shield, Lock } from "lucide-react";
 import { FavoritesClient } from "@/components/favorites/FavoritesClient";
 
 export const metadata = {
-  title: "Favorites & Bookmarks // CyberNotes KB",
+  title: "Favorites & Bookmarks // Index 389",
   description: "Quick-access pinned cybersecurity research notes, exploits, and cheat-sheets.",
 };
 

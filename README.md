@@ -1,4 +1,4 @@
-# CYBERNOTES // Cybersecurity Knowledge Base & Research Platform
+# INDEX 389 // Cybersecurity Knowledge Base & Research Platform
 
 A production-ready technical cybersecurity documentation platform inspired by the clean documentation experiences of **Hack The Box Academy** and **HackIndex**.
 

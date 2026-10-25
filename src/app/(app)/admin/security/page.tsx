@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 
 export const metadata = {
-  title: "Security Operations Center (SOC) // CyberNotes KB",
+  title: "Security Operations Center (SOC) // Index 389",
   description: "Real-time security telemetry, hardening controls, and threat monitoring.",
 };
 

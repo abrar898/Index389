@@ -14,8 +14,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "CyberNotes // Cybersecurity Knowledge Base",
-  description: "Modern cybersecurity knowledge repository and technical documentation engine.",
+  title: "Index 389 // Cybersecurity & CTF Knowledge Base",
+  description: "Index 389 - Modern cybersecurity knowledge repository, CTF write-ups and technical documentation engine.",
+  icons: {
+    icon: "/logo.png",
+    apple: "/logo.png",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

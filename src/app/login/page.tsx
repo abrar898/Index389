@@ -47,16 +47,23 @@ export default function LoginPage() {
       </div>
 
       <div className="w-full max-w-md rounded-2xl border border-[var(--surface-border)] glass-panel p-5 sm:p-8 shadow-2xl space-y-6">
-        <div className="flex flex-col items-center text-center space-y-2">
-          <div className="w-12 h-12 rounded-xl bg-[var(--surface-card)] border border-[var(--surface-border)] flex items-center justify-center text-[#9fef00] shadow-inner">
-            <Shield className="w-6 h-6" />
+        <div className="flex flex-col items-center text-center space-y-3">
+          <div className="relative w-20 h-20 rounded-2xl overflow-hidden border-2 border-[#9fef00]/40 shadow-[0_0_25px_rgba(159,239,0,0.25)] bg-black/60 flex items-center justify-center">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/logo.png"
+              alt="Index 389 Logo"
+              className="w-full h-full object-cover"
+            />
           </div>
-          <h1 className="text-xl font-bold font-mono tracking-wider text-[var(--foreground-bright)]">
-            CYBERNOTES // SECURE AUTH
-          </h1>
-          <p className="text-xs text-[var(--foreground-muted)]">
-            Restricted access knowledge repository. Authorized personnel only.
-          </p>
+          <div>
+            <h1 className="text-xl font-bold font-mono tracking-wider text-[var(--foreground-bright)]">
+              INDEX 389 // SECURE AUTH
+            </h1>
+            <p className="text-xs text-[var(--foreground-muted)] mt-1">
+              CTF Team • Cybersecurity • Research Platform
+            </p>
+          </div>
         </div>
 
         {error && (
@@ -106,54 +113,10 @@ export default function LoginPage() {
           </div>
         </form>
 
-        <div className="p-3.5 rounded-xl bg-[#111d30] border border-[#1f3352] text-[11px] font-mono text-[#8ba0c3] space-y-2.5">
-          <div className="text-[#9fef00] font-semibold text-xs border-b border-[#1f3352] pb-1">
-            PRE-CONFIGURED ACCESS CREDENTIALS:
-          </div>
-
-          <div className="space-y-0.5">
-            <div className="text-[#ffffff] font-bold flex items-center justify-between">
-              <span>ADMINISTRATOR (Full Rights):</span>
-              <button
-                type="button"
-                onClick={() => {
-                  setEmail("admin@cybersec.local");
-                  setPassword("CyberSecAdmin2026!");
-                }}
-                className="text-[#9fef00] hover:underline cursor-pointer"
-              >
-                Use Admin
-              </button>
-            </div>
-            <div>Email: <span className="text-[#a4b1cd]">admin@cybersec.local</span></div>
-            <div>Pass: <span className="text-[#a4b1cd]">CyberSecAdmin2026!</span></div>
-            <div className="text-[10px] text-[#6c7d9c]">Can create notes, categories, edit, import, and delete.</div>
-          </div>
-
-          <div className="space-y-0.5 pt-1.5 border-t border-[#1f3352]">
-            <div className="text-[#ffffff] font-bold flex items-center justify-between">
-              <span>STANDARD ANALYST (Read-Only):</span>
-              <button
-                type="button"
-                onClick={() => {
-                  setEmail("user@cybersec.local");
-                  setPassword("CyberSecUser2026!");
-                }}
-                className="text-[#2de2e6] hover:underline cursor-pointer"
-              >
-                Use Analyst
-              </button>
-            </div>
-            <div>Email: <span className="text-[#a4b1cd]">user@cybersec.local</span></div>
-            <div>Pass: <span className="text-[#a4b1cd]">CyberSecUser2026!</span></div>
-            <div className="text-[10px] text-[#6c7d9c]">Read writeups, bookmark favorites, export PDF & Word.</div>
-          </div>
-        </div>
-
-        <div className="text-center">
+        <div className="text-center pt-2">
           <Link
             href="/"
-            className="inline-flex items-center gap-1.5 text-xs font-mono text-[#6c7d9c] hover:text-[#ffffff] transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs font-mono text-[#6c7d9c] hover:text-[#9fef00] transition-colors"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             <span>Return to Public Academy</span>
