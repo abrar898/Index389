@@ -127,11 +127,6 @@ export default async function HomePage() {
       {/* Hero Section */}
       <section className="relative pt-24 pb-16 px-6">
         <div className="max-w-5xl mx-auto text-center space-y-7 relative z-10">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#9fef00]/10 border border-[#9fef00]/30 text-[#9fef00] font-mono text-xs shadow-lg">
-            <span className="w-2 h-2 rounded-full bg-[#9fef00] animate-ping" />
-            <span>HTB-INSPIRED CYBERSECURITY RESEARCH ENGINE</span>
-          </div>
-
           <h1 className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-[#ffffff] leading-[1.15]">
             Precision Technical Docs for{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#9fef00] via-[#2de2e6] to-[#9fef00]">

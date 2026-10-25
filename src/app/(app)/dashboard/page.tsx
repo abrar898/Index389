@@ -46,7 +46,7 @@ export default async function DashboardPage() {
           <div className="space-y-2.5">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#9fef00]/10 text-[#9fef00] border border-[#9fef00]/30 font-mono text-xs shadow-sm">
               <span className="w-2 h-2 rounded-full bg-[#9fef00] animate-pulse" />
-              <span>TERMINAL ENGAGED // HTB RESEARCH REPO</span>
+              <span>TERMINAL ENGAGED // INDEX 389 REPO</span>
             </div>
             <h1 className="text-3xl font-extrabold tracking-tight text-[#ffffff]">
               Welcome back, <span className="text-[#9fef00]">{user?.name || "Security Researcher"}</span>
