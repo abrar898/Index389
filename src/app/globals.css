@@ -27,6 +27,10 @@
   --color-slate-100: #ffffff;
 }
 
+html {
+  scrollbar-gutter: stable;
+}
+
 :root {
   /* Hack The Box Dark Palette (Default) */
   --background: #0b121e;

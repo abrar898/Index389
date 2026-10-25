@@ -65,20 +65,29 @@ function InnerAppShell({ user, categories, tags, children }: AppShellProps) {
       </div>
 
       {/* Main Content Column */}
-      <div className="flex-1 flex flex-col min-w-0 h-screen overflow-y-auto">
-        {/* Top Header Bar */}
+      <div className="flex-1 flex flex-col min-w-0 h-screen overflow-hidden">
+        {/* Top Header Bar: Constant, Fixed & Locked at h-14 */}
         {!isFocusMode && (
-          <header className="h-14 border-b border-[var(--surface-border)] glass-panel rounded-none border-t-0 border-l-0 border-r-0 px-4 sm:px-6 flex items-center justify-between sticky top-0 z-20 flex-shrink-0 gap-3">
+          <header className="h-14 border-b border-[var(--surface-border)] bg-[var(--surface)]/95 backdrop-blur-md px-4 sm:px-6 flex items-center justify-between z-20 flex-shrink-0 gap-3 w-full">
             <div className="flex items-center gap-3 flex-1 min-w-0 max-w-xl">
               {/* Mobile Hamburger Toggle */}
               <button
                 type="button"
                 onClick={() => setMobileMenuOpen(true)}
-                className="lg:hidden p-1.5 rounded-lg border border-[var(--surface-border)] bg-[var(--surface-card)] text-[var(--foreground)] hover:text-[var(--foreground-bright)] transition-colors cursor-pointer"
+                className="lg:hidden p-1.5 rounded-lg border border-[var(--surface-border)] bg-[var(--surface-card)] text-[var(--foreground)] hover:text-[var(--foreground-bright)] transition-colors cursor-pointer flex-shrink-0"
                 aria-label="Open menu"
               >
                 <Menu className="w-4 h-4" />
               </button>
+
+              {/* Mobile Brand Link (Consistent with landing & sidebar) */}
+              <Link href="/dashboard" className="flex lg:hidden items-center gap-2 flex-shrink-0">
+                <div className="w-7 h-7 rounded-md overflow-hidden border border-[#9fef00]/40 bg-black/60 flex items-center justify-center">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="/logo.png" alt="Index 389" className="w-full h-full object-cover" />
+                </div>
+                <span className="font-mono text-xs font-bold text-[#ffffff] tracking-wider">INDEX 389</span>
+              </Link>
 
               <div className="flex-1 min-w-0">
                 <HeaderSearch />
@@ -106,14 +115,16 @@ function InnerAppShell({ user, categories, tags, children }: AppShellProps) {
           </header>
         )}
 
-        {/* Center Content */}
-        <main
-          className={`flex-1 p-4 sm:p-6 md:p-8 w-full transition-all duration-300 ${
-            isFocusMode ? "max-w-5xl mx-auto px-4 sm:px-6 md:px-12" : "max-w-[1600px] mx-auto"
-          }`}
-        >
-          {children}
-        </main>
+        {/* Center Content: Independent scroll container so navbar never moves */}
+        <div className="flex-1 min-w-0 overflow-y-auto">
+          <main
+            className={`p-4 sm:p-6 md:p-8 w-full transition-all duration-300 ${
+              isFocusMode ? "max-w-5xl mx-auto px-4 sm:px-6 md:px-12" : "max-w-[1600px] mx-auto"
+            }`}
+          >
+            {children}
+          </main>
+        </div>
       </div>
     </div>
   );
