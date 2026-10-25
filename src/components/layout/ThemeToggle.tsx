@@ -21,7 +21,7 @@ export function ThemeToggle({ compact = false }: { compact?: boolean }) {
 
   const options: { mode: ThemeMode; label: string; icon: React.ElementType }[] = [
     { mode: "light", label: "Light Theme", icon: Sun },
-    { mode: "dark", label: "Dark (HTB)", icon: Moon },
+    { mode: "dark", label: "Dark Theme", icon: Moon },
     { mode: "system", label: "System Default", icon: Laptop },
   ];
 
