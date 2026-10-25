@@ -113,6 +113,50 @@ export default function LoginPage() {
           </div>
         </form>
 
+        <div className="p-3.5 rounded-xl bg-[#111d30] border border-[#1f3352] text-[11px] font-mono text-[#8ba0c3] space-y-2.5">
+          <div className="text-[#9fef00] font-semibold text-xs border-b border-[#1f3352] pb-1">
+            PRE-CONFIGURED ACCESS CREDENTIALS:
+          </div>
+
+          <div className="space-y-0.5">
+            <div className="text-[#ffffff] font-bold flex items-center justify-between">
+              <span>ADMINISTRATOR (Full Rights):</span>
+              <button
+                type="button"
+                onClick={() => {
+                  setEmail("admin@cybersec.local");
+                  setPassword("CyberSecAdmin2026!");
+                }}
+                className="text-[#9fef00] hover:underline cursor-pointer"
+              >
+                Use Admin
+              </button>
+            </div>
+            <div>Email: <span className="text-[#a4b1cd]">admin@cybersec.local</span></div>
+            <div>Pass: <span className="text-[#a4b1cd]">CyberSecAdmin2026!</span></div>
+            <div className="text-[10px] text-[#6c7d9c]">Can create notes, categories, edit, import, and delete.</div>
+          </div>
+
+          <div className="space-y-0.5 pt-1.5 border-t border-[#1f3352]">
+            <div className="text-[#ffffff] font-bold flex items-center justify-between">
+              <span>STANDARD ANALYST (Read-Only):</span>
+              <button
+                type="button"
+                onClick={() => {
+                  setEmail("user@cybersec.local");
+                  setPassword("CyberSecUser2026!");
+                }}
+                className="text-[#2de2e6] hover:underline cursor-pointer"
+              >
+                Use Analyst
+              </button>
+            </div>
+            <div>Email: <span className="text-[#a4b1cd]">user@cybersec.local</span></div>
+            <div>Pass: <span className="text-[#a4b1cd]">CyberSecUser2026!</span></div>
+            <div className="text-[10px] text-[#6c7d9c]">Read writeups, bookmark favorites, export PDF & Word.</div>
+          </div>
+        </div>
+
         <div className="text-center pt-2">
           <Link
             href="/"
