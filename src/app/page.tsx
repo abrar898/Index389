@@ -49,7 +49,7 @@ export default async function HomePage() {
       <header className="fixed top-0 left-0 right-0 z-50 w-full h-16 border-b border-[var(--surface-border)] bg-[var(--surface)]/90 backdrop-blur-md transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-full flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="relative w-10 h-10 rounded-xl overflow-hidden border border-emerald-500/30 group-hover:border-emerald-500 dark:border-[#9fef00]/40 dark:group-hover:border-[#9fef00] bg-black/60 shadow-xs transition-all flex items-center justify-center flex-shrink-0">
+            <div className="relative w-10 h-10 rounded-xl overflow-hidden border border-[#9fef00]/40 group-hover:border-[#9fef00] bg-black/60 shadow-xs transition-all flex items-center justify-center flex-shrink-0">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/logo.png"
@@ -62,7 +62,7 @@ export default async function HomePage() {
                 <span className="font-mono text-base font-bold tracking-wider text-[var(--foreground-bright)]">
                   INDEX 389
                 </span>
-                <span className="px-1.5 py-0.2 rounded bg-emerald-500/10 text-emerald-700 dark:text-[#9fef00] text-[9px] font-mono border border-emerald-500/20 dark:border-[#9fef00]/30 font-semibold">
+                <span className="px-1.5 py-0.2 rounded bg-[#9fef00]/10 text-[#9fef00] text-[9px] font-mono border border-[#9fef00]/30 font-semibold">
                   CTF
                 </span>
               </div>
@@ -75,23 +75,23 @@ export default async function HomePage() {
           <div className="flex items-center gap-3 sm:gap-6 text-xs font-mono">
             <Link
               href="/notes"
-              className="text-[var(--foreground)] hover:text-emerald-600 dark:hover:text-[#9fef00] transition-colors hidden md:flex items-center gap-1.5"
+              className="text-[#9fef00] hover:text-[#b4fa1f] transition-colors hidden md:flex items-center gap-1.5 font-bold"
             >
-              <BookOpen className="w-3.5 h-3.5" />
+              <BookOpen className="w-3.5 h-3.5 text-[#9fef00]" />
               <span>REPOSITORY</span>
             </Link>
             <Link
               href="/methodology"
-              className="text-[var(--foreground)] hover:text-emerald-600 dark:hover:text-[#9fef00] transition-colors hidden md:flex items-center gap-1.5"
+              className="text-[#9fef00] hover:text-[#b4fa1f] transition-colors hidden md:flex items-center gap-1.5 font-bold"
             >
-              <CheckSquare className="w-3.5 h-3.5" />
+              <CheckSquare className="w-3.5 h-3.5 text-[#9fef00]" />
               <span>METHODOLOGY</span>
             </Link>
             <Link
               href="/categories"
-              className="text-[var(--foreground)] hover:text-emerald-600 dark:hover:text-[#9fef00] transition-colors hidden md:flex items-center gap-1.5"
+              className="text-[#9fef00] hover:text-[#b4fa1f] transition-colors hidden md:flex items-center gap-1.5 font-bold"
             >
-              <Folder className="w-3.5 h-3.5" />
+              <Folder className="w-3.5 h-3.5 text-[#9fef00]" />
               <span>TAXONOMY</span>
             </Link>
 
@@ -101,9 +101,9 @@ export default async function HomePage() {
             {user ? (
               <Link
                 href="/dashboard"
-                className="flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl bg-[var(--surface-card)] hover:bg-[var(--surface-elevated)] border border-[var(--surface-border)] text-emerald-600 dark:text-[#9fef00] font-semibold transition-all shadow-xs"
+                className="flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl bg-[var(--surface-card)] hover:bg-[var(--surface-elevated)] border border-[var(--surface-border)] text-[#9fef00] font-semibold transition-all shadow-xs"
               >
-                <Activity className="w-3.5 h-3.5 text-emerald-600 dark:text-[#9fef00]" />
+                <Activity className="w-3.5 h-3.5 text-[#9fef00]" />
                 <span className="hidden sm:inline">DASHBOARD</span>
                 <span className="text-[10px] text-[var(--foreground-muted)] font-mono">[{user.role}]</span>
               </Link>
@@ -123,14 +123,14 @@ export default async function HomePage() {
       {/* Hero Section */}
       <section className="relative pt-32 pb-16 px-6">
         <div className="max-w-5xl mx-auto text-center space-y-7 relative z-10">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-500/10 dark:bg-[#9fef00]/10 border border-emerald-500/20 dark:border-[#9fef00]/30 text-emerald-700 dark:text-[#9fef00] font-mono text-xs shadow-2xs">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 dark:bg-[#9fef00] animate-pulse" />
-            <span>INDEX 389 // PERSONAL CYBER KNOWLEDGE BASE</span>
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#9fef00]/10 border border-[#9fef00]/30 text-[#9fef00] font-mono text-xs shadow-xs">
+            <span className="w-2 h-2 rounded-full bg-[#9fef00] animate-pulse shadow-[0_0_8px_#9fef00]" />
+            <span className="font-semibold tracking-wider text-[#9fef00]">INDEX 389 // PERSONAL CYBER KNOWLEDGE BASE</span>
           </div>
 
           <h1 className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.12]">
             Precision Technical Docs for{" "}
-            <span className="hero-title-gradient bg-clip-text text-transparent bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 dark:from-[#9fef00] dark:via-[#2de2e6] dark:to-[#9fef00]">
+            <span className="text-[#9fef00] drop-shadow-[0_0_30px_rgba(159,239,0,0.45)]">
               Security Professionals
             </span>
           </h1>
@@ -153,7 +153,7 @@ export default async function HomePage() {
               href="/methodology"
               className="flex items-center gap-2 px-6 py-3.5 rounded-xl bg-white dark:bg-[#14233c] hover:bg-slate-50 dark:hover:bg-[#182844] border border-slate-200 dark:border-[#1f3352] text-slate-800 dark:text-white font-mono text-xs shadow-xs transition-all"
             >
-              <CheckSquare className="w-4 h-4 text-emerald-600 dark:text-[#9fef00]" />
+              <CheckSquare className="w-4 h-4 text-[#9fef00]" />
               <span>Assessment Methodology</span>
             </Link>
 
@@ -177,7 +177,7 @@ export default async function HomePage() {
               </div>
               <div className="w-px h-8 bg-slate-200 dark:bg-[#1f3352]" />
               <div>
-                <div className="text-2xl font-bold text-emerald-600 dark:text-[#9fef00]">{totalCategories}</div>
+                <div className="text-2xl font-bold text-[#9fef00]">{totalCategories}</div>
                 <div className="text-slate-500 dark:text-[#6c7d9c] text-[11px] uppercase tracking-wider mt-0.5">
                   Security Domains
                 </div>
@@ -198,8 +198,8 @@ export default async function HomePage() {
       <section className="max-w-5xl mx-auto px-6 pb-20">
         <div className="space-y-3">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2 font-mono text-xs text-emerald-700 dark:text-[#9fef00]">
-              <Terminal className="w-4 h-4" />
+            <div className="flex items-center gap-2 font-mono text-xs text-[#9fef00]">
+              <Terminal className="w-4 h-4 text-[#9fef00]" />
               <span>RUNNING OPERATIONAL TERMINAL // TRY TYPING COMMANDS</span>
             </div>
             <span className="hidden sm:inline-block text-[11px] font-mono text-slate-500 dark:text-[#6c7d9c]">
@@ -214,9 +214,9 @@ export default async function HomePage() {
       {/* Tactical Platform Capabilities Matrix */}
       <section className="max-w-6xl mx-auto px-6 pb-20">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="p-6 rounded-2xl bg-white dark:bg-[#111d30]/60 border border-slate-200/90 dark:border-[#1f3352] shadow-xs hover:shadow-md hover:border-emerald-400 dark:hover:border-[#9fef00]/40 transition-all space-y-3 relative overflow-hidden">
-            <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-600 dark:text-[#9fef00]">
-              <Crosshair className="w-5 h-5" />
+          <div className="p-6 rounded-2xl bg-white dark:bg-[#111d30]/60 border border-slate-200/90 dark:border-[#1f3352] shadow-xs hover:shadow-md hover:border-[#9fef00]/40 transition-all space-y-3 relative overflow-hidden">
+            <div className="w-10 h-10 rounded-xl bg-[#9fef00]/10 border border-[#9fef00]/20 flex items-center justify-center text-[#9fef00]">
+              <Crosshair className="w-5 h-5 text-[#9fef00]" />
             </div>
             <h3 className="text-base font-bold text-slate-900 dark:text-white">Live Parameter Injection</h3>
             <p className="text-xs text-slate-600 dark:text-[#a4b1cd] leading-relaxed">
@@ -250,7 +250,7 @@ export default async function HomePage() {
       <section className="border-y border-slate-200 dark:border-[#1f3352] bg-slate-100/70 dark:bg-[#111d30]/60 py-20 px-6 relative transition-colors">
         <div className="max-w-6xl mx-auto space-y-12">
           <div className="text-center space-y-3">
-            <div className="font-mono text-xs text-emerald-700 dark:text-[#9fef00] uppercase tracking-widest font-semibold">
+            <div className="font-mono text-xs text-[#9fef00] uppercase tracking-widest font-semibold">
               SECURITY ACCESS CONTROL // RBAC
             </div>
             <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white">
@@ -278,15 +278,15 @@ export default async function HomePage() {
               </p>
               <ul className="space-y-3 text-xs font-mono text-slate-700 dark:text-[#a4b1cd] pt-2">
                 <li className="flex items-center gap-2.5">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-[#9fef00] flex-shrink-0" />
+                  <CheckCircle2 className="w-4 h-4 text-[#9fef00] flex-shrink-0" />
                   <span>Browse all technical categories & writeups</span>
                 </li>
                 <li className="flex items-center gap-2.5">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-[#9fef00] flex-shrink-0" />
+                  <CheckCircle2 className="w-4 h-4 text-[#9fef00] flex-shrink-0" />
                   <span>Instant full-text search across commands & CVEs</span>
                 </li>
                 <li className="flex items-center gap-2.5">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-[#9fef00] flex-shrink-0" />
+                  <CheckCircle2 className="w-4 h-4 text-[#9fef00] flex-shrink-0" />
                   <span>Export notes to printable PDF and editable Word DOCX</span>
                 </li>
                 <li className="flex items-center gap-2.5 text-slate-400 dark:text-[#6c7d9c]">
@@ -301,14 +301,14 @@ export default async function HomePage() {
             </div>
 
             {/* Admin Card */}
-            <div className="p-8 rounded-2xl bg-white dark:bg-[#14233c]/80 border-2 border-emerald-500/40 dark:border-[#9fef00]/40 shadow-lg shadow-emerald-500/5 space-y-5 relative overflow-hidden transition-all">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/10 dark:bg-[#9fef00]/10 rounded-full blur-2xl pointer-events-none" />
+            <div className="p-8 rounded-2xl bg-white dark:bg-[#14233c]/80 border-2 border-[#9fef00]/40 shadow-lg shadow-[#9fef00]/5 space-y-5 relative overflow-hidden transition-all">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-[#9fef00]/10 rounded-full blur-2xl pointer-events-none" />
 
               <div className="flex items-center justify-between relative z-10">
-                <span className="font-mono text-xs font-bold text-emerald-700 dark:text-[#9fef00] px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30">
+                <span className="font-mono text-xs font-bold text-[#9fef00] px-3 py-1 rounded-full bg-[#9fef00]/10 border border-[#9fef00]/30">
                   ADMINISTRATOR // LEAD RESEARCHER
                 </span>
-                <span className="text-[11px] font-mono text-emerald-800 dark:text-[#9fef00] px-2 py-0.5 rounded bg-emerald-500/15 font-bold">
+                <span className="text-[11px] font-mono text-[#9fef00] px-2 py-0.5 rounded bg-[#9fef00]/15 font-bold">
                   FULL CONTROL
                 </span>
               </div>
@@ -318,23 +318,23 @@ export default async function HomePage() {
               </p>
               <ul className="space-y-3 text-xs font-mono text-slate-700 dark:text-[#a4b1cd] pt-2 relative z-10">
                 <li className="flex items-center gap-2.5">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-[#9fef00] flex-shrink-0" />
+                  <CheckCircle2 className="w-4 h-4 text-[#9fef00] flex-shrink-0" />
                   <span>Split-Screen Live Editor with quick cybersecurity snippets</span>
                 </li>
                 <li className="flex items-center gap-2.5">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-[#9fef00] flex-shrink-0" />
+                  <CheckCircle2 className="w-4 h-4 text-[#9fef00] flex-shrink-0" />
                   <span>Create & customize categories directly in UI</span>
                 </li>
                 <li className="flex items-center gap-2.5">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-[#9fef00] flex-shrink-0" />
+                  <CheckCircle2 className="w-4 h-4 text-[#9fef00] flex-shrink-0" />
                   <span>Batch drag-and-drop Markdown & ZIP archives</span>
                 </li>
                 <li className="flex items-center gap-2.5">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-[#9fef00] flex-shrink-0" />
+                  <CheckCircle2 className="w-4 h-4 text-[#9fef00] flex-shrink-0" />
                   <span>Document versioning and audit log review</span>
                 </li>
                 <li className="flex items-center gap-2.5">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-[#9fef00] flex-shrink-0" />
+                  <CheckCircle2 className="w-4 h-4 text-[#9fef00] flex-shrink-0" />
                   <span>Soft-delete and document lifecycle management</span>
                 </li>
               </ul>
@@ -347,12 +347,12 @@ export default async function HomePage() {
       <section className="max-w-6xl mx-auto py-20 px-6 space-y-8">
         <div className="flex items-center justify-between">
           <div>
-            <div className="font-mono text-xs text-emerald-700 dark:text-[#9fef00]">REPOSITORY SNAPSHOT</div>
+            <div className="font-mono text-xs text-[#9fef00]">REPOSITORY SNAPSHOT</div>
             <h2 className="text-2xl font-bold text-slate-900 dark:text-white mt-1">Featured Research Notes</h2>
           </div>
           <Link
             href="/notes"
-            className="text-xs font-mono text-cyan-700 dark:text-[#2de2e6] hover:text-emerald-600 dark:hover:text-[#9fef00] hover:underline flex items-center gap-1.5"
+            className="text-xs font-mono text-cyan-700 dark:text-[#2de2e6] hover:text-[#9fef00] hover:underline flex items-center gap-1.5"
           >
             <span>Browse Full Repository ({totalNotes})</span>
             <ArrowRight className="w-4 h-4" />
@@ -364,14 +364,14 @@ export default async function HomePage() {
             <Link
               key={note.id}
               href={`/notes/${note.slug}`}
-              className="group p-6 rounded-2xl bg-white dark:bg-[#14233c]/80 border border-slate-200/90 dark:border-[#1f3352] shadow-xs hover:shadow-md hover:border-emerald-400 dark:hover:border-[#9fef00]/40 transition-all flex flex-col justify-between"
+              className="group p-6 rounded-2xl bg-white dark:bg-[#14233c]/80 border border-slate-200/90 dark:border-[#1f3352] shadow-xs hover:shadow-md hover:border-[#9fef00]/40 transition-all flex flex-col justify-between"
             >
               <div className="space-y-3">
-                <div className="text-[11px] font-mono text-emerald-700 dark:text-[#9fef00] flex items-center gap-1.5 font-semibold">
-                  <Folder className="w-3.5 h-3.5" />
+                <div className="text-[11px] font-mono text-[#9fef00] flex items-center gap-1.5 font-semibold">
+                  <Folder className="w-3.5 h-3.5 text-[#9fef00]" />
                   <span>{note.category?.name || "General"}</span>
                 </div>
-                <h3 className="font-bold text-base text-slate-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-[#9fef00] transition-colors line-clamp-2">
+                <h3 className="font-bold text-base text-slate-900 dark:text-white group-hover:text-[#9fef00] transition-colors line-clamp-2">
                   {note.title}
                 </h3>
                 <p className="text-xs text-slate-600 dark:text-[#a4b1cd] line-clamp-2 leading-relaxed">
@@ -381,7 +381,7 @@ export default async function HomePage() {
 
               <div className="pt-4 mt-4 border-t border-slate-100 dark:border-[#1f3352] flex items-center justify-between text-[11px] font-mono text-slate-500 dark:text-[#6c7d9c]">
                 <span>{note.readingTimeMin}m read</span>
-                <span className="text-emerald-600 dark:text-[#9fef00] group-hover:translate-x-1 transition-transform flex items-center gap-1 font-semibold">
+                <span className="text-[#9fef00] group-hover:translate-x-1 transition-transform flex items-center gap-1 font-semibold">
                   Read Note &rarr;
                 </span>
               </div>
@@ -394,7 +394,7 @@ export default async function HomePage() {
       <footer className="border-t border-slate-200 dark:border-[#1f3352] bg-white dark:bg-[#111d30] py-10 px-6 text-xs font-mono text-slate-500 dark:text-[#6c7d9c] transition-colors">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2.5">
-            <div className="w-6 h-6 rounded-md overflow-hidden border border-emerald-500/30 dark:border-[#9fef00]/40 flex-shrink-0">
+            <div className="w-6 h-6 rounded-md overflow-hidden border border-[#9fef00]/40 flex-shrink-0">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/logo.png" alt="Index 389" className="w-full h-full object-cover" />
             </div>
@@ -404,13 +404,13 @@ export default async function HomePage() {
           </div>
 
           <div className="flex items-center gap-6">
-            <Link href="/notes" className="hover:text-emerald-600 dark:hover:text-[#9fef00] transition-colors">
+            <Link href="/notes" className="hover:text-[#9fef00] transition-colors">
               Repository
             </Link>
-            <Link href="/categories" className="hover:text-emerald-600 dark:hover:text-[#9fef00] transition-colors">
+            <Link href="/categories" className="hover:text-[#9fef00] transition-colors">
               Categories
             </Link>
-            <Link href="/login" className="hover:text-emerald-600 dark:hover:text-[#9fef00] transition-colors">
+            <Link href="/login" className="hover:text-[#9fef00] transition-colors">
               Operator Sign In
             </Link>
           </div>
