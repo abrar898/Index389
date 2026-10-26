@@ -46,8 +46,8 @@ export default async function HomePage() {
 
   return (
     <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)] font-sans selection:bg-[#9fef00] selection:text-[#0b121e] cyber-grid relative">
-      {/* Decorative ambient background glows */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[350px] bg-gradient-to-b from-[#9fef00]/15 via-[#2de2e6]/5 to-transparent blur-[120px] pointer-events-none -z-10" />
+      {/* Decorative ambient background glows - Dark Theme Only */}
+      <div className="hidden dark:block absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[350px] bg-gradient-to-b from-[#9fef00]/15 via-[#2de2e6]/5 to-transparent blur-[120px] pointer-events-none -z-10" />
 
       {/* Navigation Header - Permanently Fixed at Top */}
       <header className="fixed top-0 left-0 right-0 z-50 w-full h-16 border-b border-[var(--surface-border)] bg-[var(--surface)]/95 backdrop-blur-md">
@@ -129,7 +129,7 @@ export default async function HomePage() {
         <div className="max-w-5xl mx-auto text-center space-y-7 relative z-10">
           <h1 className="landing-hero-title text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.15]">
             Precision Technical Docs for{" "}
-            <span className="landing-hero-accent text-[#9fef00] drop-shadow-[0_0_35px_rgba(159,239,0,0.5)]">
+            <span className="landing-hero-accent text-[#9fef00] drop-shadow-none dark:drop-shadow-[0_0_35px_rgba(159,239,0,0.5)]">
               Security Professionals
             </span>
           </h1>
@@ -252,7 +252,7 @@ export default async function HomePage() {
               <div className="font-mono text-xs text-[#9fef00] uppercase tracking-widest font-semibold">
                 SECURITY ACCESS CONTROL // RBAC
               </div>
-              <h2 className="landing-green-heading text-3xl md:text-4xl font-extrabold text-[#9fef00] drop-shadow-[0_0_25px_rgba(159,239,0,0.35)]">
+              <h2 className="landing-green-heading text-3xl md:text-4xl font-extrabold text-[#9fef00] drop-shadow-none dark:drop-shadow-[0_0_25px_rgba(159,239,0,0.35)]">
                 Role-Separated Operational Capabilities
               </h2>
               <p className="text-xs md:text-sm text-slate-600 dark:text-[#a4b1cd] max-w-xl mx-auto">
@@ -300,8 +300,8 @@ export default async function HomePage() {
               </div>
 
               {/* Admin Card */}
-              <div className="p-8 rounded-2xl bg-white dark:bg-[#14233c]/80 border-2 border-[#9fef00]/50 space-y-5 shadow-xl shadow-[#9fef00]/5 relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-[#9fef00]/10 rounded-full blur-2xl pointer-events-none" />
+              <div className="p-8 rounded-2xl bg-white dark:bg-[#14233c]/80 border border-slate-200 dark:border-2 dark:border-[#9fef00]/50 space-y-5 shadow-xs dark:shadow-xl dark:shadow-[#9fef00]/5 relative overflow-hidden">
+                <div className="hidden dark:block absolute top-0 right-0 w-32 h-32 bg-[#9fef00]/10 rounded-full blur-2xl pointer-events-none" />
 
                 <div className="flex items-center justify-between">
                   <span className="font-mono text-xs font-bold text-[#9fef00] px-3 py-1 rounded-full bg-[#9fef00]/10 border border-[#9fef00]/30">

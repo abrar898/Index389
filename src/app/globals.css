@@ -278,10 +278,10 @@ html.light p {
   color: #4A4A6A;
 }
 
-/* Landing Page Ambient Top Glow */
+/* Landing Page Ambient Top Glow - Hidden in White Theme */
 html.white .bg-gradient-to-b.from-\[\#9fef00\]\/15,
 html.light .bg-gradient-to-b.from-\[\#9fef00\]\/15 {
-  background-image: radial-gradient(circle at 50% 0%, rgba(159, 239, 0, 0.12), rgba(0, 180, 216, 0.08), transparent 70%) !important;
+  display: none !important;
 }
 
 /* Explicit #9fef00 Green Highlight across both themes */
@@ -314,7 +314,7 @@ html.light .glass-panel {
 html.light .glass-panel-hover:hover {
   background: #FFFFFF !important;
   border-color: #9FEF00 !important;
-  box-shadow: 0 10px 25px -4px rgba(13, 13, 26, 0.08), 0 0 0 1px rgba(159, 239, 0, 0.3) !important;
+  box-shadow: 0 10px 25px -4px rgba(13, 13, 26, 0.08) !important;
   transform: translateY(-2px);
 }
 
@@ -323,7 +323,7 @@ html.light .glass-panel-hover:hover {
    Uses semantic classes added to page.tsx elements
    ======================================================== */
 
-/* HERO: White card with radial glow mesh on #F0F2F5 canvas */
+/* HERO: Pure white card with no green gradient/glow in white theme */
 html.white .landing-hero-section,
 html.light .landing-hero-section {
   background: #FFFFFF;
@@ -333,12 +333,7 @@ html.light .landing-hero-section {
 
 html.white .landing-hero-section::before,
 html.light .landing-hero-section::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 50% 0%, rgba(159, 239, 0, 0.08) 0%, rgba(0, 180, 216, 0.05) 45%, transparent 75%);
-  pointer-events: none;
-  z-index: 0;
+  display: none !important;
 }
 
 /* Hero H1 — near-black heading */
@@ -347,15 +342,14 @@ html.light .landing-hero-title {
   color: #0D0D1A !important;
 }
 
-/* Hero Accent Span — Signature Neon Green #9fef00 */
+/* Hero Accent Span — Clean Flat Neon Green #9fef00 (No blurry glow/gradient) */
 html.white .landing-hero-accent,
-html.light .landing-hero-accent,
-.landing-hero-accent {
+html.light .landing-hero-accent {
   background: none !important;
   -webkit-text-fill-color: #9fef00 !important;
   color: #9fef00 !important;
-  text-shadow: 0 0 25px rgba(159, 239, 0, 0.45) !important;
-  filter: drop-shadow(0 0 10px rgba(159, 239, 0, 0.35)) !important;
+  text-shadow: none !important;
+  filter: none !important;
 }
 
 /* Hero description text */
@@ -740,12 +734,18 @@ html.white .nav-tag-item:hover svg {
 }
 
 /* Landing Page Green Heading Utility */
-.landing-green-heading,
+.landing-green-heading {
+  color: #9fef00 !important;
+  -webkit-text-fill-color: #9fef00 !important;
+  text-shadow: 0 0 25px rgba(159, 239, 0, 0.35);
+}
+
 html.light .landing-green-heading,
 html.white .landing-green-heading {
   color: #9fef00 !important;
   -webkit-text-fill-color: #9fef00 !important;
-  text-shadow: 0 0 25px rgba(159, 239, 0, 0.35) !important;
+  text-shadow: none !important;
+  filter: none !important;
 }
 
 /* HTB Signature Utility Classes */
