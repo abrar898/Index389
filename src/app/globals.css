@@ -386,11 +386,17 @@ html.light .landing-stat-num {
   color: #0D0D1A !important;
 }
 
-/* RBAC Architecture Section — light gray contrast band */
+/* Post-Hero Container on Landing Page: Exact #F0F2F5 in White Theme */
+html.white .landing-post-hero,
+html.light .landing-post-hero {
+  background-color: #F0F2F5 !important;
+}
+
+/* RBAC Architecture Section — matches #F0F2F5 in Light Mode */
 html.white .landing-rbac-section,
 html.light .landing-rbac-section {
-  background-color: #E5E8EF !important;
-  border-color: #DDE0E8 !important;
+  background-color: #F0F2F5 !important;
+  border-color: #E2E4EB !important;
 }
 
 /* Terminal Outer Shell in Light Mode */

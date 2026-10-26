@@ -191,201 +191,204 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Live Interactive Running Terminal Showcase */}
-      <section className="landing-terminal-section max-w-5xl mx-auto px-6 pb-20">
-        <div className="space-y-3">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2 font-mono text-xs text-[#9fef00]">
-              <Terminal className="w-4 h-4" />
-              <span>RUNNING OPERATIONAL TERMINAL // TRY TYPING COMMANDS</span>
-            </div>
-            <span className="hidden sm:inline-block text-[11px] font-mono text-slate-500 dark:text-[#6c7d9c]">
-              Try &lsquo;nmap&rsquo;, &lsquo;gobuster&rsquo;, &lsquo;sudo -l&rsquo;, or &lsquo;cve-check&rsquo;
-            </span>
-          </div>
-
-          <InteractiveTerminal />
-        </div>
-      </section>
-
-      {/* Tactical Platform Capabilities Matrix */}
-      <section className="landing-features-section max-w-6xl mx-auto px-6 pb-20">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="p-6 rounded-2xl bg-white dark:bg-[#14233c]/80 border border-slate-200 dark:border-[#1f3352] space-y-3 relative overflow-hidden shadow-xs hover:border-[#9fef00]/50 transition-all">
-            <div className="w-10 h-10 rounded-xl bg-[#9fef00]/10 border border-[#9fef00]/30 flex items-center justify-center text-[#9fef00]">
-              <Crosshair className="w-5 h-5" />
-            </div>
-            <h3 className="text-base font-bold text-slate-900 dark:text-white">Live Parameter Injection</h3>
-            <p className="text-xs text-slate-600 dark:text-[#a4b1cd] leading-relaxed">
-              Inject your engagement target parameters (TARGET_IP, LHOST, LPORT) to auto-populate commands across writeups for instant one-click execution.
-            </p>
-          </div>
-
-          <div className="p-6 rounded-2xl bg-white dark:bg-[#14233c]/80 border border-slate-200 dark:border-[#1f3352] space-y-3 relative overflow-hidden shadow-xs hover:border-[#9fef00]/50 transition-all">
-            <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-600 dark:text-[#2de2e6]">
-              <CheckSquare className="w-5 h-5" />
-            </div>
-            <h3 className="text-base font-bold text-slate-900 dark:text-white">Pentest Methodology Tracker</h3>
-            <p className="text-xs text-slate-600 dark:text-[#a4b1cd] leading-relaxed">
-              Interactive 5-phase operational checklists spanning Reconnaissance, Web Exploitation, and Root PrivEsc with progress persistence and Markdown export.
-            </p>
-          </div>
-
-          <div className="p-6 rounded-2xl bg-white dark:bg-[#14233c]/80 border border-slate-200 dark:border-[#1f3352] space-y-3 relative overflow-hidden shadow-xs hover:border-[#9fef00]/50 transition-all">
-            <div className="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-600 dark:text-[#a855f7]">
-              <ShieldCheck className="w-5 h-5" />
-            </div>
-            <h3 className="text-base font-bold text-slate-900 dark:text-white">Hardened Security Baseline</h3>
-            <p className="text-xs text-slate-600 dark:text-[#a4b1cd] leading-relaxed">
-              Protected by strict Content-Security-Policy, anti-clickjacking frame guards, anti-brute-force rate limiting, and stored XSS sanitization.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Role-Based Permissions Architecture Section */}
-      <section className="landing-rbac-section border-y border-slate-200 dark:border-[#1f3352] bg-slate-100/70 dark:bg-[#111d30]/60 py-20 px-6 relative">
-        <div className="max-w-6xl mx-auto space-y-12">
-          <div className="text-center space-y-3">
-            <div className="font-mono text-xs text-[#9fef00] uppercase tracking-widest font-semibold">
-              SECURITY ACCESS CONTROL // RBAC
-            </div>
-            <h2 className="landing-green-heading text-3xl md:text-4xl font-extrabold text-[#9fef00] drop-shadow-[0_0_25px_rgba(159,239,0,0.35)]">
-              Role-Separated Operational Capabilities
-            </h2>
-            <p className="text-xs md:text-sm text-slate-600 dark:text-[#a4b1cd] max-w-xl mx-auto">
-              Clean separation of responsibilities: analysts freely browse, search, and export, while authorized administrators control the knowledge base.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Standard User / Reader Card */}
-            <div className="p-8 rounded-2xl bg-white dark:bg-[#14233c]/80 border border-slate-200 dark:border-[#1f3352] space-y-5 shadow-xs">
-              <div className="flex items-center justify-between">
-                <span className="font-mono text-xs font-bold text-cyan-600 dark:text-[#2de2e6] px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20">
-                  STANDARD ANALYST // USER
-                </span>
-                <span className="text-[11px] font-mono text-slate-600 dark:text-[#6c7d9c] px-2 py-0.5 rounded bg-slate-100 dark:bg-[#14233c]">
-                  READ-ONLY
-                </span>
+      {/* Post-Hero Landing Content (Terminal, Matrix, RBAC, Featured Notes) - Exactly #F0F2F5 in White Theme */}
+      <div className="landing-post-hero relative bg-[#F0F2F5] dark:bg-transparent pt-16">
+        {/* Live Interactive Running Terminal Showcase */}
+        <section className="landing-terminal-section max-w-5xl mx-auto px-6 pb-20">
+          <div className="space-y-3">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2 font-mono text-xs text-[#9fef00]">
+                <Terminal className="w-4 h-4" />
+                <span>RUNNING OPERATIONAL TERMINAL // TRY TYPING COMMANDS</span>
               </div>
-              <h3 className="text-xl font-bold text-slate-900 dark:text-white">Documentation Consumer</h3>
-              <p className="text-xs text-slate-600 dark:text-[#a4b1cd] leading-relaxed">
-                Team members and authorized operators can explore, research, search, and export writeups without danger of unintentional modification.
-              </p>
-              <ul className="space-y-3 text-xs font-mono text-slate-700 dark:text-[#a4b1cd] pt-2">
-                <li className="flex items-center gap-2.5">
-                  <CheckCircle2 className="w-4 h-4 text-[#9fef00] flex-shrink-0" />
-                  <span>Browse all technical categories & writeups</span>
-                </li>
-                <li className="flex items-center gap-2.5">
-                  <CheckCircle2 className="w-4 h-4 text-[#9fef00] flex-shrink-0" />
-                  <span>Instant full-text search across commands & CVEs</span>
-                </li>
-                <li className="flex items-center gap-2.5">
-                  <CheckCircle2 className="w-4 h-4 text-[#9fef00] flex-shrink-0" />
-                  <span>Export notes to printable PDF and editable Word DOCX</span>
-                </li>
-                <li className="flex items-center gap-2.5 text-slate-400 dark:text-[#6c7d9c]">
-                  <span className="w-4 h-4 text-center font-bold">✕</span>
-                  <span className="line-through">Cannot edit or delete notes</span>
-                </li>
-                <li className="flex items-center gap-2.5 text-slate-400 dark:text-[#6c7d9c]">
-                  <span className="w-4 h-4 text-center font-bold">✕</span>
-                  <span className="line-through">Cannot create categories or upload ZIPs</span>
-                </li>
-              </ul>
+              <span className="hidden sm:inline-block text-[11px] font-mono text-slate-500 dark:text-[#6c7d9c]">
+                Try &lsquo;nmap&rsquo;, &lsquo;gobuster&rsquo;, &lsquo;sudo -l&rsquo;, or &lsquo;cve-check&rsquo;
+              </span>
             </div>
 
-            {/* Admin Card */}
-            <div className="p-8 rounded-2xl bg-white dark:bg-[#14233c]/80 border-2 border-[#9fef00]/50 space-y-5 shadow-xl shadow-[#9fef00]/5 relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-[#9fef00]/10 rounded-full blur-2xl pointer-events-none" />
+            <InteractiveTerminal />
+          </div>
+        </section>
 
-              <div className="flex items-center justify-between">
-                <span className="font-mono text-xs font-bold text-[#9fef00] px-3 py-1 rounded-full bg-[#9fef00]/10 border border-[#9fef00]/30">
-                  ADMINISTRATOR // LEAD RESEARCHER
-                </span>
-                <span className="text-[11px] font-mono text-[#9fef00] px-2 py-0.5 rounded bg-[#9fef00]/15 font-bold">
-                  FULL CONTROL
-                </span>
+        {/* Tactical Platform Capabilities Matrix */}
+        <section className="landing-features-section max-w-6xl mx-auto px-6 pb-20">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="p-6 rounded-2xl bg-white dark:bg-[#14233c]/80 border border-slate-200 dark:border-[#1f3352] space-y-3 relative overflow-hidden shadow-xs hover:border-[#9fef00]/50 transition-all">
+              <div className="w-10 h-10 rounded-xl bg-[#9fef00]/10 border border-[#9fef00]/30 flex items-center justify-center text-[#9fef00]">
+                <Crosshair className="w-5 h-5" />
               </div>
-              <h3 className="text-xl font-bold text-slate-900 dark:text-white">Authoring & Knowledge Architect</h3>
+              <h3 className="text-base font-bold text-slate-900 dark:text-white">Live Parameter Injection</h3>
               <p className="text-xs text-slate-600 dark:text-[#a4b1cd] leading-relaxed">
-                Full privileges to publish new research, batch import Markdown writeups, manage taxonomy domains, and review immutable audit trails.
+                Inject your engagement target parameters (TARGET_IP, LHOST, LPORT) to auto-populate commands across writeups for instant one-click execution.
               </p>
-              <ul className="space-y-3 text-xs font-mono text-slate-700 dark:text-[#a4b1cd] pt-2">
-                <li className="flex items-center gap-2.5">
-                  <CheckCircle2 className="w-4 h-4 text-[#9fef00] flex-shrink-0" />
-                  <span>Split-Screen Live Editor with quick cybersecurity snippets</span>
-                </li>
-                <li className="flex items-center gap-2.5">
-                  <CheckCircle2 className="w-4 h-4 text-[#9fef00] flex-shrink-0" />
-                  <span>Create & customize categories directly in UI</span>
-                </li>
-                <li className="flex items-center gap-2.5">
-                  <CheckCircle2 className="w-4 h-4 text-[#9fef00] flex-shrink-0" />
-                  <span>Batch drag-and-drop Markdown & ZIP archives</span>
-                </li>
-                <li className="flex items-center gap-2.5">
-                  <CheckCircle2 className="w-4 h-4 text-[#9fef00] flex-shrink-0" />
-                  <span>Document versioning and audit log review</span>
-                </li>
-                <li className="flex items-center gap-2.5">
-                  <CheckCircle2 className="w-4 h-4 text-[#9fef00] flex-shrink-0" />
-                  <span>Soft-delete and document lifecycle management</span>
-                </li>
-              </ul>
+            </div>
+
+            <div className="p-6 rounded-2xl bg-white dark:bg-[#14233c]/80 border border-slate-200 dark:border-[#1f3352] space-y-3 relative overflow-hidden shadow-xs hover:border-[#9fef00]/50 transition-all">
+              <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-600 dark:text-[#2de2e6]">
+                <CheckSquare className="w-5 h-5" />
+              </div>
+              <h3 className="text-base font-bold text-slate-900 dark:text-white">Pentest Methodology Tracker</h3>
+              <p className="text-xs text-slate-600 dark:text-[#a4b1cd] leading-relaxed">
+                Interactive 5-phase operational checklists spanning Reconnaissance, Web Exploitation, and Root PrivEsc with progress persistence and Markdown export.
+              </p>
+            </div>
+
+            <div className="p-6 rounded-2xl bg-white dark:bg-[#14233c]/80 border border-slate-200 dark:border-[#1f3352] space-y-3 relative overflow-hidden shadow-xs hover:border-[#9fef00]/50 transition-all">
+              <div className="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-600 dark:text-[#a855f7]">
+                <ShieldCheck className="w-5 h-5" />
+              </div>
+              <h3 className="text-base font-bold text-slate-900 dark:text-white">Hardened Security Baseline</h3>
+              <p className="text-xs text-slate-600 dark:text-[#a4b1cd] leading-relaxed">
+                Protected by strict Content-Security-Policy, anti-clickjacking frame guards, anti-brute-force rate limiting, and stored XSS sanitization.
+              </p>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Featured Documentation Preview */}
-      <section className="landing-notes-section max-w-6xl mx-auto py-20 px-6 space-y-8">
-        <div className="flex items-center justify-between">
-          <div>
-            <div className="font-mono text-xs text-[#9fef00]">REPOSITORY SNAPSHOT</div>
-            <h2 className="text-2xl font-bold text-slate-900 dark:text-white mt-1">Featured Research Notes</h2>
-          </div>
-          <Link
-            href="/notes"
-            className="text-xs font-mono text-cyan-700 dark:text-[#2de2e6] hover:text-[#9fef00] hover:underline flex items-center gap-1.5"
-          >
-            <span>Browse Full Repository ({totalNotes})</span>
-            <ArrowRight className="w-4 h-4" />
-          </Link>
-        </div>
+        {/* Role-Based Permissions Architecture Section */}
+        <section className="landing-rbac-section border-y border-slate-200 dark:border-[#1f3352] bg-[#F0F2F5] dark:bg-[#111d30]/60 py-20 px-6 relative">
+          <div className="max-w-6xl mx-auto space-y-12">
+            <div className="text-center space-y-3">
+              <div className="font-mono text-xs text-[#9fef00] uppercase tracking-widest font-semibold">
+                SECURITY ACCESS CONTROL // RBAC
+              </div>
+              <h2 className="landing-green-heading text-3xl md:text-4xl font-extrabold text-[#9fef00] drop-shadow-[0_0_25px_rgba(159,239,0,0.35)]">
+                Role-Separated Operational Capabilities
+              </h2>
+              <p className="text-xs md:text-sm text-slate-600 dark:text-[#a4b1cd] max-w-xl mx-auto">
+                Clean separation of responsibilities: analysts freely browse, search, and export, while authorized administrators control the knowledge base.
+              </p>
+            </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {recentNotes.map((note) => (
-            <Link
-              key={note.id}
-              href={`/notes/${note.slug}`}
-              className="group p-6 rounded-2xl bg-white dark:bg-[#14233c]/80 border border-slate-200 dark:border-[#1f3352] shadow-xs hover:shadow-md hover:border-[#9fef00]/50 transition-all flex flex-col justify-between"
-            >
-              <div className="space-y-3">
-                <div className="text-[11px] font-mono text-[#9fef00] flex items-center gap-1.5 font-semibold">
-                  <Folder className="w-3.5 h-3.5" />
-                  <span>{note.category?.name || "General"}</span>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {/* Standard User / Reader Card */}
+              <div className="p-8 rounded-2xl bg-white dark:bg-[#14233c]/80 border border-slate-200 dark:border-[#1f3352] space-y-5 shadow-xs">
+                <div className="flex items-center justify-between">
+                  <span className="font-mono text-xs font-bold text-cyan-600 dark:text-[#2de2e6] px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20">
+                    STANDARD ANALYST // USER
+                  </span>
+                  <span className="text-[11px] font-mono text-slate-600 dark:text-[#6c7d9c] px-2 py-0.5 rounded bg-slate-100 dark:bg-[#14233c]">
+                    READ-ONLY
+                  </span>
                 </div>
-                <h3 className="font-bold text-base text-slate-900 dark:text-white group-hover:text-[#9fef00] transition-colors line-clamp-2">
-                  {note.title}
-                </h3>
-                <p className="text-xs text-slate-600 dark:text-[#a4b1cd] line-clamp-2 leading-relaxed">
-                  {note.description || "Operational commands and structured technical documentation."}
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white">Documentation Consumer</h3>
+                <p className="text-xs text-slate-600 dark:text-[#a4b1cd] leading-relaxed">
+                  Team members and authorized operators can explore, research, search, and export writeups without danger of unintentional modification.
                 </p>
+                <ul className="space-y-3 text-xs font-mono text-slate-700 dark:text-[#a4b1cd] pt-2">
+                  <li className="flex items-center gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-[#9fef00] flex-shrink-0" />
+                    <span>Browse all technical categories & writeups</span>
+                  </li>
+                  <li className="flex items-center gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-[#9fef00] flex-shrink-0" />
+                    <span>Instant full-text search across commands & CVEs</span>
+                  </li>
+                  <li className="flex items-center gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-[#9fef00] flex-shrink-0" />
+                    <span>Export notes to printable PDF and editable Word DOCX</span>
+                  </li>
+                  <li className="flex items-center gap-2.5 text-slate-400 dark:text-[#6c7d9c]">
+                    <span className="w-4 h-4 text-center font-bold">✕</span>
+                    <span className="line-through">Cannot edit or delete notes</span>
+                  </li>
+                  <li className="flex items-center gap-2.5 text-slate-400 dark:text-[#6c7d9c]">
+                    <span className="w-4 h-4 text-center font-bold">✕</span>
+                    <span className="line-through">Cannot create categories or upload ZIPs</span>
+                  </li>
+                </ul>
               </div>
 
-              <div className="pt-4 mt-4 border-t border-slate-100 dark:border-[#1f3352] flex items-center justify-between text-[11px] font-mono text-slate-500 dark:text-[#6c7d9c]">
-                <span>{note.readingTimeMin}m read</span>
-                <span className="text-[#9fef00] group-hover:translate-x-1 transition-transform flex items-center gap-1 font-semibold">
-                  Read Note &rarr;
-                </span>
+              {/* Admin Card */}
+              <div className="p-8 rounded-2xl bg-white dark:bg-[#14233c]/80 border-2 border-[#9fef00]/50 space-y-5 shadow-xl shadow-[#9fef00]/5 relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-[#9fef00]/10 rounded-full blur-2xl pointer-events-none" />
+
+                <div className="flex items-center justify-between">
+                  <span className="font-mono text-xs font-bold text-[#9fef00] px-3 py-1 rounded-full bg-[#9fef00]/10 border border-[#9fef00]/30">
+                    ADMINISTRATOR // LEAD RESEARCHER
+                  </span>
+                  <span className="text-[11px] font-mono text-[#9fef00] px-2 py-0.5 rounded bg-[#9fef00]/15 font-bold">
+                    FULL CONTROL
+                  </span>
+                </div>
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white">Authoring & Knowledge Architect</h3>
+                <p className="text-xs text-slate-600 dark:text-[#a4b1cd] leading-relaxed">
+                  Full privileges to publish new research, batch import Markdown writeups, manage taxonomy domains, and review immutable audit trails.
+                </p>
+                <ul className="space-y-3 text-xs font-mono text-slate-700 dark:text-[#a4b1cd] pt-2">
+                  <li className="flex items-center gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-[#9fef00] flex-shrink-0" />
+                    <span>Split-Screen Live Editor with quick cybersecurity snippets</span>
+                  </li>
+                  <li className="flex items-center gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-[#9fef00] flex-shrink-0" />
+                    <span>Create & customize categories directly in UI</span>
+                  </li>
+                  <li className="flex items-center gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-[#9fef00] flex-shrink-0" />
+                    <span>Batch drag-and-drop Markdown & ZIP archives</span>
+                  </li>
+                  <li className="flex items-center gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-[#9fef00] flex-shrink-0" />
+                    <span>Document versioning and audit log review</span>
+                  </li>
+                  <li className="flex items-center gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-[#9fef00] flex-shrink-0" />
+                    <span>Soft-delete and document lifecycle management</span>
+                  </li>
+                </ul>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Featured Documentation Preview */}
+        <section className="landing-notes-section max-w-6xl mx-auto py-20 px-6 space-y-8">
+          <div className="flex items-center justify-between">
+            <div>
+              <div className="font-mono text-xs text-[#9fef00]">REPOSITORY SNAPSHOT</div>
+              <h2 className="text-2xl font-bold text-slate-900 dark:text-white mt-1">Featured Research Notes</h2>
+            </div>
+            <Link
+              href="/notes"
+              className="text-xs font-mono text-cyan-700 dark:text-[#2de2e6] hover:text-[#9fef00] hover:underline flex items-center gap-1.5"
+            >
+              <span>Browse Full Repository ({totalNotes})</span>
+              <ArrowRight className="w-4 h-4" />
             </Link>
-          ))}
-        </div>
-      </section>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {recentNotes.map((note) => (
+              <Link
+                key={note.id}
+                href={`/notes/${note.slug}`}
+                className="group p-6 rounded-2xl bg-white dark:bg-[#14233c]/80 border border-slate-200 dark:border-[#1f3352] shadow-xs hover:shadow-md hover:border-[#9fef00]/50 transition-all flex flex-col justify-between"
+              >
+                <div className="space-y-3">
+                  <div className="text-[11px] font-mono text-[#9fef00] flex items-center gap-1.5 font-semibold">
+                    <Folder className="w-3.5 h-3.5" />
+                    <span>{note.category?.name || "General"}</span>
+                  </div>
+                  <h3 className="font-bold text-base text-slate-900 dark:text-white group-hover:text-[#9fef00] transition-colors line-clamp-2">
+                    {note.title}
+                  </h3>
+                  <p className="text-xs text-slate-600 dark:text-[#a4b1cd] line-clamp-2 leading-relaxed">
+                    {note.description || "Operational commands and structured technical documentation."}
+                  </p>
+                </div>
+
+                <div className="pt-4 mt-4 border-t border-slate-100 dark:border-[#1f3352] flex items-center justify-between text-[11px] font-mono text-slate-500 dark:text-[#6c7d9c]">
+                  <span>{note.readingTimeMin}m read</span>
+                  <span className="text-[#9fef00] group-hover:translate-x-1 transition-transform flex items-center gap-1 font-semibold">
+                    Read Note &rarr;
+                  </span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+      </div>
 
       {/* Footer */}
       <footer className="border-t border-slate-200 dark:border-[#1f3352] bg-[#0D1321] py-10 px-6 text-xs font-mono text-[#94A3B8]">
