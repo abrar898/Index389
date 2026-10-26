@@ -1,8 +1,10 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
+import { getBaseUrl } from "@/lib/utils";
 
-export async function GET(req: Request, props: { params: Promise<{ slug: string }> }) {
+export async function GET(req: NextRequest, props: { params: Promise<{ slug: string }> }) {
   const params = await props.params;
-  const url = new URL(req.url);
+  const origin = getBaseUrl(req) || req.nextUrl?.origin;
   // Redirect to the dedicated clean print/pdf layout
-  return NextResponse.redirect(new URL(`/notes/${params.slug}/pdf`, url.origin));
+  return NextResponse.redirect(new URL(`/notes/${params.slug}/pdf`, origin));
 }
+

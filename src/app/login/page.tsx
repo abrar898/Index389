@@ -1,14 +1,12 @@
 "use client";
 
 import React, { useState } from "react";
-import { useRouter } from "next/navigation";
 import { Shield, Lock, User, AlertCircle, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
 
 export default function LoginPage() {
-  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -31,8 +29,7 @@ export default function LoginPage() {
         throw new Error(data.error || "Authentication failed");
       }
 
-      router.push("/dashboard");
-      router.refresh();
+      window.location.href = "/dashboard";
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "Failed to sign in.");
     } finally {
