@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -250,11 +252,18 @@ html.light header .bg-\[\#9fef00\] {
 }
 
 /* ========================================================
-   PAGE TYPOGRAPHY & HEADINGS (NEAR-BLACK #0D0D1A)
+   PAGE TYPOGRAPHY & HEADINGS (NEAR-BLACK #0D0D1A DEFAULT)
+   Except elements explicitly styled with #9fef00 green
    ======================================================== */
-html.white h1, html.white h2, html.white h3, html.white h4,
-html.light h1, html.light h2, html.light h3, html.light h4 {
-  color: #0D0D1A !important;
+html.white h1:not(.landing-green-heading):not(.landing-hero-accent):not([class*="text-[#9fef00]"]),
+html.white h2:not(.landing-green-heading):not([class*="text-[#9fef00]"]),
+html.white h3:not(.landing-green-heading):not([class*="text-[#9fef00]"]),
+html.white h4:not(.landing-green-heading):not([class*="text-[#9fef00]"]),
+html.light h1:not(.landing-green-heading):not(.landing-hero-accent):not([class*="text-[#9fef00]"]),
+html.light h2:not(.landing-green-heading):not([class*="text-[#9fef00]"]),
+html.light h3:not(.landing-green-heading):not([class*="text-[#9fef00]"]),
+html.light h4:not(.landing-green-heading):not([class*="text-[#9fef00]"]) {
+  color: #0D0D1A;
   font-weight: 700;
 }
 
@@ -266,21 +275,23 @@ html.light h5, html.light h6 {
 
 html.white p,
 html.light p {
-  color: #4A4A6A !important;
+  color: #4A4A6A;
 }
 
 /* Landing Page Ambient Top Glow */
 html.white .bg-gradient-to-b.from-\[\#9fef00\]\/15,
 html.light .bg-gradient-to-b.from-\[\#9fef00\]\/15 {
-  background-image: radial-gradient(circle at 50% 0%, rgba(0, 180, 216, 0.14), rgba(159, 239, 0, 0.09), transparent 70%) !important;
+  background-image: radial-gradient(circle at 50% 0%, rgba(159, 239, 0, 0.12), rgba(0, 180, 216, 0.08), transparent 70%) !important;
 }
 
-/* Landing Page Hero Accent Gradient */
-html.white .from-\[\#9fef00\].via-\[\#2de2e6\].to-\[\#9fef00\],
-html.light .from-\[\#9fef00\].via-\[\#2de2e6\].to-\[\#9fef00\] {
-  background-image: linear-gradient(135deg, #0088A8 0%, #10B981 50%, #0088A8 100%) !important;
-  -webkit-background-clip: text !important;
-  background-clip: text !important;
+/* Explicit #9fef00 Green Highlight across both themes */
+html.white .text-\[\#9fef00\],
+html.light .text-\[\#9fef00\],
+html.white [class*="text-[#9fef00]"],
+html.light [class*="text-[#9fef00]"],
+.text-htb {
+  color: #9fef00 !important;
+  -webkit-text-fill-color: #9fef00 !important;
 }
 
 /* Subtle Cyber Grid on #F0F2F5 Canvas */
@@ -325,7 +336,7 @@ html.light .landing-hero-section::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 50% 0%, rgba(0, 180, 216, 0.12) 0%, rgba(159, 239, 0, 0.07) 45%, transparent 75%);
+  background: radial-gradient(circle at 50% 0%, rgba(159, 239, 0, 0.08) 0%, rgba(0, 180, 216, 0.05) 45%, transparent 75%);
   pointer-events: none;
   z-index: 0;
 }
@@ -336,15 +347,15 @@ html.light .landing-hero-title {
   color: #0D0D1A !important;
 }
 
-/* Hero Accent Span — gradient text instead of neon green */
+/* Hero Accent Span — Signature Neon Green #9fef00 */
 html.white .landing-hero-accent,
-html.light .landing-hero-accent {
-  background-image: linear-gradient(135deg, #0088A8 0%, #10B981 50%, #0088A8 100%) !important;
-  -webkit-background-clip: text !important;
-  background-clip: text !important;
-  color: transparent !important;
-  text-shadow: none !important;
-  filter: drop-shadow(0 0 0 transparent) !important;
+html.light .landing-hero-accent,
+.landing-hero-accent {
+  background: none !important;
+  -webkit-text-fill-color: #9fef00 !important;
+  color: #9fef00 !important;
+  text-shadow: 0 0 25px rgba(159, 239, 0, 0.45) !important;
+  filter: drop-shadow(0 0 10px rgba(159, 239, 0, 0.35)) !important;
 }
 
 /* Hero description text */
@@ -675,41 +686,60 @@ p {
    NAV TAG ITEM — Shared dark-theme navbar pill style
    Usage: className="nav-tag-item" on <Link> / <a>
    ======================================================== */
-.nav-tag-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 10px;
-  height: 28px;
-  border-radius: 6px;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  font-size: 12px;
-  line-height: 16px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: #9fef00;
-  background-color: transparent;
-  white-space: nowrap;
-  text-decoration: none;
-  transition: all 150ms ease-in-out;
+.nav-tag-item,
+html.light .nav-tag-item,
+html.white .nav-tag-item {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  padding: 6px 10px !important;
+  height: 28px !important;
+  border-radius: 6px !important;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+  font-size: 12px !important;
+  line-height: 16px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  color: #9fef00 !important;
+  -webkit-text-fill-color: #9fef00 !important;
+  background-color: transparent !important;
+  white-space: nowrap !important;
+  text-decoration: none !important;
+  transition: all 150ms ease-in-out !important;
 }
 
-.nav-tag-item svg {
-  width: 14px;
-  height: 14px;
-  color: #9fef00;
-  flex-shrink: 0;
-  transition: color 150ms ease-in-out;
+.nav-tag-item svg,
+html.light .nav-tag-item svg,
+html.white .nav-tag-item svg {
+  width: 14px !important;
+  height: 14px !important;
+  color: #9fef00 !important;
+  flex-shrink: 0 !important;
+  transition: color 150ms ease-in-out !important;
 }
 
-.nav-tag-item:hover {
-  color: #ffffff;
-  background-color: rgba(159, 239, 0, 0.15);
+.nav-tag-item:hover,
+html.light .nav-tag-item:hover,
+html.white .nav-tag-item:hover {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  background-color: rgba(159, 239, 0, 0.15) !important;
 }
 
-.nav-tag-item:hover svg {
-  color: #ffffff;
+.nav-tag-item:hover svg,
+html.light .nav-tag-item:hover svg,
+html.white .nav-tag-item:hover svg {
+  color: #ffffff !important;
+}
+
+/* Landing Page Green Heading Utility */
+.landing-green-heading,
+html.light .landing-green-heading,
+html.white .landing-green-heading {
+  color: #9fef00 !important;
+  -webkit-text-fill-color: #9fef00 !important;
+  text-shadow: 0 0 25px rgba(159, 239, 0, 0.35) !important;
 }
 
 /* HTB Signature Utility Classes */
