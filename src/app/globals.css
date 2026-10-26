@@ -140,12 +140,14 @@ html.light body {
 }
 
 /* ========================================================
-   KEY TRICK: DARK NAVBAR (#1A1A2E) IN BOTH MODES (KEEP #1)
+   KEY TRICK: DEEP CYBER NAVBAR (#0D1321) WITH GREEN HAIRLINE
    ======================================================== */
 html.light header {
-  background-color: #1A1A2E !important;
+  background: rgba(13, 19, 33, 0.97) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
-  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.15) !important;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.15), 0 1px 0 0 rgba(159, 239, 0, 0.25) !important;
   color: #FFFFFF !important;
 }
 
@@ -219,8 +221,14 @@ html.light header button span {
   color: #FFFFFF !important;
 }
 
+html.light header .bg-\[\#9fef00\] {
+  background-color: #9FEF00 !important;
+  color: #0D0D1A !important;
+  box-shadow: 0 0 16px rgba(159, 239, 0, 0.35) !important;
+}
+
 /* ========================================================
-   PAGE TYPOGRAPHY & HEADINGS (FIX #2: NEAR-BLACK #0D0D1A)
+   PAGE TYPOGRAPHY & HEADINGS (NEAR-BLACK #0D0D1A)
    ======================================================== */
 html.light h1,
 html.light h2,
@@ -237,18 +245,22 @@ html.light h6 {
 }
 
 html.light p {
-  color: #4A4A6A !important;
+  color: #0D0D1A !important;
 }
 
-/* FIX #3: Gradient Text #3AAA00 -> #0090CC */
-html.light .from-\[\#9fef00\].via-\[\#2de2e6\].to-\[\#9fef00\],
-html.light .from-\[\#3AAA00\].to-\[\#0090CC\] {
-  background-image: linear-gradient(135deg, #3AAA00 0%, #0090CC 100%) !important;
+/* Landing Page Ambient Top Glow */
+html.light .bg-gradient-to-b.from-\[\#9fef00\]\/15 {
+  background-image: radial-gradient(ellipse at 50% 0%, rgba(0, 180, 216, 0.14) 0%, rgba(159, 239, 0, 0.09) 45%, transparent 75%) !important;
+}
+
+/* Landing Page Hero Gradient in Light Mode */
+html.light .from-\[\#9fef00\].via-\[\#2de2e6\].to-\[\#9fef00\] {
+  background-image: linear-gradient(135deg, #0088A8 0%, #10B981 50%, #0088A8 100%) !important;
   -webkit-background-clip: text !important;
   background-clip: text !important;
 }
 
-/* Subtle Cyber Grid on #F0F2F5 Canvas (FIX #1) */
+/* Subtle Cyber Grid on #F0F2F5 Canvas */
 html.light .cyber-grid {
   background-image:
     linear-gradient(to right, rgba(26, 26, 46, 0.035) 1px, transparent 1px),
@@ -256,33 +268,38 @@ html.light .cyber-grid {
 }
 
 /* ========================================================
-   CARDS (#FFFFFF with #E2E4EB BORDER) (FIX #6)
+   HOMEPAGE SECTIONS & CARDS (#FFFFFF with #E2E4EB BORDERS)
    ======================================================== */
 html.light .glass-panel {
-  background-color: #FFFFFF !important;
-  border: 1px solid #E2E4EB !important;
-  box-shadow: 0 1px 3px 0 rgba(13, 13, 26, 0.04), 0 1px 2px -1px rgba(13, 13, 26, 0.02) !important;
+  background: #FFFFFF !important;
+  border-color: #E2E4EB !important;
+  box-shadow: 0 2px 8px 0 rgba(13, 13, 26, 0.04), 0 1px 2px -1px rgba(13, 13, 26, 0.02) !important;
 }
 
 html.light .glass-panel-hover:hover {
-  background-color: #FFFFFF !important;
+  background: #FFFFFF !important;
   border-color: #9FEF00 !important;
-  box-shadow: 0 8px 20px -4px rgba(13, 13, 26, 0.08), 0 0 0 1px rgba(159, 239, 0, 0.3) !important;
+  box-shadow: 0 10px 25px -4px rgba(13, 13, 26, 0.08), 0 0 0 1px rgba(159, 239, 0, 0.3) !important;
   transform: translateY(-2px);
 }
 
-/* KEEP #3: Terminal always stays black with green text */
-html.light .rounded-2xl.bg-\[\#060b13\] {
-  background-color: #060b13 !important;
-  border: 1px solid #CBD5E1 !important;
+/* RBAC Architecture Section Contrast Band */
+html.light section.bg-\[\#111d30\]\/60 {
+  background-color: #E5E8EF !important;
+  border-color: #DDE0E8 !important;
 }
 
-/* KEEP #2: Footer stays dark (#0D0D1A) with green/white text */
-html.light footer,
+/* Terminal Outer Shell in Light Mode */
+html.light .rounded-2xl.bg-\[\#060b13\] {
+  border: 1px solid #CBD5E1 !important;
+  box-shadow: 0 16px 36px -8px rgba(13, 13, 26, 0.1) !important;
+}
+
+/* Footer in Light Mode: Matching Dark Cyber Bookend */
 html.light footer.bg-\[\#111d30\] {
-  background-color: #0D0D1A !important;
-  border-top: 1px solid #1A1A2E !important;
-  color: #9A9AB0 !important;
+  background-color: #0D1321 !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+  color: #94A3B8 !important;
 }
 
 html.light footer .text-\[\#ffffff\] {
@@ -290,35 +307,43 @@ html.light footer .text-\[\#ffffff\] {
 }
 
 html.light footer a {
-  color: #9A9AB0 !important;
+  color: #94A3B8 !important;
 }
 
 html.light footer a:hover {
   color: #9FEF00 !important;
 }
 
-/* Universal Background Remappings for Light Theme (FIX #1 & #7) */
+/* Universal Background Remappings for Light Theme */
 html.light .bg-\[\#0b121e\],
-html.light .bg-\[\#070b13\] {
+html.light .bg-\[\#070b13\],
+html.light [class*="bg-[#0b121e]"],
+html.light [class*="bg-[#070b13]"] {
   background-color: var(--background) !important;
 }
 
-html.light .bg-\[\#111d30\] {
+html.light .bg-\[\#111d30\],
+html.light [class*="bg-[#111d30]"] {
   background-color: var(--surface) !important;
 }
 
 html.light .bg-\[\#14233c\],
-html.light .bg-\[\#182844\] {
+html.light .bg-\[\#182844\],
+html.light [class*="bg-[#14233c]"],
+html.light [class*="bg-[#182844]"] {
   background-color: var(--surface-elevated) !important;
 }
 
 /* Universal Border & Divider Remappings */
 html.light .border-\[\#1f3352\],
-html.light .border-\[\#14233c\] {
+html.light .border-\[\#14233c\],
+html.light [class*="border-[#1f3352]"],
+html.light [class*="border-[#14233c]"] {
   border-color: #E2E4EB !important;
 }
 
-html.light .bg-\[\#1f3352\] {
+html.light .bg-\[\#1f3352\],
+html.light [class*="bg-[#1f3352]"] {
   background-color: #E2E4EB !important;
 }
 
@@ -326,36 +351,50 @@ html.light [class*="divide-[#1f3352]"] > :not([hidden]) ~ :not([hidden]) {
   border-color: #E2E4EB !important;
 }
 
-/* Universal Text Color Remappings (FIX #2 & #4) */
-html.light .text-\[\#ffffff\]:not(header *):not(footer *) {
+/* Universal Text Color Remappings */
+html.light .text-\[\#ffffff\],
+html.light [class*="text-[#ffffff]"] {
   color: #0D0D1A !important;
 }
 
-html.light .text-\[\#cbd5e1\] {
+html.light .text-\[\#cbd5e1\],
+html.light [class*="text-[#cbd5e1]"] {
   color: #0D0D1A !important;
 }
 
 html.light .text-\[\#a4b1cd\],
-html.light .text-\[\#8ba0c3\] {
+html.light .text-\[\#8ba0c3\],
+html.light [class*="text-[#a4b1cd]"],
+html.light [class*="text-[#8ba0c3]"] {
   color: #4A4A6A !important;
 }
 
-html.light .text-\[\#6c7d9c\] {
+html.light .text-\[\#6c7d9c\],
+html.light [class*="text-[#6c7d9c]"] {
   color: #9A9AB0 !important;
 }
 
-/* KEEP #4: Stats numbers - 6 green (#9FEF00), 98/100 cyan (#00B4D8) */
-html.light .text-\[\#2de2e6\] {
+/* HTB Green Text & Icons */
+html.light .text-\[\#9fef00\],
+html.light [class*="text-[#9fef00]"] {
+  color: #4E8A00 !important;
+}
+
+/* Info Cyan Text */
+html.light .text-\[\#2de2e6\],
+html.light [class*="text-[#2de2e6]"] {
   color: #00B4D8 !important;
 }
 
 /* Status Danger / Error Text */
-html.light .text-\[\#ff3366\] {
+html.light .text-\[\#ff3366\],
+html.light [class*="text-[#ff3366]"] {
   color: #FF4D4D !important;
 }
 
 /* Status Warning Text */
-html.light .text-\[\#ff8400\] {
+html.light .text-\[\#ff8400\],
+html.light [class*="text-[#ff8400]"] {
   color: #FFA500 !important;
 }
 
@@ -363,21 +402,21 @@ html.light .text-\[\#ff8400\] {
    BADGES & TINTS
    ======================================================== */
 /* Success / HTB Green Tint (#E8FFF0) */
-html.light [class*="bg-[#9fef00]/"]:not(header *) {
+html.light [class*="bg-[#9fef00]/"] {
   background-color: #E8FFF0 !important;
-  color: #3AAA00 !important;
+  color: #3B6B00 !important;
   border-color: rgba(159, 239, 0, 0.4) !important;
 }
 
 /* Info Cyan Tint (#00B4D8) */
-html.light [class*="bg-[#2de2e6]/"]:not(header *) {
+html.light [class*="bg-[#2de2e6]/"] {
   background-color: #E6F8FC !important;
   color: #0088A8 !important;
   border-color: #A3E5F3 !important;
 }
 
 /* Danger Red Tint (#FF4D4D) */
-html.light [class*="bg-[#ff3366]/"]:not(header *) {
+html.light [class*="bg-[#ff3366]/"] {
   background-color: #FFF0F0 !important;
   color: #FF4D4D !important;
   border-color: #FFCDCD !important;
@@ -396,7 +435,7 @@ html.light .hover\:bg-\[\#182844\]:hover {
   background-color: #E8EAF0 !important;
 }
 
-html.light .hover\:text-\[\#ffffff\]:hover:not(header *):not(footer *) {
+html.light .hover\:text-\[\#ffffff\]:hover {
   color: #0D0D1A !important;
 }
 
@@ -405,14 +444,20 @@ html.light .hover\:border-\[\#9fef00\]:hover {
 }
 
 /* ========================================================
-   BUTTONS: Exact styling without broad [class*="bg-[#9fef00]"]
+   BUTTONS: HTB GREEN (#9FEF00) & SECONDARY (#FFFFFF/#E8EAF0)
    ======================================================== */
-/* Action buttons with exact .bg-[#9fef00] class (FIX #5: Primary button on light is #1A1A2E / #9FEF00) */
-html.light button.bg-\[\#9fef00\],
-html.light a.bg-\[\#9fef00\]:not([href="/notes"]) {
+html.light .bg-\[\#9fef00\],
+html.light [class*="bg-[#9fef00]"] {
   background-color: #9FEF00 !important;
   color: #0D0D1A !important;
   font-weight: 700 !important;
+  box-shadow: 0 2px 10px rgba(159, 239, 0, 0.3) !important;
+}
+
+html.light .hover\:bg-\[\#b4fa1f\]:hover,
+html.light .hover\:bg-\[\#9fef00\]:hover {
+  background-color: #77C400 !important;
+  color: #0D0D1A !important;
 }
 
 /* Secondary Buttons in Light Mode: Pure White with Subtle Border */
@@ -421,6 +466,7 @@ html.light [class*="bg-[#14233c]"] {
   background-color: #FFFFFF !important;
   color: #0D0D1A !important;
   border: 1px solid #E2E4EB !important;
+  box-shadow: 0 2px 6px rgba(13, 13, 26, 0.04) !important;
 }
 
 html.light .hover\:bg-\[\#182844\]:hover {
@@ -432,7 +478,7 @@ html.light .hover\:bg-\[\#182844\]:hover {
 /* ========================================================
    FORM INPUTS (#E8EAF0 with #E2E4EB & #9FEF00 FOCUS)
    ======================================================== */
-html.light input:not([type="checkbox"]):not([type="radio"]):not(header input),
+html.light input:not([type="checkbox"]):not([type="radio"]),
 html.light textarea,
 html.light select {
   background-color: #E8EAF0 !important;
@@ -440,14 +486,14 @@ html.light select {
   border: 1px solid #E2E4EB !important;
 }
 
-html.light input:focus:not(header input),
+html.light input:focus,
 html.light textarea:focus,
 html.light select:focus {
   border-color: #9FEF00 !important;
   box-shadow: 0 0 0 1.5px #9FEF00 !important;
 }
 
-html.light input::placeholder:not(header input),
+html.light input::placeholder,
 html.light textarea::placeholder {
   color: #9A9AB0 !important;
 }
