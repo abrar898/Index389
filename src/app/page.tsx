@@ -79,23 +79,23 @@ export default async function HomePage() {
           <div className="flex items-center gap-3 sm:gap-6 text-xs font-mono">
             <Link
               href="/notes"
-              className="text-[#9fef00] hover:text-[#b4fa1f] transition-colors hidden md:flex items-center gap-1.5 font-bold"
+              className="hidden md:flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-xs font-mono font-bold uppercase tracking-wider text-[#9fef00] hover:text-white hover:bg-[#9fef00]/15 transition-all whitespace-nowrap group"
             >
-              <BookOpen className="w-3.5 h-3.5 text-[#9fef00]" />
+              <BookOpen className="w-3.5 h-3.5 text-[#9fef00] group-hover:text-white transition-colors flex-shrink-0" />
               <span>REPOSITORY</span>
             </Link>
             <Link
               href="/methodology"
-              className="text-[var(--foreground)] hover:text-[#9fef00] transition-colors hidden md:flex items-center gap-1.5"
+              className="hidden md:flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-xs font-mono font-bold uppercase tracking-wider text-[#9fef00] hover:text-white hover:bg-[#9fef00]/15 transition-all whitespace-nowrap group"
             >
-              <CheckSquare className="w-3.5 h-3.5" />
+              <CheckSquare className="w-3.5 h-3.5 text-[#9fef00] group-hover:text-white transition-colors flex-shrink-0" />
               <span>METHODOLOGY</span>
             </Link>
             <Link
               href="/categories"
-              className="text-[var(--foreground)] hover:text-[#9fef00] transition-colors hidden md:flex items-center gap-1.5"
+              className="hidden md:flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-xs font-mono font-bold uppercase tracking-wider text-[#9fef00] hover:text-white hover:bg-[#9fef00]/15 transition-all whitespace-nowrap group"
             >
-              <Folder className="w-3.5 h-3.5" />
+              <Folder className="w-3.5 h-3.5 text-[#9fef00] group-hover:text-white transition-colors flex-shrink-0" />
               <span>TAXONOMY</span>
             </Link>
 

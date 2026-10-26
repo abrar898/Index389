@@ -84,32 +84,37 @@ html {
 
 /* ========================================================
    HTB SIGNATURE WHITE / CYBER THEME PALETTE
+   Concept: "Luminous Cyber / Technical Slate"
+   Canvas: #F0F2F5 | Cards: #FFFFFF | Dark Navbar/Footer frame
    ======================================================== */
+html.white,
 html.light {
-  /* Backgrounds */
-  --background: #F0F2F5;             /* Page / body background (light gray, easier on eyes) */
-  --surface: #FFFFFF;                /* Cards, modals, panels */
-  --surface-card: #FFFFFF;
-  --surface-elevated: #E8EAF0;       /* Input fields, table row alternates */
-  --surface-border: #E2E4EB;         /* Card and input borders (default) */
-  --surface-border-hover: #9FEF00;   /* Selected card / focus */
+  color-scheme: light;
 
-  /* Text */
-  --foreground: #4A4A6A;             /* Secondary text, labels, subheadings */
-  --foreground-bright: #0D0D1A;      /* Main headings and body text */
-  --foreground-muted: #9A9AB0;       /* Placeholder text, captions, muted hints */
+  /* Canvas & Card Surfaces */
+  --background: #F0F2F5;             /* Soft Technical Slate body canvas */
+  --surface: #FFFFFF;                /* Pure Solid White */
+  --surface-card: #FFFFFF;           /* Card containers & hero background */
+  --surface-elevated: #E5E8EF;       /* Elevated section bands */
+  --surface-border: #E2E4EB;         /* Clean slate divider & card borders */
+  --surface-border-hover: #9FEF00;   /* Iconic HTB Green on hover */
 
-  /* Accent / Brand */
-  --htb-green: #9FEF00;              /* Buttons, icons, badges (iconic HTB green) */
-  --htb-green-hover: #77C400;        /* Button hover state */
-  --htb-green-tint: #E8FFF0;         /* Green tint background for success states/tags */
-  --htb-green-glow: rgba(159, 239, 0, 0.35);
+  /* High-Contrast Typography */
+  --foreground: #0D0D1A;             /* Jet Technical Black body text */
+  --foreground-bright: #0D0D1A;      /* Deep Obsidian headings */
+  --foreground-secondary: #4A4A6A;   /* Charcoal subheadings & labels */
+  --foreground-muted: #9A9AB0;       /* Silver Slate metadata/timestamps */
 
-  /* Status */
-  --htb-cyan: #00B4D8;               /* Info, cyan badges (very HTB-style) */
-  --htb-cyan-glow: rgba(0, 180, 216, 0.25);
-  --htb-orange: #FFA500;             /* Warnings, medium risk */
-  --htb-red: #FF4D4D;                /* Errors, danger, failed */
+  /* Brand Accents */
+  --htb-green: #9FEF00;              /* Brand Neon Green */
+  --htb-green-hover: #77C400;        /* Accessible dark green for button hover */
+  --htb-green-glow: rgba(159, 239, 0, 0.15);
+  --htb-green-tint: #E8FFF0;         /* Soft green pill background */
+
+  /* Status Badges */
+  --htb-cyan: #0088A8;               /* Deep cyan (AAA contrast) */
+  --htb-orange: #FFA500;             /* Warning amber */
+  --htb-red: #FF4D4D;                /* Critical / CVE red */
   --htb-purple: #A855F7;
 
   /* Standard compatibility variables */
@@ -123,7 +128,7 @@ html.light {
   --secondary-foreground: #0D0D1A;
   --muted: #E8EAF0;
   --muted-foreground: #9A9AB0;
-  --accent: #00B4D8;
+  --accent: #0088A8;
   --accent-foreground: #0D0D1A;
   --destructive: #FF4D4D;
   --destructive-foreground: #FFFFFF;
@@ -133,6 +138,8 @@ html.light {
 }
 
 /* Base Body in Light Mode */
+html.white,
+html.white body,
 html.light,
 html.light body {
   background-color: #F0F2F5 !important;
@@ -140,64 +147,75 @@ html.light body {
 }
 
 /* ========================================================
-   KEY TRICK: DEEP CYBER NAVBAR (#0D1321) WITH GREEN HAIRLINE
+   KEY TRICK: DEEP CYBER NAVBAR (#0b121e) WITH GREEN HAIRLINE
+   Header & Footer remain dark in both light & dark themes
    ======================================================== */
+html.white header,
 html.light header {
-  background: rgba(13, 19, 33, 0.97) !important;
+  background: rgba(11, 18, 30, 0.97) !important;
   backdrop-filter: blur(12px) !important;
   -webkit-backdrop-filter: blur(12px) !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
-  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.15), 0 1px 0 0 rgba(159, 239, 0, 0.25) !important;
+  border-bottom: 1px solid rgba(159, 239, 0, 0.2) !important;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.3), 0 1px 0 0 rgba(159, 239, 0, 0.25) !important;
   color: #FFFFFF !important;
 }
 
+/* Nav tag items in light mode header stay green → white on hover */
+html.white header a,
 html.light header a {
-  color: #E2E4EB !important;
-  transition: all 0.2s ease-in-out;
+  transition: all 150ms ease-in-out;
 }
 
-html.light header a:hover {
+html.white header .text-\[\#9fef00\],
+html.white header [class*="text-[#9fef00]"],
+html.light header .text-\[\#9fef00\],
+html.light header [class*="text-[#9fef00]"] {
   color: #9FEF00 !important;
 }
 
-html.light header .text-\[var\(--foreground-bright\)\],
-html.light header .text-\[\#ffffff\],
-html.light header [class*="text-[#ffffff]"] {
+html.white header a:hover .text-\[\#9fef00\],
+html.light header a:hover .text-\[\#9fef00\] {
   color: #FFFFFF !important;
 }
 
-html.light header .text-\[var\(--foreground\)\],
-html.light header [class*="text-[var(--foreground)]"] {
-  color: #E2E4EB !important;
+html.white header .text-\[var\(--foreground-bright\)\],
+html.white header .text-\[\#ffffff\],
+html.light header .text-\[var\(--foreground-bright\)\],
+html.light header .text-\[\#ffffff\] {
+  color: #FFFFFF !important;
 }
 
+html.white header .text-\[var\(--foreground-muted\)\],
+html.white header .text-\[\#6c7d9c\],
+html.white header .text-\[\#8ba0c3\],
 html.light header .text-\[var\(--foreground-muted\)\],
 html.light header .text-\[\#6c7d9c\],
 html.light header .text-\[\#8ba0c3\] {
   color: #94A3B8 !important;
 }
 
-html.light header .text-\[\#9fef00\],
-html.light header [class*="text-[#9fef00]"] {
-  color: #9FEF00 !important;
-}
-
+html.white header input,
 html.light header input {
   background-color: rgba(255, 255, 255, 0.08) !important;
   color: #FFFFFF !important;
   border: 1px solid rgba(255, 255, 255, 0.14) !important;
 }
 
+html.white header input:focus,
 html.light header input:focus {
   border-color: #9FEF00 !important;
   box-shadow: 0 0 0 1.5px rgba(159, 239, 0, 0.5) !important;
   background-color: rgba(255, 255, 255, 0.12) !important;
 }
 
+html.white header input::placeholder,
 html.light header input::placeholder {
   color: #94A3B8 !important;
 }
 
+html.white header .bg-\[var\(--surface-card\)\],
+html.white header .bg-\[var\(--surface-elevated\)\],
+html.white header .bg-\[var\(--surface\)\],
 html.light header .bg-\[var\(--surface-card\)\],
 html.light header .bg-\[var\(--surface-elevated\)\],
 html.light header .bg-\[var\(--surface\)\] {
@@ -206,21 +224,25 @@ html.light header .bg-\[var\(--surface\)\] {
   color: #FFFFFF !important;
 }
 
+html.white header button,
 html.light header button {
   background-color: rgba(255, 255, 255, 0.08) !important;
   border-color: rgba(255, 255, 255, 0.15) !important;
   color: #FFFFFF !important;
 }
 
+html.white header button:hover,
 html.light header button:hover {
   background-color: rgba(255, 255, 255, 0.14) !important;
   border-color: rgba(159, 239, 0, 0.4) !important;
 }
 
+html.white header button span,
 html.light header button span {
   color: #FFFFFF !important;
 }
 
+html.white header .bg-\[\#9fef00\],
 html.light header .bg-\[\#9fef00\] {
   background-color: #9FEF00 !important;
   color: #0D0D1A !important;
@@ -230,30 +252,31 @@ html.light header .bg-\[\#9fef00\] {
 /* ========================================================
    PAGE TYPOGRAPHY & HEADINGS (NEAR-BLACK #0D0D1A)
    ======================================================== */
-html.light h1,
-html.light h2,
-html.light h3,
-html.light h4 {
+html.white h1, html.white h2, html.white h3, html.white h4,
+html.light h1, html.light h2, html.light h3, html.light h4 {
   color: #0D0D1A !important;
   font-weight: 700;
 }
 
-html.light h5,
-html.light h6 {
+html.white h5, html.white h6,
+html.light h5, html.light h6 {
   color: #4A4A6A !important;
   font-weight: 600;
 }
 
+html.white p,
 html.light p {
-  color: #0D0D1A !important;
+  color: #4A4A6A !important;
 }
 
 /* Landing Page Ambient Top Glow */
+html.white .bg-gradient-to-b.from-\[\#9fef00\]\/15,
 html.light .bg-gradient-to-b.from-\[\#9fef00\]\/15 {
-  background-image: radial-gradient(ellipse at 50% 0%, rgba(0, 180, 216, 0.14) 0%, rgba(159, 239, 0, 0.09) 45%, transparent 75%) !important;
+  background-image: radial-gradient(circle at 50% 0%, rgba(0, 180, 216, 0.14), rgba(159, 239, 0, 0.09), transparent 70%) !important;
 }
 
-/* Landing Page Hero Gradient in Light Mode */
+/* Landing Page Hero Accent Gradient */
+html.white .from-\[\#9fef00\].via-\[\#2de2e6\].to-\[\#9fef00\],
 html.light .from-\[\#9fef00\].via-\[\#2de2e6\].to-\[\#9fef00\] {
   background-image: linear-gradient(135deg, #0088A8 0%, #10B981 50%, #0088A8 100%) !important;
   -webkit-background-clip: text !important;
@@ -261,6 +284,7 @@ html.light .from-\[\#9fef00\].via-\[\#2de2e6\].to-\[\#9fef00\] {
 }
 
 /* Subtle Cyber Grid on #F0F2F5 Canvas */
+html.white .cyber-grid,
 html.light .cyber-grid {
   background-image:
     linear-gradient(to right, rgba(26, 26, 46, 0.035) 1px, transparent 1px),
@@ -571,6 +595,47 @@ p {
 ::selection {
   background-color: #9fef00;
   color: #0b121e;
+}
+
+/* ========================================================
+   NAV TAG ITEM — Shared dark-theme navbar pill style
+   Usage: className="nav-tag-item" on <Link> / <a>
+   ======================================================== */
+.nav-tag-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  height: 28px;
+  border-radius: 6px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #9fef00;
+  background-color: transparent;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: all 150ms ease-in-out;
+}
+
+.nav-tag-item svg {
+  width: 14px;
+  height: 14px;
+  color: #9fef00;
+  flex-shrink: 0;
+  transition: color 150ms ease-in-out;
+}
+
+.nav-tag-item:hover {
+  color: #ffffff;
+  background-color: rgba(159, 239, 0, 0.15);
+}
+
+.nav-tag-item:hover svg {
+  color: #ffffff;
 }
 
 /* HTB Signature Utility Classes */
