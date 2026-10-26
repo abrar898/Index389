@@ -307,33 +307,107 @@ html.light .glass-panel-hover:hover {
   transform: translateY(-2px);
 }
 
-/* RBAC Architecture Section Contrast Band */
-html.light section.bg-\[\#111d30\]\/60 {
+/* ========================================================
+   LANDING PAGE — LIGHT THEME SECTION OVERRIDES
+   Uses semantic classes added to page.tsx elements
+   ======================================================== */
+
+/* HERO: White card with radial glow mesh on #F0F2F5 canvas */
+html.white .landing-hero-section,
+html.light .landing-hero-section {
+  background: #FFFFFF;
+  border-bottom: 1px solid #E2E4EB;
+  position: relative;
+}
+
+html.white .landing-hero-section::before,
+html.light .landing-hero-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 0%, rgba(0, 180, 216, 0.12) 0%, rgba(159, 239, 0, 0.07) 45%, transparent 75%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Hero H1 — near-black heading */
+html.white .landing-hero-title,
+html.light .landing-hero-title {
+  color: #0D0D1A !important;
+}
+
+/* Hero Accent Span — gradient text instead of neon green */
+html.white .landing-hero-accent,
+html.light .landing-hero-accent {
+  background-image: linear-gradient(135deg, #0088A8 0%, #10B981 50%, #0088A8 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  color: transparent !important;
+  text-shadow: none !important;
+  filter: drop-shadow(0 0 0 transparent) !important;
+}
+
+/* Hero description text */
+html.white .landing-hero-desc,
+html.light .landing-hero-desc {
+  color: #4A4A6A !important;
+}
+
+/* Secondary buttons (Assessment Methodology, Sign In) */
+html.white .landing-sec-btn,
+html.light .landing-sec-btn {
+  background-color: #FFFFFF !important;
+  border-color: #E2E4EB !important;
+  color: #0D0D1A !important;
+  box-shadow: 0 2px 6px rgba(13, 13, 26, 0.04) !important;
+}
+
+html.white .landing-sec-btn:hover,
+html.light .landing-sec-btn:hover {
+  background-color: #F8F9FA !important;
+  border-color: #9FEF00 !important;
+  color: #0D0D1A !important;
+}
+
+/* Stat number — near-black */
+html.white .landing-stat-num,
+html.light .landing-stat-num {
+  color: #0D0D1A !important;
+}
+
+/* RBAC Architecture Section — light gray contrast band */
+html.white .landing-rbac-section,
+html.light .landing-rbac-section {
   background-color: #E5E8EF !important;
   border-color: #DDE0E8 !important;
 }
 
 /* Terminal Outer Shell in Light Mode */
+html.white .rounded-2xl.bg-\[\#060b13\],
 html.light .rounded-2xl.bg-\[\#060b13\] {
   border: 1px solid #CBD5E1 !important;
   box-shadow: 0 16px 36px -8px rgba(13, 13, 26, 0.1) !important;
 }
 
-/* Footer in Light Mode: Matching Dark Cyber Bookend */
+/* Footer — dark cyber bookend preserved in both themes */
+html.white footer,
 html.light footer.bg-\[\#111d30\] {
   background-color: #0D1321 !important;
   border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
   color: #94A3B8 !important;
 }
 
+html.white footer .text-\[\#ffffff\],
 html.light footer .text-\[\#ffffff\] {
   color: #FFFFFF !important;
 }
 
+html.white footer a,
 html.light footer a {
   color: #94A3B8 !important;
 }
 
+html.white footer a:hover,
 html.light footer a:hover {
   color: #9FEF00 !important;
 }

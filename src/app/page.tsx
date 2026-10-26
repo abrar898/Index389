@@ -125,17 +125,17 @@ export default async function HomePage() {
       </header>
 
       {/* Hero Section */}
-      <section className="relative pt-32 pb-16 px-6">
+      <section className="landing-hero-section relative pt-32 pb-16 px-6">
         <div className="max-w-5xl mx-auto text-center space-y-7 relative z-10">
-          <h1 className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-[#ffffff] leading-[1.15]">
+          <h1 className="landing-hero-title text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-[#ffffff] leading-[1.15]">
             Precision Technical Docs for{" "}
-            <span className="text-[#9fef00] drop-shadow-[0_0_35px_rgba(159,239,0,0.5)]">
+            <span className="landing-hero-accent text-[#9fef00] drop-shadow-[0_0_35px_rgba(159,239,0,0.5)]">
               Security Professionals
             </span>
           </h1>
 
-          <p className="text-base sm:text-lg text-[#a4b1cd] max-w-2xl mx-auto leading-relaxed">
-            Personal cybersecurity knowledge hub. Write technical writeups, drag & drop Markdown vaults,
+          <p className="landing-hero-desc text-base sm:text-lg text-[#a4b1cd] max-w-2xl mx-auto leading-relaxed">
+            Personal cybersecurity knowledge hub. Write technical writeups, drag &amp; drop Markdown vaults,
             preserve exact terminal commands, test live commands in the shell, and export directly to clean PDF or editable Microsoft Word.
           </p>
 
@@ -150,7 +150,7 @@ export default async function HomePage() {
 
             <Link
               href="/methodology"
-              className="flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#14233c] hover:bg-[#182844] border border-[#1f3352] text-[#ffffff] font-mono text-xs transition-all"
+              className="landing-sec-btn flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#14233c] hover:bg-[#182844] border border-[#1f3352] text-[#ffffff] font-mono text-xs transition-all"
             >
               <CheckSquare className="w-4 h-4 text-[#9fef00]" />
               <span>Assessment Methodology</span>
@@ -158,7 +158,7 @@ export default async function HomePage() {
 
             <Link
               href="/login"
-              className="flex items-center gap-2 px-5 py-3.5 rounded-xl bg-[#14233c] hover:bg-[#182844] border border-[#1f3352] text-[#8ba0c3] hover:text-[#ffffff] font-mono text-xs transition-all"
+              className="landing-sec-btn flex items-center gap-2 px-5 py-3.5 rounded-xl bg-[#14233c] hover:bg-[#182844] border border-[#1f3352] text-[#8ba0c3] hover:text-[#ffffff] font-mono text-xs transition-all"
             >
               <Terminal className="w-4 h-4 text-[#2de2e6]" />
               <span>Sign In</span>
@@ -168,7 +168,7 @@ export default async function HomePage() {
           {/* Quick Counter Metrics */}
           <div className="pt-8 flex items-center justify-center gap-8 md:gap-16 text-center text-xs font-mono">
             <div>
-              <div className="text-2xl font-bold text-[#ffffff]">{totalNotes}</div>
+              <div className="landing-stat-num text-2xl font-bold text-[#ffffff]">{totalNotes}</div>
               <div className="text-[#6c7d9c] text-[11px] uppercase tracking-wider mt-0.5">
                 Technical Notes
               </div>
@@ -192,7 +192,7 @@ export default async function HomePage() {
       </section>
 
       {/* Live Interactive Running Terminal Showcase */}
-      <section className="max-w-5xl mx-auto px-6 pb-20">
+      <section className="landing-terminal-section max-w-5xl mx-auto px-6 pb-20">
         <div className="space-y-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2 font-mono text-xs text-[#9fef00]">
@@ -209,7 +209,7 @@ export default async function HomePage() {
       </section>
 
       {/* Tactical Platform Capabilities Matrix */}
-      <section className="max-w-6xl mx-auto px-6 pb-20">
+      <section className="landing-features-section max-w-6xl mx-auto px-6 pb-20">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="p-6 rounded-2xl glass-panel border-[#1f3352] space-y-3 relative overflow-hidden">
             <div className="w-10 h-10 rounded-xl bg-[#9fef00]/10 border border-[#9fef00]/30 flex items-center justify-center text-[#9fef00]">
@@ -244,7 +244,7 @@ export default async function HomePage() {
       </section>
 
       {/* Role-Based Permissions Architecture Section */}
-      <section className="border-y border-[#1f3352] bg-[#111d30]/60 py-20 px-6 relative">
+      <section className="landing-rbac-section border-y border-[#1f3352] bg-[#111d30]/60 py-20 px-6 relative">
         <div className="max-w-6xl mx-auto space-y-12">
           <div className="text-center space-y-3">
             <div className="font-mono text-xs text-[#9fef00] uppercase tracking-widest font-semibold">
@@ -341,7 +341,7 @@ export default async function HomePage() {
       </section>
 
       {/* Featured Documentation Preview */}
-      <section className="max-w-6xl mx-auto py-20 px-6 space-y-8">
+      <section className="landing-notes-section max-w-6xl mx-auto py-20 px-6 space-y-8">
         <div className="flex items-center justify-between">
           <div>
             <div className="font-mono text-xs text-[#9fef00]">REPOSITORY SNAPSHOT</div>
