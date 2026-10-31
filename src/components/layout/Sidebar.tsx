@@ -20,6 +20,7 @@ import {
   BookOpen,
   CheckSquare,
   ShieldAlert,
+  Network,
 } from "lucide-react";
 import { SessionUser } from "@/lib/auth";
 import { CreateCategoryModal } from "@/components/categories/CreateCategoryModal";
@@ -37,6 +38,7 @@ export function Sidebar({ user, categories, tags }: SidebarProps) {
   const navLinks = [
     { label: "Dashboard", href: "/dashboard", icon: Terminal },
     { label: "All Notes", href: "/notes", icon: FileText },
+    { label: "Mindmaps", href: "/mindmaps", icon: Network },
     { label: "Methodology", href: "/methodology", icon: CheckSquare },
     ...(user?.role === "ADMIN" ? [{ label: "Import Center", href: "/import", icon: Upload }] : []),
     { label: "Favorites", href: "/favorites", icon: Star },
@@ -84,15 +86,26 @@ export function Sidebar({ user, categories, tags }: SidebarProps) {
 
       {/* Quick Actions (Admin Only) */}
       {user?.role === "ADMIN" && (
-        <div className="p-3 border-b border-[#1f3352]">
+        <div className="p-3 border-b border-[#1f3352] space-y-1.5">
           <Link
             href="/notes/new"
-            className={`flex items-center justify-center gap-2 w-full py-2 px-3 rounded text-xs font-semibold bg-[#9fef00] text-[#0b121e] hover:bg-[#b4fa1f] transition-all shadow-md active:scale-95 ${
+            className={`flex items-center justify-center gap-2 w-full py-1.5 px-3 rounded text-xs font-semibold bg-[#9fef00] text-[#0b121e] hover:bg-[#b4fa1f] transition-all shadow-md active:scale-95 ${
               collapsed ? "px-0" : ""
             }`}
+            title="Create Markdown Note"
           >
-            <Plus className="w-4 h-4" />
+            <Plus className="w-3.5 h-3.5" />
             {!collapsed && <span>New Document</span>}
+          </Link>
+          <Link
+            href="/mindmaps/new"
+            className={`flex items-center justify-center gap-2 w-full py-1.5 px-3 rounded text-xs font-semibold bg-[#14233c] hover:bg-[#182844] text-[#2de2e6] border border-[#2de2e6]/30 transition-all shadow-md active:scale-95 ${
+              collapsed ? "px-0" : ""
+            }`}
+            title="Create HTML Mindmap"
+          >
+            <Network className="w-3.5 h-3.5" />
+            {!collapsed && <span>New Mindmap</span>}
           </Link>
         </div>
       )}

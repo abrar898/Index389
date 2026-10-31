@@ -15,6 +15,7 @@ import {
   Layers,
   Activity,
   Flame,
+  Network,
 } from "lucide-react";
 
 export default async function DashboardPage() {
@@ -53,28 +54,37 @@ export default async function DashboardPage() {
             </h1>
             <p className="text-xs md:text-sm text-[#a4b1cd] max-w-2xl leading-relaxed">
               Personal cybersecurity knowledge repository and documentation engine. Upload Markdown logs,
-              preserve command syntax, and export to publication-ready PDF or Word documents.
+              preserve command syntax, and explore dynamic interactive attack mindmaps.
             </p>
           </div>
 
-          {user?.role === "ADMIN" && (
-            <div className="flex flex-wrap items-center gap-3">
-              <Link
-                href="/import"
-                className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#14233c] hover:bg-[#182844] border border-[#1f3352] text-xs font-semibold text-[#ffffff] transition-all shadow-sm active:scale-95"
-              >
-                <Upload className="w-4 h-4 text-[#9fef00]" />
-                <span>Import Vault</span>
-              </Link>
-              <Link
-                href="/notes/new"
-                className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#9fef00] hover:bg-[#b4fa1f] text-xs font-bold text-[#0b121e] transition-all shadow-lg shadow-[#9fef00]/20 active:scale-95"
-              >
-                <FileText className="w-4 h-4" />
-                <span>Create Note</span>
-              </Link>
-            </div>
-          )}
+          <div className="flex flex-wrap items-center gap-3">
+            <Link
+              href="/mindmaps"
+              className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#14233c] hover:bg-[#182844] border border-[#2de2e6]/30 text-xs font-semibold text-[#ffffff] transition-all shadow-sm active:scale-95"
+            >
+              <Network className="w-4 h-4 text-[#2de2e6]" />
+              <span>Explore Mindmaps</span>
+            </Link>
+            {user?.role === "ADMIN" && (
+              <>
+                <Link
+                  href="/import"
+                  className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#14233c] hover:bg-[#182844] border border-[#1f3352] text-xs font-semibold text-[#ffffff] transition-all shadow-sm active:scale-95"
+                >
+                  <Upload className="w-4 h-4 text-[#9fef00]" />
+                  <span>Import Vault</span>
+                </Link>
+                <Link
+                  href="/notes/new"
+                  className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#9fef00] hover:bg-[#b4fa1f] text-xs font-bold text-[#0b121e] transition-all shadow-lg shadow-[#9fef00]/20 active:scale-95"
+                >
+                  <FileText className="w-4 h-4" />
+                  <span>Create Note</span>
+                </Link>
+              </>
+            )}
+          </div>
         </div>
       </div>
 
