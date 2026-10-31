@@ -18,7 +18,7 @@ import {
   ArrowLeft,
   Sparkles,
 } from "lucide-react";
-import { MindmapItem } from "@/lib/mindmaps";
+import { MindmapItem } from "@/lib/mindmaps-shared";
 import { SessionUser } from "@/lib/auth";
 
 interface MindmapViewerProps {

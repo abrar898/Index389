@@ -15,7 +15,7 @@ import {
   Terminal,
   Filter,
 } from "lucide-react";
-import { MindmapSummary } from "@/lib/mindmaps";
+import { MindmapSummary } from "@/lib/mindmaps-shared";
 import { SessionUser } from "@/lib/auth";
 
 interface MindmapCardListProps {

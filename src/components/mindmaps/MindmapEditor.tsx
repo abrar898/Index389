@@ -18,7 +18,7 @@ import {
   Terminal,
   Download,
 } from "lucide-react";
-import { MindmapItem, MINDMAP_TEMPLATES, generateSlug } from "@/lib/mindmaps";
+import { MindmapItem, MINDMAP_TEMPLATES, generateSlug } from "@/lib/mindmaps-shared";
 
 interface MindmapEditorProps {
   initialMindmap?: MindmapItem;
