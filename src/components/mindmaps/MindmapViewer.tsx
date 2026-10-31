@@ -193,7 +193,8 @@ export function MindmapViewer({ mindmap, user }: MindmapViewerProps) {
       <div className="relative flex-1 w-full h-full bg-[#000000] overflow-hidden">
         <iframe
           ref={iframeRef}
-          src={rawHtmlUrl}
+          srcDoc={mindmap.htmlContent || undefined}
+          src={!mindmap.htmlContent ? rawHtmlUrl : undefined}
           className="w-full h-full border-none outline-none block"
           title={mindmap.title}
           allow="clipboard-read; clipboard-write; fullscreen"
